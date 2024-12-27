@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "apkaStart (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "apkaStart (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
