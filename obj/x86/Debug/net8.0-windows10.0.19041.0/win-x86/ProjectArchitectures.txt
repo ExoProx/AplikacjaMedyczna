@@ -1,1 +1,1 @@
-C:\Users\dinod\source\repos\apkaStart\apkaStart\apkaStart.csproj;x86
+C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna.csproj;x86

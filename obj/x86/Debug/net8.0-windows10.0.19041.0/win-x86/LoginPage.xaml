@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="apkaStart.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,29 +11,30 @@
 
     <Grid>
         <StackPanel Orientation ="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" MaxLength="400" KeyDown="Input_KeyDown"/>
-            <PasswordBox x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" MaxLength="400" KeyDown="Input_KeyDown"/>
-            <Button Content="Login" Click="LoginButton_Click" Margin="50,0,0,10"/>
-            <TextBlock x:Name="ErrorPESEL"
+            <TextBox x:ConnectionId='2' x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" MaxLength="400"                        />
+            <PasswordBox x:ConnectionId='3' x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" MaxLength="400"                        />
+            <Button x:ConnectionId='4' Content="Login"                           Margin="50,0,0,10"/>
+            <TextBlock x:ConnectionId='5' x:Name="ErrorPESEL"
                    Text="Invalid PESEL "
                    Foreground="Red"
                    Visibility="Collapsed"
                    VerticalAlignment="Top"
                    Margin="20,200,20,0"/>
-            <TextBlock x:Name="ErrorPassword"
+            <TextBlock x:ConnectionId='6' x:Name="ErrorPassword"
                 Text="Invalid Password"
                 Foreground="Red"
                 Visibility="Collapsed"
                 VerticalAlignment="Top"
                 Margin="20,200,20,0"/>
-            <TextBlock x:Name="ErrorDatabase"
+            <TextBlock x:ConnectionId='7' x:Name="ErrorDatabase"
                 Text="ERROR WITH CONNECTION"
                 Foreground="Red"
                 Visibility="Collapsed"
                 VerticalAlignment="Top"
                  Margin="20,200,20,0"/>
-            <TextBlock x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
+            <TextBlock x:ConnectionId='8' x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
         </StackPanel>
 
     </Grid>
 </Page>
+
