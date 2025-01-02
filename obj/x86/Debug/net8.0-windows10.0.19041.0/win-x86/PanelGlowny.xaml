@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="apkaStart.PanelGlowny"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -12,11 +12,12 @@
     <Grid>
         <TextBlock Text="Zalogowano" FontSize="24" Margin="0" />
         <StackPanel Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Button Content="Wpisy" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Recepty" Click="Wpisy_Click" Margin="20, 0,0,0"/>
-            <Button Content="Skierowania" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Wyniki" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Powrót" Click="BackButton_Click"  Margin="20, 0,0,0" />
+            <Button x:ConnectionId='2' Content="Wpisy"                     Margin="20, 0,0,0" />
+            <Button x:ConnectionId='3' Content="Recepty"                     Margin="20, 0,0,0"/>
+            <Button x:ConnectionId='4' Content="Skierowania"                     Margin="20, 0,0,0" />
+            <Button x:ConnectionId='5' Content="Wyniki"                     Margin="20, 0,0,0" />
+            <Button x:ConnectionId='6' Content="Powrót"                           Margin="20, 0,0,0" />
         </StackPanel>
     </Grid>
 </Page>
+

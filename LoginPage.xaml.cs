@@ -1,3 +1,4 @@
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -5,6 +6,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Windows.System;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace apkaStart
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             int stan = logowanie(Pesel.Text, Password.Password);
+            
             if (stan == 1)
             {
                 App.MainFrame.Navigate(typeof(PanelGlowny));
@@ -55,6 +58,13 @@ namespace apkaStart
                 ErrorDatabase.Visibility = Visibility.Visible;
             }
 
+        }
+        private void Input_KeyDown(object sender, KeyRoutedEventArgs e)
+        {       
+            if (e.Key == VirtualKey.Enter)
+            {
+                LoginButton_Click(sender, e);
+            }
         }
         int logowanie(string pesel, string haslo)
         {

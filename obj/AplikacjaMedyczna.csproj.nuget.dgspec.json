@@ -56,6 +56,10 @@
             "Microsoft.WindowsAppSDK": {
               "target": "Package",
               "version": "[1.6.241114003, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
