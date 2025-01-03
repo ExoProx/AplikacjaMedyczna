@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj": {}
+    "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj": {
+    "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
+        "projectUniqueName": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
         "projectName": "AplikacjaMedyczna",
-        "projectPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
+        "projectPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
         "packagesPath": "C:\\Users\\dinod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\obj\\",
+        "outputPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

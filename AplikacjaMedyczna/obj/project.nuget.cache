@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WsUplhXNYrU=",
+  "dgSpecHash": "VWrubWeIvqA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
+  "projectFilePath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dinod\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "C:\\Users\\dinod\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
