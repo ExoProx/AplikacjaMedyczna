@@ -83,7 +83,7 @@ namespace apkaStart
                 return 0;
             }
 
-            var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            var cs = "host=localhost;username=postgres;Password=haslo;Database=BazaMedyczna";
 
             using (var con = new NpgsqlConnection(cs))
             {

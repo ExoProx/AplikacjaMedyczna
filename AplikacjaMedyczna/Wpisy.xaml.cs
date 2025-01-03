@@ -1,3 +1,4 @@
+using AplikacjaMedyczna;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -39,7 +40,7 @@ namespace apkaStart
         }
         private void DodajButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(typeof(Wpisy));
+            App.MainFrame.Navigate(typeof(dodaj_wpis));
 
         }
 
