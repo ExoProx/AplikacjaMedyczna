@@ -15,11 +15,11 @@
             <Button x:ConnectionId='5' Content="Dodaj wpis"                           Margin="10,0,0,0" />
             <Button x:ConnectionId='6' Content="Powrót"                          Margin="10,0,0,0" />
         </StackPanel>
-        <StackPanel x:ConnectionId='3' Name="PasekWyswietlaniaWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400">
+        <StackPanel x:ConnectionId='3' Name="PasekWyswietlaniaWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400" Margin="200">
             
         </StackPanel>
 
-        <StackPanel x:ConnectionId='4' Name="PasekBocznyWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="800">
+        <StackPanel x:ConnectionId='4' Name="PasekBocznyWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="800" Margin="600">
 
         </StackPanel>
 

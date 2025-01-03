@@ -10,17 +10,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel  Name ="PasekWyboru " Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200">
-            <TextBlock Text="Zakładka wpisów" FontSize="24" Margin="10" />
-            <Button Content="Dodaj wpis" Click="DodajButton_Click" Margin="10,0,0,0" />
+        <StackPanel  Name ="PasekWyboru " Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="tOP" Width="200">
+            <TextBlock Text="Zakładka wpisów" FontSize="24" Margin="10,0,0,0" />
+            <Button Content="Dodaj wpis" Click="DodajButton_Click" Margin="10,300,0,0" />
             <Button Content="Powrót" Click="BackButton_Click" Margin="10,0,0,0" />
         </StackPanel>
-        <StackPanel Name="PasekWyswietlaniaWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400" Margin="200">
-            
+        <StackPanel Name="PasekWyswietlaniaWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400" Margin="200,0,0,0">
+            <TextBlock Text="TEST TEST 123" FontSize="24" Margin="10,50,0,0" />
         </StackPanel>
 
-        <StackPanel Name="PasekBocznyWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="800" Margin="600">
-
+        <StackPanel Name="PasekBocznyWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="800" Margin="600,0,0,0">
+            <TextBlock Text="TEST 3456 123154123" FontSize="24" Margin="10,50,0,0"  />
         </StackPanel>
 
 
