@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="apkaStart.PanelGlowny"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:apkaStart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBlock Text="Zalogowano" FontSize="24" Margin="0" />
+        <StackPanel Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button Content="Wpisy" Click="Wpisy_Click" Margin="20, 0,0,0" Width="100"/>
+            <Button Content="Recepty" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100"/>
+            <Button Content="Skierowania" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100" />
+            <Button Content="Wyniki" Click="Wpisy_Click" Margin="20,10,0,0" Width="100"/>
+            <Button Content="Powrót" Click="BackButton_Click"  Margin="20, 10,0,0" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Page>

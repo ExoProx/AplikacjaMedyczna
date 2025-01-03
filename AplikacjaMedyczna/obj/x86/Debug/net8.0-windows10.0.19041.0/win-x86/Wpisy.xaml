@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="apkaStart.Wpisy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:apkaStart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel x:ConnectionId='2'  Name ="PasekWyboru " Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="tOP" Width="200">
+            <TextBlock Text="Zakładka wpisów" FontSize="24" Margin="10,0,0,0" />
+            <Button x:ConnectionId='5' Content="Dodaj wpis"                           Margin="10,300,0,0" />
+            <Button x:ConnectionId='6' Content="Powrót"                          Margin="10,0,0,0" />
+        </StackPanel>
+        <StackPanel x:ConnectionId='3' Name="PasekWyswietlaniaWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="400" Margin="200,0,0,0">
+            <TextBlock Text="TEST TEST 123" FontSize="24" Margin="10,50,0,0" />
+        </StackPanel>
+
+        <StackPanel x:ConnectionId='4' Name="PasekBocznyWpisow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="800" Margin="600,0,0,0">
+            <TextBlock Text="TEST 3456 123154123" FontSize="24" Margin="10,50,0,0"  />
+        </StackPanel>
+
+
+    </Grid>
+</Page>
+
