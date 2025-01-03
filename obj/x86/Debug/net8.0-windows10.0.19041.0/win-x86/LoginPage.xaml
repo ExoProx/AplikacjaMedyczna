@@ -11,8 +11,8 @@
 
     <Grid>
         <StackPanel Orientation ="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:ConnectionId='2' x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" MaxLength="400"                        />
-            <PasswordBox x:ConnectionId='3' x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" MaxLength="400"                        />
+            <TextBox x:ConnectionId='2' x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" Width="200"                        />
+            <PasswordBox x:ConnectionId='3' x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" Width="200"                        />
             <Button x:ConnectionId='4' Content="Login"                           Margin="50,0,0,10"/>
             <TextBlock x:ConnectionId='5' x:Name="ErrorPESEL"
                    Text="Invalid PESEL "

@@ -29,13 +29,13 @@
     <AppXManifest Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-01-02T13:30:42.543</Modified>
+      <Modified>2025-01-03T12:58:20.409</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2025-01-02T13:30:42.358</Modified>
+      <Modified>2025-01-03T12:58:20.227</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\AplikacjaMedyczna.runtimeconfig.json">
       <PackagePath>AplikacjaMedyczna.runtimeconfig.json</PackagePath>
@@ -43,11 +43,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\AplikacjaMedyczna.dll">
       <PackagePath>AplikacjaMedyczna.dll</PackagePath>
-      <Modified>2025-01-02T13:30:42.270</Modified>
+      <Modified>2025-01-03T12:58:20.139</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\obj\x86\Debug\net8.0-windows10.0.19041.0\win-x86\apphost.exe">
       <PackagePath>AplikacjaMedyczna.exe</PackagePath>
-      <Modified>2025-01-02T13:30:42.274</Modified>
+      <Modified>2025-01-03T12:58:20.142</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x86\native\WebView2Loader.dll">
       <PackagePath>runtimes\win-x86\native\WebView2Loader.dll</PackagePath>

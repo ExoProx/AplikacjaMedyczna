@@ -12,11 +12,11 @@
     <Grid>
         <TextBlock Text="Zalogowano" FontSize="24" Margin="0" />
         <StackPanel Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Button Content="Wpisy" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Recepty" Click="Wpisy_Click" Margin="20, 0,0,0"/>
-            <Button Content="Skierowania" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Wyniki" Click="Wpisy_Click" Margin="20, 0,0,0" />
-            <Button Content="Powrót" Click="BackButton_Click"  Margin="20, 0,0,0" />
+            <Button Content="Wpisy" Click="Wpisy_Click" Margin="20, 0,0,0" Width="100"/>
+            <Button Content="Recepty" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100"/>
+            <Button Content="Skierowania" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100" />
+            <Button Content="Wyniki" Click="Wpisy_Click" Margin="20,10,0,0" Width="100"/>
+            <Button Content="Powrót" Click="BackButton_Click"  Margin="20, 10,0,0" Width="100"/>
         </StackPanel>
     </Grid>
 </Page>
