@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -27,12 +31,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Wpisy.xaml",
+              "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml",
+              "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wpisy.xaml",
+              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml",
+              "RelativeToolTip": "AplikacjaMedyczna\\Wpisy.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-03T18:30:27.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Wpisy.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wpisy.xaml.cs",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml.cs",
               "RelativeToolTip": "AplikacjaMedyczna\\Wpisy.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T15:07:28.071Z",
               "EditorCaption": ""
