@@ -29,25 +29,25 @@
     <AppXManifest Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-01-04T14:19:17.368</Modified>
+      <Modified>2025-01-04T19:40:29.639</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2025-01-04T14:19:17.161</Modified>
+      <Modified>2025-01-04T19:40:29.377</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AplikacjaMedyczna.runtimeconfig.json">
       <PackagePath>AplikacjaMedyczna.runtimeconfig.json</PackagePath>
-      <Modified>2025-01-03T22:19:29.206</Modified>
+      <Modified>2025-01-04T15:59:37.357</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AplikacjaMedyczna.dll">
       <PackagePath>AplikacjaMedyczna.dll</PackagePath>
-      <Modified>2025-01-04T14:19:17.062</Modified>
+      <Modified>2025-01-04T19:40:28.488</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\apphost.exe">
       <PackagePath>AplikacjaMedyczna.exe</PackagePath>
-      <Modified>2025-01-04T14:19:17.067</Modified>
+      <Modified>2025-01-04T19:40:28.535</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x64\native\WebView2Loader.dll">
       <PackagePath>runtimes\win-x64\native\WebView2Loader.dll</PackagePath>
@@ -883,7 +883,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AplikacjaMedyczna.deps.json">
       <PackagePath>AplikacjaMedyczna.deps.json</PackagePath>
-      <Modified>2025-01-03T22:19:29.072</Modified>
+      <Modified>2025-01-04T19:40:29.084</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
