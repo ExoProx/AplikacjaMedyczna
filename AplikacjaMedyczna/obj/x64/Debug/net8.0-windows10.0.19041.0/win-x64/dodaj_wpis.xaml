@@ -9,16 +9,22 @@
     mc:Ignorable="d">
 
     <Grid Padding="20">
-        <TextBox x:ConnectionId='2' x:Name="WpisTextBox" PlaceholderText="Wprowadź wpis" Margin="0,0,0,10" />
-        <Button x:ConnectionId='3' x:Name="SubmitButton" Content="Zapisz"                            Margin="0,0,0,10" />
+        <StackPanel x:ConnectionId='2' x:Name="PanelPrzyciskow" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="0,0,0,0">
+            <Button x:ConnectionId='8' x:Name="CancelButton" Content="Anuluj"                            Margin="10,0,0,0" />
+            <Button x:ConnectionId='9' x:Name="SubmitButton" Content="Zapisz"                            Margin="10,0,0,0" />
+        </StackPanel>
 
-        <!-- Komunikaty -->
-        <TextBlock x:ConnectionId='4' x:Name="SuccessMessage" Text="Wpis zapisano pomyślnie." 
+
+        <StackPanel x:ConnectionId='3'  x:Name="PanelWpisu" Orientation="Vertical" HorizontalAlignment="Left" Width="800" Margin="100,0,0,0">
+            <TextBox x:ConnectionId='4' x:Name="WpisTextBox" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" SelectionHighlightColor="Green" MinWidth="400" />
+            <!-- Komunikaty -->
+        <TextBlock x:ConnectionId='5' x:Name="SuccessMessage" Text="Wpis zapisano pomyślnie." 
                    Foreground="Green" Visibility="Collapsed" Margin="0,0,0,10" />
-        <TextBlock x:ConnectionId='5' x:Name="EmptyFieldMessage" Text="Pole wpisu nie może być puste." 
+        <TextBlock x:ConnectionId='6' x:Name="EmptyFieldMessage" Text="Pole wpisu nie może być puste." 
                    Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
-        <TextBlock x:ConnectionId='6' x:Name="ErrorDatabaseMessage" Text="Błąd połączenia z bazą danych." 
+        <TextBlock x:ConnectionId='7' x:Name="ErrorDatabaseMessage" Text="Błąd połączenia z bazą danych." 
                    Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
+        </StackPanel>
     </Grid>
 </Page>
 

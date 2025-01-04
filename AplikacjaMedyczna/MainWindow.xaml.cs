@@ -27,7 +27,6 @@ namespace apkaStart
         {
             this.InitializeComponent();
             MainFrame.Navigate(typeof(LoginPage));
-
         }
     }
 }

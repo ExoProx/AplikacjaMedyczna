@@ -26,13 +26,25 @@ namespace apkaStart
         public Recepty()
         {
             this.InitializeComponent();
+            NavigationHelper.SplitViewInstance = splitView;
+            splitView.IsPaneOpen = true;
         }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void NavButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.MainFrame.CanGoBack)
+            if (sender is Button button)
             {
-                App.MainFrame.GoBack();
+                // Pass the button name or content to a helper method
+                NavigationHelper.Navigate(button.Name);
             }
+        }
+        private void NavbarToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            NavigationHelper.TogglePane();
+        }
+
+        private void NavbarToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NavigationHelper.TogglePane();
         }
     }
 }

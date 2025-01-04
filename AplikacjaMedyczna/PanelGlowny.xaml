@@ -8,15 +8,36 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid>
-        <TextBlock Text="Zalogowano" FontSize="24" Margin="0" />
-        <StackPanel Orientation ="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Button Content="Wpisy" Click="Wpisy_Click" Margin="20, 0,0,0" Width="100"/>
-            <Button Content="Recepty" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100"/>
-            <Button Content="Skierowania" Click="Wpisy_Click" Margin="20, 10,0,0" Width="100" />
-            <Button Content="Wyniki" Click="Wpisy_Click" Margin="20,10,0,0" Width="100"/>
-            <Button Content="Powrót" Click="BackButton_Click"  Margin="20, 10,0,0" Width="100"/>
-        </StackPanel>
+
+        <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+               IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Overlay">
+            <SplitView.Pane>
+                <Grid Margin="12,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="1" Width="100"/>
+                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="2" Width="100"/>
+                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="3" Width="100"/>
+                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="4" Width="100"/>
+                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="5" Width="100"/>
+                </Grid>
+            </SplitView.Pane>
+        </SplitView>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
+            <ToggleButton x:Name="NavbarToggleButton"
+              Width="40" Height="40"
+              Checked="NavbarToggleButton_Checked"
+              Unchecked="NavbarToggleButton_Unchecked"
+                          Background="Transparent">
+                <FontIcon Glyph="&#xE700;" />
+            </ToggleButton>
+        </Grid>
     </Grid>
 </Page>

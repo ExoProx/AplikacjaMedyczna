@@ -1,1 +1,1 @@
-C:\Users\megat\Desktop\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna.csproj;x64
+C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna.csproj;x64

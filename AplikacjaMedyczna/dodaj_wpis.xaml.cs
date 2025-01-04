@@ -31,9 +31,12 @@ namespace AplikacjaMedyczna
         public dodaj_wpis()
         {
             this.InitializeComponent();
+            Window window = App.MainWindow;
+            window.ExtendsContentIntoTitleBar = true;
+
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             if (App.MainFrame.CanGoBack)
             {
