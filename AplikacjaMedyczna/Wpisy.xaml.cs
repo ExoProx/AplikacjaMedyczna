@@ -1,3 +1,4 @@
+using AplikacjaMedyczna;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -29,17 +30,29 @@ namespace apkaStart
         public Wpisy()
         {
             this.InitializeComponent();
+            NavigationHelper.SplitViewInstance = splitView;
+            splitView.IsPaneOpen = true;
         }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void NavButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.MainFrame.CanGoBack)
+            if (sender is Button button)
             {
-                App.MainFrame.GoBack();
+                // Pass the button name or content to a helper method
+                NavigationHelper.Navigate(button.Name);
             }
+        }
+        private void NavbarToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            NavigationHelper.TogglePane();
+        }
+
+        private void NavbarToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NavigationHelper.TogglePane();
         }
         private void DodajButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(typeof(Wpisy));
+            App.MainFrame.Navigate(typeof(dodaj_wpis));
 
         }
 

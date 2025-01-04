@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.AI.MachineLearning;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -26,33 +27,24 @@ namespace apkaStart
         public PanelGlowny()
         {
             this.InitializeComponent();
+            NavigationHelper.SplitViewInstance = splitView;
         }
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void NavButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.MainFrame.CanGoBack)
+            if (sender is Button button)
             {
-                App.MainFrame.GoBack();
+                // Pass the button name or content to a helper method
+                NavigationHelper.Navigate(button.Name);
             }
         }
-        private void Wpisy_Click(object sender, RoutedEventArgs e)
+        private void NavbarToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(typeof(Wpisy));
-
+            NavigationHelper.TogglePane();
         }
-        private void Recepty_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainFrame.Navigate(typeof(Recepty));
 
-        }
-        private void Skierowania_Click(object sender, RoutedEventArgs e)
+        private void NavbarToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(typeof(Skierowania));
-
-        }
-        private void Wyniki_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainFrame.Navigate(typeof(Wyniki));
-
+            NavigationHelper.TogglePane();
         }
     }
 }
