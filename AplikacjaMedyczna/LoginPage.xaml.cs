@@ -37,6 +37,7 @@ namespace AplikacjaMedyczna
             
             if (stan == 1)
             {
+                SharedData.pesel = Pesel.Text;
                 App.MainFrame.Navigate(typeof(PanelGlowny));
 
             }

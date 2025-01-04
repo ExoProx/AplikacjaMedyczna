@@ -12,7 +12,7 @@
     <Grid>
 
         <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-           IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Overlay">
+           IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
                 <Grid Margin="12,0,0,0">
                     <Grid.RowDefinitions>
@@ -30,6 +30,17 @@
                     <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="5" Width="100"/>
                 </Grid>
             </SplitView.Pane>
+            <ListBox x:Name="DynamicListBox" Width="300" Height="200"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch" Margin=" 600, 0, 0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="WpisTextBlock" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </SplitView>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
             <ToggleButton x:Name="NavbarToggleButton"

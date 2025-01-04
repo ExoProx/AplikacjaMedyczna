@@ -36,6 +36,7 @@ namespace AplikacjaMedyczna
             NavigationHelper.SplitViewInstance = splitView;
             splitView.IsPaneOpen = true;
             ShowWpisy(GetWpisy());
+            DynamicListBox.Items.Add("Example wpis 1");
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
@@ -63,16 +64,30 @@ namespace AplikacjaMedyczna
         {
             var wpisy = new ObservableCollection<Wpis>();
             var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            string pesel = SharedData.pesel;
+            decimal peselNumeric;
 
+            // Convert PESEL to numeric (decimal)
+            if (!decimal.TryParse(pesel, out peselNumeric))
+            {
+                // Invalid PESEL format
+                return new ObservableCollection<Wpis>(); ;
+            }
             using (var connection = new NpgsqlConnection(cs))
             {
                 connection.Open();
-                string query = "SELECT id, name, age FROM WpisyMedyczne";
+                string query = @"
+    SELECT ""id"", ""wpis"", ""peselPacjenta"", ""idPersonelu""
+    FROM public.""WpisyMedyczne""
+    WHERE ""peselPacjenta"" = @pesel
+    ORDER BY ""id"" ASC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@pesel", peselNumeric);
                     using (var reader = command.ExecuteReader())
                     {
+
                         while (reader.Read())
                         {
                             wpisy.Add(new Wpis

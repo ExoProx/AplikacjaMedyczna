@@ -30,6 +30,18 @@
                     <Button x:ConnectionId='8' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
                 </Grid>
             </SplitView.Pane>
+            <ListBox x:ConnectionId='9' x:Name="DynamicListBox"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="a" Margin="5"/>
+                            <TextBlock Text="b" Margin="5"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </SplitView>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
             <ToggleButton x:ConnectionId='3' x:Name="NavbarToggleButton"
