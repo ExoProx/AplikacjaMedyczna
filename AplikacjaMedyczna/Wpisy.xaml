@@ -48,7 +48,6 @@
                         <StackPanel Orientation="Vertical" Padding="10">
                             <TextBlock Text="{Binding wpis}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
                             <TextBlock Text="{Binding dataWpisu}" FontSize="14" />
-                            <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
                             <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
                         </StackPanel>
                     </DataTemplate>
