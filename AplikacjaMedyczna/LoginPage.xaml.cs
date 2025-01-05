@@ -16,6 +16,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,6 +31,10 @@ namespace AplikacjaMedyczna
         public LoginPage()
         {
             this.InitializeComponent();
+        }
+        private void MoveToStaffLogin(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(StaffLoginPage));
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +72,27 @@ namespace AplikacjaMedyczna
                 LoginButton_Click(sender, e);
             }
         }
+
+        private void Pesel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string text = textBox.Text;
+
+            // Delates all non-numeric characters
+            text = Regex.Replace(text, "[^0-9]", "");
+
+            // Limiting the length of the PESEL number to 11 characters
+            if (text.Length > 11)
+            {
+                text = text.Substring(0, 11);
+            }
+
+            // Update the TextBox text
+            textBox.Text = text;
+
+            // Set the cursor position to the end of the text
+            textBox.SelectionStart = text.Length;
+        }
         int logowanie(string pesel, string haslo)
         {
             if (pesel.Length != 11)
@@ -84,7 +110,7 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-            var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            var cs = "host=localhost;username=pacjent;Password=haslo;Database=BazaMedyczna";
 
             using (var con = new NpgsqlConnection(cs))
             {

@@ -5,6 +5,9 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="StaffLoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="dodaj_wpis.xaml">
       <SubType>Designer</SubType>
     </Page>

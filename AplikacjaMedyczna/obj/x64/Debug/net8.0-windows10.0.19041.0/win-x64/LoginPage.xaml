@@ -10,31 +10,34 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Text="Logowane jako Pacjent" Foreground ="Black"/>
         <StackPanel Orientation ="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:ConnectionId='2' x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" Width="200"                        />
-            <PasswordBox x:ConnectionId='3' x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" Width="200"                        />
-            <Button x:ConnectionId='4' Content="Login"                           Margin="50,0,0,10"/>
-            <TextBlock x:ConnectionId='5' x:Name="ErrorPESEL"
+            <TextBox x:ConnectionId='3' x:Name="Pesel" PlaceholderText="Pesel" Margin="0,0,0,10" Height="40" Width="200"                                                        />
+            <PasswordBox x:ConnectionId='4' x:Name="Password" PlaceholderText="Hasło" Margin="10,0,0,10" Height="40" Width="200"                        />
+            <Button x:ConnectionId='5' Content="Login"                           Margin="50,0,0,10"/>
+            <TextBlock x:ConnectionId='6' x:Name="ErrorPESEL"
                    Text="Invalid PESEL "
                    Foreground="Red"
                    Visibility="Collapsed"
                    VerticalAlignment="Top"
                    Margin="20,200,20,0"/>
-            <TextBlock x:ConnectionId='6' x:Name="ErrorPassword"
+            <TextBlock x:ConnectionId='7' x:Name="ErrorPassword"
                 Text="Invalid Password"
                 Foreground="Red"
                 Visibility="Collapsed"
                 VerticalAlignment="Top"
                 Margin="20,200,20,0"/>
-            <TextBlock x:ConnectionId='7' x:Name="ErrorDatabase"
+            <TextBlock x:ConnectionId='8' x:Name="ErrorDatabase"
                 Text="ERROR WITH CONNECTION"
                 Foreground="Red"
                 Visibility="Collapsed"
                 VerticalAlignment="Top"
                  Margin="20,200,20,0"/>
-            <TextBlock x:ConnectionId='8' x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
+            <TextBlock x:ConnectionId='9' x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
         </StackPanel>
-
+        <Button x:ConnectionId='2' Content="Logowanie Jako Pracownik"                          
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Margin="10"/>
     </Grid>
 </Page>
 

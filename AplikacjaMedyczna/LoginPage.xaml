@@ -10,9 +10,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Text="Logowane jako Pacjent" Foreground ="Black"/>
         <StackPanel Orientation ="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="Pesel" PlaceholderText="Username" Margin="0,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown"/>
-            <PasswordBox x:Name="Password" PlaceholderText="Password" Margin="10,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown"/>
+            <TextBox x:Name="Pesel" PlaceholderText="Pesel" Margin="0,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown" TextChanged="Pesel_TextChanged"/>
+            <PasswordBox x:Name="Password" PlaceholderText="Hasło" Margin="10,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown"/>
             <Button Content="Login" Click="LoginButton_Click" Margin="50,0,0,10"/>
             <TextBlock x:Name="ErrorPESEL"
                    Text="Invalid PESEL "
@@ -34,6 +35,8 @@
                  Margin="20,200,20,0"/>
             <TextBlock x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
         </StackPanel>
-
+        <Button Content="Logowanie Jako Pracownik" Click="MoveToStaffLogin" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Margin="10"/>
     </Grid>
 </Page>

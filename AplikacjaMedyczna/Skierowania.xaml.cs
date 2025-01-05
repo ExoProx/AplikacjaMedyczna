@@ -75,7 +75,7 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Skierowanie> GetSkierowania()
         {
             var skierowania = new ObservableCollection<Skierowanie>();
-            var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            var cs = "host=localhost;username=pacjent;Password=haslo;Database=BazaMedyczna";
             string pesel = SharedData.pesel;
             decimal peselNumeric;
 

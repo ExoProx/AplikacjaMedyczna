@@ -1,1 +1,1 @@
-C:\Users\dinod\source\repos\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna.csproj;x64
+E:\Programy\Github\AplikacjaMedyczna\AplikacjaMedyczna\AplikacjaMedyczna.csproj;x64

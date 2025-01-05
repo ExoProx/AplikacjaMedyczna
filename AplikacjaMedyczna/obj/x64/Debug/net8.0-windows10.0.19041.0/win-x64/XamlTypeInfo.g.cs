@@ -226,7 +226,7 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[29];
+            _typeNameTable = new string[30];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -248,16 +248,17 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
             _typeNameTable[18] = "System.Decimal";
             _typeNameTable[19] = "System.ValueType";
             _typeNameTable[20] = "System.DateTime";
-            _typeNameTable[21] = "AplikacjaMedyczna.Wpisy";
-            _typeNameTable[22] = "AplikacjaMedyczna.Wpis";
-            _typeNameTable[23] = "System.Collections.ObjectModel.ObservableCollection`1<AplikacjaMedyczna.Wpis>";
-            _typeNameTable[24] = "System.Collections.ObjectModel.Collection`1<AplikacjaMedyczna.Wpis>";
-            _typeNameTable[25] = "AplikacjaMedyczna.Wyniki";
-            _typeNameTable[26] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[27] = "Microsoft.UI.Xaml.DependencyObject";
-            _typeNameTable[28] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[21] = "AplikacjaMedyczna.StaffLoginPage";
+            _typeNameTable[22] = "AplikacjaMedyczna.Wpisy";
+            _typeNameTable[23] = "AplikacjaMedyczna.Wpis";
+            _typeNameTable[24] = "System.Collections.ObjectModel.ObservableCollection`1<AplikacjaMedyczna.Wpis>";
+            _typeNameTable[25] = "System.Collections.ObjectModel.Collection`1<AplikacjaMedyczna.Wpis>";
+            _typeNameTable[26] = "AplikacjaMedyczna.Wyniki";
+            _typeNameTable[27] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[28] = "Microsoft.UI.Xaml.DependencyObject";
+            _typeNameTable[29] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
 
-            _typeTable = new global::System.Type[29];
+            _typeTable = new global::System.Type[30];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -279,14 +280,15 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
             _typeTable[18] = typeof(global::System.Decimal);
             _typeTable[19] = typeof(global::System.ValueType);
             _typeTable[20] = typeof(global::System.DateTime);
-            _typeTable[21] = typeof(global::AplikacjaMedyczna.Wpisy);
-            _typeTable[22] = typeof(global::AplikacjaMedyczna.Wpis);
-            _typeTable[23] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>);
-            _typeTable[24] = typeof(global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>);
-            _typeTable[25] = typeof(global::AplikacjaMedyczna.Wyniki);
-            _typeTable[26] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[27] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
-            _typeTable[28] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[21] = typeof(global::AplikacjaMedyczna.StaffLoginPage);
+            _typeTable[22] = typeof(global::AplikacjaMedyczna.Wpisy);
+            _typeTable[23] = typeof(global::AplikacjaMedyczna.Wpis);
+            _typeTable[24] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>);
+            _typeTable[25] = typeof(global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>);
+            _typeTable[26] = typeof(global::AplikacjaMedyczna.Wyniki);
+            _typeTable[27] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[28] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
+            _typeTable[29] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -331,12 +333,13 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
         private object Activate_13_Skierowanie() { return new global::AplikacjaMedyczna.Skierowanie(); }
         private object Activate_14_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Skierowanie>(); }
         private object Activate_15_Collection() { return new global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Skierowanie>(); }
-        private object Activate_21_Wpisy() { return new global::AplikacjaMedyczna.Wpisy(); }
-        private object Activate_22_Wpis() { return new global::AplikacjaMedyczna.Wpis(); }
-        private object Activate_23_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>(); }
-        private object Activate_24_Collection() { return new global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>(); }
-        private object Activate_25_Wyniki() { return new global::AplikacjaMedyczna.Wyniki(); }
-        private object Activate_26_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_21_StaffLoginPage() { return new global::AplikacjaMedyczna.StaffLoginPage(); }
+        private object Activate_22_Wpisy() { return new global::AplikacjaMedyczna.Wpisy(); }
+        private object Activate_23_Wpis() { return new global::AplikacjaMedyczna.Wpis(); }
+        private object Activate_24_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>(); }
+        private object Activate_25_Collection() { return new global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>(); }
+        private object Activate_26_Wyniki() { return new global::AplikacjaMedyczna.Wyniki(); }
+        private object Activate_27_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_dodaj_wpis() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.dodaj_wpis).TypeHandle);
         private void StaticInitializer_7_LoginPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.LoginPage).TypeHandle);
@@ -350,13 +353,14 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
         private void StaticInitializer_18_Decimal() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Decimal).TypeHandle);
         private void StaticInitializer_19_ValueType() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.ValueType).TypeHandle);
         private void StaticInitializer_20_DateTime() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.DateTime).TypeHandle);
-        private void StaticInitializer_21_Wpisy() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wpisy).TypeHandle);
-        private void StaticInitializer_22_Wpis() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wpis).TypeHandle);
-        private void StaticInitializer_23_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>).TypeHandle);
-        private void StaticInitializer_24_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>).TypeHandle);
-        private void StaticInitializer_25_Wyniki() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wyniki).TypeHandle);
-        private void StaticInitializer_26_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_28_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_21_StaffLoginPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.StaffLoginPage).TypeHandle);
+        private void StaticInitializer_22_Wpisy() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wpisy).TypeHandle);
+        private void StaticInitializer_23_Wpis() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wpis).TypeHandle);
+        private void StaticInitializer_24_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::AplikacjaMedyczna.Wpis>).TypeHandle);
+        private void StaticInitializer_25_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::AplikacjaMedyczna.Wpis>).TypeHandle);
+        private void StaticInitializer_26_Wyniki() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::AplikacjaMedyczna.Wyniki).TypeHandle);
+        private void StaticInitializer_27_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_29_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -376,19 +380,19 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
             var newItem = (global::AplikacjaMedyczna.Skierowanie)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_23_ObservableCollection(object instance, object item)
+        private void VectorAdd_24_ObservableCollection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::AplikacjaMedyczna.Wpis>)instance;
             var newItem = (global::AplikacjaMedyczna.Wpis)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_24_Collection(object instance, object item)
+        private void VectorAdd_25_Collection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::AplikacjaMedyczna.Wpis>)instance;
             var newItem = (global::AplikacjaMedyczna.Wpis)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_28_IList(object instance, object item)
+        private void VectorAdd_29_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -546,20 +550,28 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 21:   //  AplikacjaMedyczna.Wpisy
+            case 21:   //  AplikacjaMedyczna.StaffLoginPage
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_21_Wpisy;
-                userType.StaticInitializer = StaticInitializer_21_Wpisy;
+                userType.Activator = Activate_21_StaffLoginPage;
+                userType.StaticInitializer = StaticInitializer_21_StaffLoginPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 22:   //  AplikacjaMedyczna.Wpisy
+                userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_22_Wpisy;
+                userType.StaticInitializer = StaticInitializer_22_Wpisy;
                 userType.AddMemberName("SelectedWpis");
                 userType.AddMemberName("WpisyCollection");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 22:   //  AplikacjaMedyczna.Wpis
+            case 23:   //  AplikacjaMedyczna.Wpis
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_22_Wpis;
-                userType.StaticInitializer = StaticInitializer_22_Wpis;
+                userType.Activator = Activate_23_Wpis;
+                userType.StaticInitializer = StaticInitializer_23_Wpis;
                 userType.AddMemberName("Id");
                 userType.AddMemberName("wpis");
                 userType.AddMemberName("peselPacjenta");
@@ -570,34 +582,34 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 23:   //  System.Collections.ObjectModel.ObservableCollection`1<AplikacjaMedyczna.Wpis>
+            case 24:   //  System.Collections.ObjectModel.ObservableCollection`1<AplikacjaMedyczna.Wpis>
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.ObjectModel.Collection`1<AplikacjaMedyczna.Wpis>"));
-                userType.StaticInitializer = StaticInitializer_23_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_23_ObservableCollection;
+                userType.StaticInitializer = StaticInitializer_24_ObservableCollection;
+                userType.CollectionAdd = VectorAdd_24_ObservableCollection;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 24:   //  System.Collections.ObjectModel.Collection`1<AplikacjaMedyczna.Wpis>
+            case 25:   //  System.Collections.ObjectModel.Collection`1<AplikacjaMedyczna.Wpis>
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_24_Collection;
-                userType.StaticInitializer = StaticInitializer_24_Collection;
-                userType.CollectionAdd = VectorAdd_24_Collection;
+                userType.Activator = Activate_25_Collection;
+                userType.StaticInitializer = StaticInitializer_25_Collection;
+                userType.CollectionAdd = VectorAdd_25_Collection;
                 xamlType = userType;
                 break;
 
-            case 25:   //  AplikacjaMedyczna.Wyniki
+            case 26:   //  AplikacjaMedyczna.Wyniki
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_25_Wyniki;
-                userType.StaticInitializer = StaticInitializer_25_Wyniki;
+                userType.Activator = Activate_26_Wyniki;
+                userType.StaticInitializer = StaticInitializer_26_Wyniki;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 26:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 27:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_26_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_26_TreeViewNode;
+                userType.Activator = Activate_27_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_27_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -609,14 +621,14 @@ namespace AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 27:   //  Microsoft.UI.Xaml.DependencyObject
+            case 28:   //  Microsoft.UI.Xaml.DependencyObject
                 xamlType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 28:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 29:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::AplikacjaMedyczna.AplikacjaMedyczna_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_28_IList;
-                userType.CollectionAdd = VectorAdd_28_IList;
+                userType.StaticInitializer = StaticInitializer_29_IList;
+                userType.CollectionAdd = VectorAdd_29_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;

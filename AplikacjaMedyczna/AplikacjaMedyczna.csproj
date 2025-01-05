@@ -39,6 +39,14 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="apkaStart.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="StaffLoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="dodaj_wpis.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
