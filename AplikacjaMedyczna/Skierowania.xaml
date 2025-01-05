@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid>
+        <Grid>
 
         <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
            IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
@@ -29,7 +29,46 @@
                     <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="5" Width="100"/>
                 </Grid>
             </SplitView.Pane>
+            <ListView
+    x:Name="FilteredListView"
+    ItemsSource="{Binding SkierowaniaCollection}"
+    SelectionMode="Single"
+    Height="400"
+    Width="400"
+    BorderThickness="1"
+    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                
+    IsItemClickEnabled="True" 
+    ItemClick="FilteredListView_ItemClick">
+
+                <!-- Define the ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Padding="10">
+                            <TextBlock Text="{Binding skierowanie}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding dataSkierowania}" FontSize="14" />
+                            <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
+                            <TextBlock Text="{Binding idPersonelu}" FontSize="14" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </SplitView>
+        <ContentDialog
+    x:Name="SkierowanieDetailDialog"
+    Title="Informacje o skierowaniu"
+    CloseButtonText="Close">
+            <StackPanel>
+                <TextBlock Text="Skierowanie:" FontWeight="Bold" />
+                <TextBlock Text="{Binding skierowanie}" Margin="0,0,0,10" />
+
+                <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
+                <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Personel ID:" FontWeight="Bold" />
+                <TextBlock Text="{Binding idPersonelu}" />
+            </StackPanel>
+        </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
             <ToggleButton x:Name="NavbarToggleButton"
           Width="40" Height="40"

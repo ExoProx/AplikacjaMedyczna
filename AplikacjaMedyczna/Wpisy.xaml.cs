@@ -30,14 +30,17 @@ namespace AplikacjaMedyczna
 
     public sealed partial class Wpisy : Page
     {
+        public Wpis SelectedWpis { get; set; } // For binding to ContentDialog
+        public ObservableCollection<Wpis> WpisyCollection { get; set; }
         public Wpisy()
         {
             this.InitializeComponent();
             NavigationHelper.SplitViewInstance = splitView;
             splitView.IsPaneOpen = true;
-            ShowWpisy(GetWpisy());
-            DynamicListBox.Items.Add("Example wpis 1");
+            LoadWpisy();
+            this.DataContext = this; // Set the DataContext for the page.
         }
+        
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -59,6 +62,23 @@ namespace AplikacjaMedyczna
         {
             App.MainFrame.Navigate(typeof(dodaj_wpis));
 
+        }
+        private async void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // Cast the clicked item to a Wpis object
+            var clickedWpis = e.ClickedItem as Wpis;
+
+            if (clickedWpis != null)
+            {
+                // Update SelectedWpis
+                SelectedWpis = clickedWpis;
+
+                // Bind the SelectedWpis to the ContentDialog DataContext
+                WpisDetailDialog.DataContext = SelectedWpis;
+
+                // Show the ContentDialog
+                await WpisDetailDialog.ShowAsync();
+            }
         }
         public static ObservableCollection<Wpis> GetWpisy()
         {
@@ -104,9 +124,40 @@ namespace AplikacjaMedyczna
 
             return wpisy;
         }
-        public void ShowWpisy(ObservableCollection<Wpis> wpisy)
+        
+        private void LoadWpisy()
         {
-            
+            WpisyCollection = GetWpisy(); // Load the data into the ObservableCollection.
         }
+        private async void WpisDetailDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            // Check if the dialog should close, or cancel the close if needed
+            if (SomeConditionToPreventClose())
+            {
+                args.Cancel = true; // This will prevent the dialog from closing
+                                    // Optionally, you can show a message or handle additional logic
+                var dialog = new ContentDialog
+                {
+                    Title = "Cannot Close",
+                    Content = "Please complete all necessary actions before closing.",
+                    CloseButtonText = "OK"
+                };
+                await dialog.ShowAsync(); // Show a new dialog if needed
+            }
+            else
+            {
+                // Perform any necessary cleanup or actions before closing
+                // For example, you could save data or log an action
+                
+            }
+        }
+
+        private bool SomeConditionToPreventClose()
+        {
+            // Your custom condition to prevent closing, for example:
+            // return true if the dialog should not close
+            return false; // In this case, always allow closing
+        }
+
     }
 }

@@ -12,7 +12,7 @@
     <Grid>
 
         <SplitView x:ConnectionId='2' x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-           IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Overlay">
+           IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
                 <Grid Margin="12,0,0,0">
                     <Grid.RowDefinitions>
@@ -23,28 +23,56 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <Button x:ConnectionId='4' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="1" Width="100"/>
-                    <Button x:ConnectionId='5' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="2" Width="100"/>
-                    <Button x:ConnectionId='6' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="3" Width="100"/>
-                    <Button x:ConnectionId='7' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="4" Width="100"/>
-                    <Button x:ConnectionId='8' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
+                    <Button x:ConnectionId='5' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="1" Width="100"/>
+                    <Button x:ConnectionId='6' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="2" Width="100"/>
+                    <Button x:ConnectionId='7' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="3" Width="100"/>
+                    <Button x:ConnectionId='8' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="4" Width="100"/>
+                    <Button x:ConnectionId='9' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
                 </Grid>
             </SplitView.Pane>
-            <ListBox x:ConnectionId='9' x:Name="DynamicListBox"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Stretch">
-                <ListBox.ItemTemplate>
+            <ListView x:ConnectionId='10'
+    x:Name="FilteredListView"
+    ItemsSource="{Binding WpisyCollection}"
+    SelectionMode="Single"
+    Height="400"
+    Width="400"
+    BorderThickness="1"
+    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                
+    IsItemClickEnabled="True" 
+                                          >
+
+                <!-- Define the ItemTemplate -->
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="a" Margin="5"/>
-                            <TextBlock Text="b" Margin="5"/>
+                        <StackPanel Orientation="Vertical" Padding="10">
+                            <TextBlock Text="{Binding wpis}" FontSize="16" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Id}" FontSize="14" />
+                            <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
+                            <TextBlock Text="{Binding idPersonelu}" FontSize="14" />
                         </StackPanel>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ListView.ItemTemplate>
+            </ListView>
         </SplitView>
+        <ContentDialog x:ConnectionId='3'
+    x:Name="WpisDetailDialog"
+    Title="Wpis Details"
+    CloseButtonText="Close"
+                                               >
+            <StackPanel>
+                <TextBlock Text="Wpis:" FontWeight="Bold" />
+                <TextBlock Text="{Binding wpis}" Margin="0,0,0,10" />
+
+                <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
+                <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Personel ID:" FontWeight="Bold" />
+                <TextBlock Text="{Binding idPersonelu}" />
+            </StackPanel>
+        </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
-            <ToggleButton x:ConnectionId='3' x:Name="NavbarToggleButton"
+            <ToggleButton x:ConnectionId='4' x:Name="NavbarToggleButton"
           Width="40" Height="40"
                                               
                                                   
