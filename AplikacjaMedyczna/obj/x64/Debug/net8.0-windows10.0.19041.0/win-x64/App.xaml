@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application
-    x:Class="apkaStart.App"
+    x:Class="AplikacjaMedyczna.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:apkaStart">
+    xmlns:local="using:AplikacjaMedyczna">
     
     <Application.Resources>
         <ResourceDictionary>
