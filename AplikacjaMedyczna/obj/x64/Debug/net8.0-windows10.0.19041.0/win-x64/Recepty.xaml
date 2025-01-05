@@ -22,16 +22,61 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <Button x:ConnectionId='4' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="1" Width="100"/>
-                    <Button x:ConnectionId='5' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="2" Width="100"/>
-                    <Button x:ConnectionId='6' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="3" Width="100"/>
-                    <Button x:ConnectionId='7' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="4" Width="100"/>
-                    <Button x:ConnectionId='8' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
+                    <Button x:ConnectionId='5' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="1" Width="100"/>
+                    <Button x:ConnectionId='6' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="2" Width="100"/>
+                    <Button x:ConnectionId='7' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="3" Width="100"/>
+                    <Button x:ConnectionId='8' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="4" Width="100"/>
+                    <Button x:ConnectionId='9' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
                 </Grid>
             </SplitView.Pane>
+            <ListView x:ConnectionId='10'
+    x:Name="FilteredListView"
+    ItemsSource="{Binding ReceptyCollection}"
+    SelectionMode="Single"
+    Height="400"
+    Width="400"
+    BorderThickness="1"
+    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                
+    IsItemClickEnabled="True" 
+                                          >
+
+                <!-- Define the ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Padding="10">
+
+                            <TextBlock Text="Recepta wystawiona: " FontSize="14" />
+                            <TextBlock Text="{Binding dataWystawieniaRecepty}" FontSize="14" />
+                            <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </SplitView>
+        <ContentDialog x:ConnectionId='3'
+    x:Name="ReceptaDetailDialog"
+    Title="Informacje o recepcie"
+    CloseButtonText="Close">
+            <StackPanel>
+                <TextBlock Text="Przepisane leki:" FontWeight="Bold" />
+                <TextBlock Text="{Binding leki}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Data wystawienia recepty:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataWystawieniaRecepty}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Data waznosci recepty:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataWaznosciRecepty}" Margin="0,0,0,10" />
+
+                <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
+                <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Dane personelu:" FontWeight="Bold" />
+                <TextBlock Text="{Binding danePersonelu}" />
+            </StackPanel>
+        </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
-            <ToggleButton x:ConnectionId='3' x:Name="NavbarToggleButton"
+            <ToggleButton x:ConnectionId='4' x:Name="NavbarToggleButton"
           Width="40" Height="40"
                                               
                                                   

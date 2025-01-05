@@ -47,7 +47,6 @@
                         <StackPanel Orientation="Vertical" Padding="10">
                             <TextBlock Text="{Binding skierowanie}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
                             <TextBlock Text="{Binding dataSkierowania}" FontSize="14" />
-                            <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
                             <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
                         </StackPanel>
                     </DataTemplate>
