@@ -97,10 +97,18 @@ namespace AplikacjaMedyczna
             {
                 connection.Open();
                 string query = @"
-    SELECT ""id"", ""wpis"", ""peselPacjenta"", ""idPersonelu""
-    FROM public.""WpisyMedyczne""
-    WHERE ""peselPacjenta"" = @pesel
-    ORDER BY ""id"" ASC;";
+                    SELECT 
+                    Wpisy.""id"" AS wpisy_id, 
+                    Wpisy.""wpis"",
+                    Wpisy.""dataWpisu"",  
+                    personel.""imie"", 
+                    personel.""nazwisko"" 
+                FROM 
+                    ""WpisyMedyczne"" as Wpisy
+                JOIN 
+                    ""PersonelMedyczny"" as personel
+                ON 
+                    Wpisy.""idPersonelu"" = personel.""id"" WHERE Wpisy.""peselPacjenta"" = @pesel ORDER BY Wpisy.""dataWpisu"" DESC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -110,12 +118,15 @@ namespace AplikacjaMedyczna
 
                         while (reader.Read())
                         {
+                            string imie = reader.GetString(3);
+                            string nazwisko = reader.GetString(4);
                             wpisy.Add(new Wpis
                             {
                                 Id = reader.GetInt32(0),
                                 wpis = reader.GetString(1),
-                                peselPacjenta = reader.GetDecimal(2),
-                                idPersonelu = reader.GetInt32(3),
+                                peselPacjenta = peselNumeric,
+                                dataWpisu = reader.GetDateTime(2),
+                                danePersonelu = String.Concat(imie, " ", nazwisko)
                             });
                         }
                     }

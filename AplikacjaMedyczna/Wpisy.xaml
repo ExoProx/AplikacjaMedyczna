@@ -46,10 +46,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Padding="10">
-                            <TextBlock Text="{Binding wpis}" FontSize="16" FontWeight="Bold" />
-                            <TextBlock Text="{Binding Id}" FontSize="14" />
+                            <TextBlock Text="{Binding wpis}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding dataWpisu}" FontSize="14" />
                             <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
-                            <TextBlock Text="{Binding idPersonelu}" FontSize="14" />
+                            <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -64,11 +64,14 @@
                 <TextBlock Text="Wpis:" FontWeight="Bold" />
                 <TextBlock Text="{Binding wpis}" Margin="0,0,0,10" />
 
+                <TextBlock Text="Data Wpisu:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataWpisu}" Margin="0,0,0,10" />
+
                 <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
                 <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
 
-                <TextBlock Text="Personel ID:" FontWeight="Bold" />
-                <TextBlock Text="{Binding idPersonelu}" />
+                <TextBlock Text="Dane personelu:" FontWeight="Bold" />
+                <TextBlock Text="{Binding danePersonelu}" />
             </StackPanel>
         </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">

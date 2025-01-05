@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\skierowania.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\skierowania.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\panelglowny.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\panelglowny.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\skierowania.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\skierowania.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\recepty.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\recepty.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\skierowania.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\skierowania.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\skierowanie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,16 +31,16 @@
       "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\wpisy.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\panelglowny.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\panelglowny.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\recepty.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\recepty.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\recepty.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|solutionrelative:aplikacjamedyczna\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B0F0ACC-E4FE-42DA-97DF-ADB04BBFAE6E}|AplikacjaMedyczna\\AplikacjaMedyczna.csproj|c:\\users\\dinod\\source\\repos\\aplikacjamedyczna\\aplikacjamedyczna\\aplikacjamedyczna\\shareddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -90,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -102,59 +102,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Wyniki.xaml",
-              "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wyniki.xaml",
-              "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wyniki.xaml",
-              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wyniki.xaml",
-              "RelativeToolTip": "AplikacjaMedyczna\\Wyniki.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-04T22:16:32.944Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Wpisy.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wpisy.xaml",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml",
               "RelativeToolTip": "AplikacjaMedyczna\\Wpisy.xaml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAYwD0AAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAYwEYAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-03T18:30:27.191Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "Wpisy.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wpisy.xaml.cs",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpisy.xaml.cs",
               "RelativeToolTip": "AplikacjaMedyczna\\Wpisy.xaml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAwwIcAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAUwG4AAAB/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T15:07:28.071Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "PanelGlowny.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\PanelGlowny.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\PanelGlowny.xaml.cs",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\PanelGlowny.xaml.cs",
               "RelativeToolTip": "AplikacjaMedyczna\\PanelGlowny.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABMAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T19:33:39.58Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Recepty.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Recepty.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Recepty.xaml.cs",
@@ -162,64 +150,63 @@
               "RelativeToolTip": "AplikacjaMedyczna\\Recepty.xaml.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAswB8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T19:33:43.511Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-04T19:33:43.511Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Skierowania.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowania.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Skierowania.xaml",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowania.xaml",
               "RelativeToolTip": "AplikacjaMedyczna\\Skierowania.xaml",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAYwDAAAABFAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAYwDIAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-04T22:16:26.213Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Skierowania.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowania.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Skierowania.xaml.cs",
-              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowania.xaml.cs*",
-              "RelativeToolTip": "AplikacjaMedyczna\\Skierowania.xaml.cs*",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAUwG4AAABHAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowania.xaml.cs",
+              "RelativeToolTip": "AplikacjaMedyczna\\Skierowania.xaml.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAswHEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T19:33:46.319Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Skierowanie.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowanie.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Skierowanie.cs",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Skierowanie.cs",
               "RelativeToolTip": "AplikacjaMedyczna\\Skierowanie.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-05T13:52:44.191Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Wpis.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpis.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wpis.cs",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wpis.cs",
               "RelativeToolTip": "AplikacjaMedyczna\\Wpis.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T19:11:32.904Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Recepty.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Recepty.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Recepty.xaml",
@@ -232,20 +219,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "LoginPage.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\LoginPage.xaml",
               "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml",
               "RelativeToolTip": "AplikacjaMedyczna\\LoginPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-04T19:07:38.73Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 7,
+              "Title": "LoginPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml.cs",
+              "RelativeDocumentMoniker": "AplikacjaMedyczna\\LoginPage.xaml.cs",
+              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml.cs",
+              "RelativeToolTip": "AplikacjaMedyczna\\LoginPage.xaml.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAowFAAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T19:33:28.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Wyniki.xaml",
+              "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wyniki.xaml",
+              "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wyniki.xaml",
+              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wyniki.xaml",
+              "RelativeToolTip": "AplikacjaMedyczna\\Wyniki.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-04T22:16:32.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\MainWindow.xaml",
@@ -257,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "PanelGlowny.xaml",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\PanelGlowny.xaml",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\PanelGlowny.xaml",
@@ -269,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\MainWindow.xaml.cs",
@@ -278,18 +290,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T19:09:47.196Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "LoginPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml.cs",
-              "RelativeDocumentMoniker": "AplikacjaMedyczna\\LoginPage.xaml.cs",
-              "ToolTip": "C:\\Users\\dinod\\source\\repos\\AplikacjaMedyczna\\AplikacjaMedyczna\\AplikacjaMedyczna\\LoginPage.xaml.cs",
-              "RelativeToolTip": "AplikacjaMedyczna\\LoginPage.xaml.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAowGIAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T19:33:28.501Z"
             },
             {
               "$type": "Document",

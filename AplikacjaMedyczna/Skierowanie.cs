@@ -13,5 +13,8 @@ namespace AplikacjaMedyczna
         public decimal peselPacjenta { get; set; }
         public int idPersonelu { get; set; }
         public DateTime dataSkierowania { get; set; }
+
+        public string danePersonelu { get; set; }
+        
     }
 }

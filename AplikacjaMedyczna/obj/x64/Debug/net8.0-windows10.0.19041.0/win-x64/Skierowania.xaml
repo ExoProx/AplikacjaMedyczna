@@ -48,7 +48,7 @@
                             <TextBlock Text="{Binding skierowanie}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
                             <TextBlock Text="{Binding dataSkierowania}" FontSize="14" />
                             <TextBlock Text="{Binding peselPacjenta}" FontSize="14" />
-                            <TextBlock Text="{Binding idPersonelu}" FontSize="14" />
+                            <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -61,12 +61,15 @@
             <StackPanel>
                 <TextBlock Text="Skierowanie:" FontWeight="Bold" />
                 <TextBlock Text="{Binding skierowanie}" Margin="0,0,0,10" />
+                
+                <TextBlock Text="Data skierowania:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataSkierowania}" Margin="0,0,0,10" />
 
                 <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
                 <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
 
-                <TextBlock Text="Personel ID:" FontWeight="Bold" />
-                <TextBlock Text="{Binding idPersonelu}" />
+                <TextBlock Text="Dane personelu:" FontWeight="Bold" />
+                <TextBlock Text="{Binding danePersonelu}" />
             </StackPanel>
         </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">

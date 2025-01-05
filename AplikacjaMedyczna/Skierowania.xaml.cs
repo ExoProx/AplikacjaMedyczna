@@ -89,10 +89,18 @@ namespace AplikacjaMedyczna
             {
                 connection.Open();
                 string query = @"
-    SELECT ""id"", ""skierowanie"", ""peselPacjenta"", ""idPersonelu"", ""dataSkierowania""
-    FROM public.""Skierowania""
-    WHERE ""peselPacjenta"" = @pesel
-    ORDER BY ""id"" ASC;";
+                    SELECT 
+                    Skierowania.""id"",
+                    Skierowania.""skierowanie"" ,
+                    Skierowania.""dataSkierowania"",  
+                    personel.""imie"", 
+                    personel.""nazwisko""
+                FROM 
+                    ""Skierowania"" as Skierowania
+                JOIN 
+                    ""PersonelMedyczny"" as personel
+                ON 
+                    Skierowania.""idPersonelu"" = personel.""id"" WHERE Skierowania.""peselPacjenta"" = @pesel ORDER BY Skierowania.""dataSkierowania"" DESC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -102,13 +110,16 @@ namespace AplikacjaMedyczna
 
                         while (reader.Read())
                         {
+                            string imie = reader.GetString(3);
+                            string nazwisko = reader.GetString(4);
                             skierowania.Add(new Skierowanie
                             {
                                 Id = reader.GetInt32(0),
                                 skierowanie = reader.GetString(1),
-                                peselPacjenta = reader.GetDecimal(2),
-                                idPersonelu = reader.GetInt32(3),
-                                dataSkierowania = reader.GetDateTime(4)
+                                peselPacjenta = peselNumeric,
+                                dataSkierowania = reader.GetDateTime(2),
+                                danePersonelu = String.Concat(imie, " ", nazwisko)
+
                             });
                         }
                     }
