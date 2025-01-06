@@ -58,8 +58,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\LoginPage.xaml.cs",
               "ViewState": "AgIAAGAAAAAAAAAAAAAmwHcAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T21:29:29.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:29:29.408Z"
             },
             {
               "$type": "Document",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\LoginPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-06T21:29:27.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:29:27.917Z"
             },
             {
               "$type": "Document",
@@ -84,8 +82,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\Recepty.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-06T21:27:14.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:27:14.023Z"
             },
             {
               "$type": "Document",
@@ -97,8 +94,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\Wpisy.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-06T21:26:55.297Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:26:55.297Z"
             },
             {
               "$type": "Document",
@@ -110,8 +106,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\PanelGlowny.xaml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-06T21:26:09.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:26:09.146Z"
             },
             {
               "$type": "Document",
@@ -123,8 +118,7 @@
               "RelativeToolTip": "AplikacjaMedyczna\\Skierowania.xaml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACIAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-06T21:14:39.829Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T21:14:39.829Z"
             },
             {
               "$type": "Document",
@@ -134,7 +128,7 @@
               "RelativeDocumentMoniker": "AplikacjaMedyczna\\Wyniki.xaml",
               "ToolTip": "E:\\Programy\\Github\\AplikacjaMedyczna\\AplikacjaMedyczna\\Wyniki.xaml",
               "RelativeToolTip": "AplikacjaMedyczna\\Wyniki.xaml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACMAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-06T21:14:34.141Z",
               "EditorCaption": ""
