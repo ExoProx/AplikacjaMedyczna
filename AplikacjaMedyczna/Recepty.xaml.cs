@@ -36,7 +36,13 @@ namespace AplikacjaMedyczna
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+                AddRecipeButton.Visibility = Visibility.Visible;
+                AddRecipeButton.IsEnabled = true;
             }
+        }
+        private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(Insert_Recipe_Form));
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {

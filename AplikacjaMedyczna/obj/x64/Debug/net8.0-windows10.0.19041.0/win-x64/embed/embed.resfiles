@@ -1,5 +1,8 @@
 App.xbf
 dodaj_wpis.xbf
+Insert_Recipe_Form.xbf
+Insert_referral_Form.xbf
+Insert_result_form.xbf
 LoginPage.xbf
 MainWindow.xbf
 PanelGlowny.xbf

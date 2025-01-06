@@ -30,12 +30,18 @@ namespace AplikacjaMedyczna
             splitView.IsPaneOpen = true;
             CheckUserId();
         }
+        private void AddResultButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(Insert_result_form));
+        }
         private void CheckUserId()
         {
             if (!string.IsNullOrEmpty(SharedData.id))
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+                AddResultButton.Visibility = Visibility.Visible;
+                AddResultButton.IsEnabled = true;
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)

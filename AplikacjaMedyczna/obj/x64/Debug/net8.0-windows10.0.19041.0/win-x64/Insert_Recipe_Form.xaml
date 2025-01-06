@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AplikacjaMedyczna.Insert_Recipe_Form"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AplikacjaMedyczna"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="20">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel x:ConnectionId='2' x:Name="PanelWpisu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Margin="20">
+                <TextBlock Text="Dodaj Recepte" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="36" FontWeight="bold" Foreground="Black" Visibility="Visible"/>
+                <TextBox x:ConnectionId='3' x:Name="WpisTextBox" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" SelectionHighlightColor="Green" MinWidth="400" />
+
+                <!-- New Date Picker and TextBlock -->
+                <TextBlock Text="Termin Recepty:" Margin="0,20,0,10" FontSize="16" FontWeight="Bold" />
+                <DatePicker x:ConnectionId='4' x:Name="TerminReceptyDatePicker"  Margin="0,0,0,20"                                                  />
+
+                <!-- New Checkbox -->
+                <CheckBox x:ConnectionId='5' x:Name="OneTimeOnlyCheckBox" Content="Jednorazowa" Margin="0,0,0,20" />
+
+                <!-- Komunikaty -->
+                <TextBlock x:ConnectionId='6' x:Name="SuccessMessage" Text="Wpis zapisano pomyślnie." 
+                       Foreground="Green" Visibility="Collapsed" Margin="0,0,0,10" />
+                <TextBlock x:ConnectionId='7' x:Name="EmptyFieldMessage" Text="Pole wpisu i/lub daty nie może być puste." 
+                       Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
+                <TextBlock x:ConnectionId='8' x:Name="ErrorDatabaseMessage" Text="Błąd połączenia z bazą danych." 
+                       Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
+                <StackPanel x:ConnectionId='9' x:Name="PanelPrzyciskow" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button x:ConnectionId='10' x:Name="CancelButton" Content="Anuluj"                            Margin="10,0,0,0" />
+                    <Button x:ConnectionId='11' x:Name="SubmitButton" Content="Zapisz"                            Margin="10,0,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
+

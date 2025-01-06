@@ -22,17 +22,19 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button x:ConnectionId='5' x:Name="PatientChoiceButton" Visibility="Collapsed" 
-                Content="Wybierz"                         IsEnabled="False" Grid.Row="1" Width="100"/>
-                    <Button x:ConnectionId='6' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="2" Width="100"/>
-                    <Button x:ConnectionId='7' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="3" Width="100"/>
-                    <Button x:ConnectionId='8' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="4" Width="100"/>
-                    <Button x:ConnectionId='9' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="5" Width="100"/>
-                    <Button x:ConnectionId='10' x:Name="BackButton" Content="Powrót"                         Grid.Row="6" Width="100"/>
+                    <Button x:ConnectionId='6' x:Name="PatientChoiceButton" Visibility="Collapsed" 
+                            Content="Wybierz"                         IsEnabled="False" Grid.Row="1" Width="100"/>
+                    <Button x:ConnectionId='7' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="2" Width="100"/>
+                    <Button x:ConnectionId='8' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="3" Width="100"/>
+                    <Button x:ConnectionId='9' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="4" Width="100"/>
+                    <Button x:ConnectionId='10' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="5" Width="100"/>
+                    <Button x:ConnectionId='11' x:Name="BackButton" Content="Powrót"                         Grid.Row="6" Width="100"/>
+                    <Button x:ConnectionId='12' x:Name="Logout" Content="Wyloguj"                         Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100"/>
                 </Grid>
             </SplitView.Pane>
-            <ListView x:ConnectionId='11'
+            <ListView x:ConnectionId='13'
     x:Name="FilteredListView"
     ItemsSource="{Binding SkierowaniaCollection}"
     SelectionMode="Single"
@@ -76,7 +78,7 @@
             </StackPanel>
         </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
-            <ToggleButton x:ConnectionId='4' x:Name="NavbarToggleButton"
+            <ToggleButton x:ConnectionId='5' x:Name="NavbarToggleButton"
           Width="40" Height="40"
                                               
                                                   
@@ -84,6 +86,8 @@
                 <FontIcon Glyph="&#xE700;" />
             </ToggleButton>
         </Grid>
+        <Button x:ConnectionId='4' x:Name="AddRefferalButton" Visibility="Collapsed" IsEnabled="False" Content="Dodaj Skierowanie" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12"                                />
     </Grid>
 </Page>
 

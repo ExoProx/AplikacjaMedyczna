@@ -41,12 +41,18 @@ namespace AplikacjaMedyczna
             this.DataContext = this; // Set the DataContext for the page.
             CheckUserId();
         }
+        private void AddDescriptionButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(dodaj_wpis));
+        }
         private void CheckUserId()
         {
             if (!string.IsNullOrEmpty(SharedData.id))
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+                AddDescriptionButton.Visibility = Visibility.Visible;
+                AddDescriptionButton.IsEnabled = true;
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)

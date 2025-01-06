@@ -37,12 +37,18 @@ namespace AplikacjaMedyczna
             this.DataContext = this; // Set the DataContext for the page.
             CheckUserId();
         }
+        private void AddRefferalButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(Insert_referral_Form));
+        }
         private void CheckUserId()
         {
             if (!string.IsNullOrEmpty(SharedData.id))
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+                AddRefferalButton.Visibility = Visibility.Visible;
+                AddRefferalButton.IsEnabled = true;
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)

@@ -54,6 +54,7 @@ namespace AplikacjaMedyczna
                 SuccessMessage.Visibility = Visibility.Visible;
                 EmptyFieldMessage.Visibility = Visibility.Collapsed;
                 ErrorDatabaseMessage.Visibility = Visibility.Collapsed;
+                App.MainFrame.GoBack();
             }
             else if (status == 0)
             {
@@ -87,7 +88,7 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-            var connectionString = "host=localhost;username=postgres;Password=haslo;Database=BazaMedyczna";
+            var connectionString = "host=localhost;username=lekarz;Password=haslo;Database=BazaMedyczna";
 
             try
             {
@@ -95,10 +96,12 @@ namespace AplikacjaMedyczna
                 {
                     connection.Open();
 
-                    string sql = "INSERT INTO public.\"WpisyMedyczne\" (id, \"peselPacjenta\", \"idPersonelu\", wpis, \"dataWpisu\")  VALUES (default, 22222222222, 1, @wpis, CURRENT_DATE);";
+                    string sql = "INSERT INTO public.\"WpisyMedyczne\" (id, \"peselPacjenta\", \"idPersonelu\", wpis, \"dataWpisu\")  VALUES (default, @pesel, @id, @wpis, CURRENT_DATE);";
                     using (var command = new NpgsqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@wpis", wpis);
+                        command.Parameters.AddWithValue("@pesel", long.Parse(SharedData.pesel));
+                        command.Parameters.AddWithValue("@id", long.Parse(SharedData.id));
                         command.ExecuteNonQuery();
                     }
                 }
