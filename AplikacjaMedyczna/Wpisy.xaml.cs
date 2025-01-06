@@ -83,7 +83,10 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Wpis> GetWpisy()
         {
             var wpisy = new ObservableCollection<Wpis>();
-            var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                        "username=postgres;" +
+                        "Password=adminadmin;" +
+                        "Database=medical_database";
             string pesel = SharedData.pesel;
             decimal peselNumeric;
 

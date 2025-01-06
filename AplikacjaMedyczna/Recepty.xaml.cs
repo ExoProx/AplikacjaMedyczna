@@ -79,7 +79,10 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Recepta> GetRecepty()
         {
             var recepty = new ObservableCollection<Recepta>();
-            var cs = "host=localhost;username=postgres;Password=admin;Database=BazaMedyczna";
+            var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                        "username=postgres;" +
+                        "Password=adminadmin;" +
+                        "Database=medical_database";
             string pesel = SharedData.pesel;
             decimal peselNumeric;
 
