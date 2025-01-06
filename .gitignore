@@ -1,0 +1,39 @@
+# Pliki binarne i tymczasowe
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.log
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Pliki generowane przez Visual Studio
+.vs/
+.vscode/
+.vscode-test/
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Pliki konfiguracyjne
+appsettings.json
+appsettings.*.json
+
+# Pliki NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Pliki tymczasowe systemu operacyjnego
+*.tmp
+*.temp

@@ -87,7 +87,10 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-            var connectionString = "host=localhost;username=postgres;Password=haslo;Database=BazaMedyczna";
+            var connectionString =  "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                                    "username=postgres;" +
+                                    "Password=adminadmin;" +
+                                    "Database=medical_database";
 
             try
             {
