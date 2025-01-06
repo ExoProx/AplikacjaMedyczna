@@ -21,6 +21,9 @@ public static class NavigationHelper
         // Use the button name to determine the action
         switch (buttonName)
         {
+            case "PatientChoiceButton":
+                NavigateToPatientChoice();
+                break;  
             case "WpisyButton":
                 NavigateToWpisy();
                 break;
@@ -73,7 +76,12 @@ public static class NavigationHelper
         System.Diagnostics.Debug.WriteLine("Navigating to Wyniki...");
         App.MainFrame.Navigate(typeof(Wyniki));
     }
-
+    private static void NavigateToPatientChoice()
+    {
+        // Add navigation logic for PatientChoice
+        System.Diagnostics.Debug.WriteLine("Navigating to PatientChoice...");
+        App.MainFrame.Navigate(typeof(PeselChoice));
+    }
     private static void GoBack()
     {
         // Add logic for "Back" button

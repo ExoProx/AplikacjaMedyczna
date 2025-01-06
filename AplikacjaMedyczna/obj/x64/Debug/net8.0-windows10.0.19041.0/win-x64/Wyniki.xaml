@@ -22,12 +22,15 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <Button x:ConnectionId='4' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="1" Width="100"/>
-                    <Button x:ConnectionId='5' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="2" Width="100"/>
-                    <Button x:ConnectionId='6' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="3" Width="100"/>
-                    <Button x:ConnectionId='7' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="4" Width="100"/>
-                    <Button x:ConnectionId='8' x:Name="BackButton" Content="Powrót"                         Grid.Row="5" Width="100"/>
+                    <Button x:ConnectionId='4' x:Name="PatientChoiceButton" Visibility="Collapsed" 
+                Content="Wybierz"                         IsEnabled="False" Grid.Row="1" Width="100"/>
+                    <Button x:ConnectionId='5' x:Name="WpisyButton" Content="Wpisy"                         Grid.Row="2" Width="100"/>
+                    <Button x:ConnectionId='6' x:Name="ReceptyButton" Content="Recepty"                         Grid.Row="3" Width="100"/>
+                    <Button x:ConnectionId='7' x:Name="SkierowaniaButton" Content="Skierowania"                         Grid.Row="4" Width="100"/>
+                    <Button x:ConnectionId='8' x:Name="WynikiButton" Content="Wyniki"                         Grid.Row="5" Width="100"/>
+                    <Button x:ConnectionId='9' x:Name="BackButton" Content="Powrót"                         Grid.Row="6" Width="100"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>

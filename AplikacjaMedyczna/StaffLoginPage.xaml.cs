@@ -40,8 +40,8 @@ namespace AplikacjaMedyczna
 
             if (stan == 1)
             {
-                SharedData.pesel = Pesel.Text;
-                App.MainFrame.Navigate(typeof(PanelGlowny));
+                SharedData.id = Pesel.Text;
+                App.MainFrame.Navigate(typeof(PeselChoice));
 
             }
             else if (stan == 2)
@@ -124,7 +124,6 @@ namespace AplikacjaMedyczna
                         if (rdr.Read())
                         {
                             string hasloBaza = rdr.GetString(1);  // Retrieve password
-                            ResultTextBlock.Text = hasloBaza;
                             if (peselNumeric == rdr.GetDecimal(0))
                             {
                                 if (haslo == hasloBaza)

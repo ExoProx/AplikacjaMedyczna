@@ -35,8 +35,16 @@ namespace AplikacjaMedyczna
             splitView.IsPaneOpen = true;
             LoadSkierowania();
             this.DataContext = this; // Set the DataContext for the page.
+            CheckUserId();
         }
-
+        private void CheckUserId()
+        {
+            if (!string.IsNullOrEmpty(SharedData.id))
+            {
+                PatientChoiceButton.Visibility = Visibility.Visible;
+                PatientChoiceButton.IsEnabled = true;
+            }
+        }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)

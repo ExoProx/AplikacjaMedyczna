@@ -21,12 +21,15 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="1" Width="100"/>
-                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="2" Width="100"/>
-                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="3" Width="100"/>
-                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="4" Width="100"/>
-                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="5" Width="100"/>
+                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" 
+                Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100"/>
+                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="2" Width="100"/>
+                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="3" Width="100"/>
+                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="4" Width="100"/>
+                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="5" Width="100"/>
+                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="6" Width="100"/>
                 </Grid>
             </SplitView.Pane>
             <ListView
