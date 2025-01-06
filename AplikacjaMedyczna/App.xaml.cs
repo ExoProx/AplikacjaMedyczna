@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -25,10 +26,11 @@ namespace AplikacjaMedyczna
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     public partial class App : Application
-
     {
+        private static Mutex mutex = null;
         public static Window MainWindow { get; private set; }
         public static Frame MainFrame { get; private set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -44,6 +46,18 @@ namespace AplikacjaMedyczna
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            const string appName = "AplikacjaMedyczna";
+            bool createdNew;
+
+            mutex = new Mutex(true, appName, out createdNew);
+
+            if (!createdNew)
+            {
+                // The application is already running, so exit this instance
+                Application.Current.Exit();
+                return;
+            }
+
             MainWindow = new Window();
 
             // Create and store the main frame
@@ -56,6 +70,5 @@ namespace AplikacjaMedyczna
 
             MainWindow.Activate();
         }
-
     }
 }

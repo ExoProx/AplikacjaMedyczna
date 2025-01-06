@@ -10,7 +10,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
         <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
        IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
@@ -22,12 +21,17 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="1" Width="100"/>
-                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="2" Width="100"/>
-                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="3" Width="100"/>
-                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="4" Width="100"/>
-                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="5" Width="100"/>
+                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" 
+                            Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100"/>
+                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="2" Width="100"/>
+                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="3" Width="100"/>
+                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="4" Width="100"/>
+                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="5" Width="100"/>
+                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="6" Width="100"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>
@@ -40,5 +44,7 @@
                 <FontIcon Glyph="&#xE700;" />
             </ToggleButton>
         </Grid>
+        <Button x:Name="AddResultButton" Visibility="Collapsed" IsEnabled="False" Content="Dodaj Wyniki" 
+        HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12" Click="AddResultButton_Click"/>
     </Grid>
 </Page>

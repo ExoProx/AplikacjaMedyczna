@@ -35,8 +35,22 @@ namespace AplikacjaMedyczna
             splitView.IsPaneOpen = true;
             LoadSkierowania();
             this.DataContext = this; // Set the DataContext for the page.
+            CheckUserId();
         }
-
+        private void AddRefferalButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(Insert_referral_Form));
+        }
+        private void CheckUserId()
+        {
+            if (!string.IsNullOrEmpty(SharedData.id))
+            {
+                PatientChoiceButton.Visibility = Visibility.Visible;
+                PatientChoiceButton.IsEnabled = true;
+                AddRefferalButton.Visibility = Visibility.Visible;
+                AddRefferalButton.IsEnabled = true;
+            }
+        }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -75,6 +89,7 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Skierowanie> GetSkierowania()
         {
             var skierowania = new ObservableCollection<Skierowanie>();
+
             var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                         "username=postgres;" +
                         "Password=adminadmin;" +

@@ -28,7 +28,17 @@ namespace AplikacjaMedyczna
         {
             this.InitializeComponent();
             NavigationHelper.SplitViewInstance = splitView;
+            CheckUserId();
         }
+        private void CheckUserId()
+        {
+            if (!string.IsNullOrEmpty(SharedData.id))
+            {
+                PatientChoiceButton.Visibility = Visibility.Visible;
+                PatientChoiceButton.IsEnabled = true;  
+            }
+        }
+
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)

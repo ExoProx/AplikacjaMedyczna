@@ -21,6 +21,12 @@ public static class NavigationHelper
         // Use the button name to determine the action
         switch (buttonName)
         {
+            case "Logout":
+                Logout();
+                break;
+            case "PatientChoiceButton":
+                NavigateToPatientChoice();
+                break;  
             case "WpisyButton":
                 NavigateToWpisy();
                 break;
@@ -53,6 +59,17 @@ public static class NavigationHelper
         App.MainFrame.Navigate(typeof(Wpisy), null, new DrillInNavigationTransitionInfo());
     }
 
+    private static void Logout()
+    {
+        ClearUserData();
+        System.Diagnostics.Debug.WriteLine("Logging out...");
+        App.MainFrame.Navigate(typeof(LoginPage));
+    }
+    private static void ClearUserData()
+    {
+        SharedData.pesel = null;
+        SharedData.id = null;
+    }
     private static void NavigateToRecepty()
     {
         // Add navigation logic for Recepty
@@ -73,7 +90,12 @@ public static class NavigationHelper
         System.Diagnostics.Debug.WriteLine("Navigating to Wyniki...");
         App.MainFrame.Navigate(typeof(Wyniki));
     }
-
+    private static void NavigateToPatientChoice()
+    {
+        // Add navigation logic for PatientChoice
+        System.Diagnostics.Debug.WriteLine("Navigating to PatientChoice...");
+        App.MainFrame.Navigate(typeof(PeselChoice));
+    }
     private static void GoBack()
     {
         // Add logic for "Back" button

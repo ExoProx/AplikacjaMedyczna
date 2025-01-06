@@ -39,8 +39,22 @@ namespace AplikacjaMedyczna
             splitView.IsPaneOpen = true;
             LoadWpisy();
             this.DataContext = this; // Set the DataContext for the page.
+            CheckUserId();
         }
-        
+        private void AddDescriptionButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(dodaj_wpis));
+        }
+        private void CheckUserId()
+        {
+            if (!string.IsNullOrEmpty(SharedData.id))
+            {
+                PatientChoiceButton.Visibility = Visibility.Visible;
+                PatientChoiceButton.IsEnabled = true;
+                AddDescriptionButton.Visibility = Visibility.Visible;
+                AddDescriptionButton.IsEnabled = true;
+            }
+        }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -83,6 +97,7 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Wpis> GetWpisy()
         {
             var wpisy = new ObservableCollection<Wpis>();
+
             var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                         "username=postgres;" +
                         "Password=adminadmin;" +

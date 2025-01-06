@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using System.Data.SqlClient;
-using AplikacjaMedyczna;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -14,40 +10,31 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Npgsql;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Npgsql;
 
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace AplikacjaMedyczna
 {
     /// <summary>
-    /// A page to add an entry into the database.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class dodaj_wpis : Page
+    public sealed partial class Insert_referral_Form : Page
     {
-        public dodaj_wpis()
+        public Insert_referral_Form()
         {
             this.InitializeComponent();
-            Window window = App.MainWindow;
-            window.ExtendsContentIntoTitleBar = true;
-
         }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.MainFrame.CanGoBack)
-            {
-                App.MainFrame.GoBack();
-            }
+            App.MainFrame.GoBack();
         }
-
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            int status = SaveEntry(WpisTextBox.Text);
-
+            int status = SaveEntry(RefferalTextBox.Text);
             if (status == 1)
             {
                 // Success: Entry saved
@@ -72,46 +59,40 @@ namespace AplikacjaMedyczna
             }
         }
 
-        private void Input_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                SubmitButton_Click(sender, e);
-            }
-        }
-
         private int SaveEntry(string wpis)
         {
             if (string.IsNullOrWhiteSpace(wpis))
             {
-                // Entry field is empty
+                // Entry field or date field is empty
                 return 0;
             }
 
-
-            var connectionString =  "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                                    "username=postgres;" +
-                                    "Password=adminadmin;" +
-                                    "Database=medical_database";
+            var connectionString = "host=localhost;username=lekarz;Password=haslo;Database=BazaMedyczna";
 
             try
             {
                 using (var connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
-
-                    string sql = "INSERT INTO public.\"WpisyMedyczne\" (id, \"peselPacjenta\", \"idPersonelu\", wpis, \"dataWpisu\")  VALUES (default, @pesel, @id, @wpis, CURRENT_DATE);";
+                    string sql = "INSERT INTO \"Skierowania\" (\"skierowanie\", \"dataSkierowania\", \"peselPacjenta\","+ 
+                                "\"idPersonelu\")  VALUES (@1, CURRENT_DATE, @2, @3)"; ;
                     using (var command = new NpgsqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@wpis", wpis);
-                        command.Parameters.AddWithValue("@pesel", long.Parse(SharedData.pesel));
-                        command.Parameters.AddWithValue("@id", long.Parse(SharedData.id));
+                        command.Parameters.AddWithValue("@1", wpis);
+                        command.Parameters.AddWithValue("@2", long.Parse(SharedData.pesel));
+                        command.Parameters.AddWithValue("@3", long.Parse(SharedData.id));
                         command.ExecuteNonQuery();
                     }
                 }
 
                 // Successfully saved the entry
                 return 1;
+            }
+            catch (FormatException)
+            {
+                // Handle the case where wpis or date is not a valid long
+                System.Diagnostics.Debug.WriteLine("Invalid pesel or id format.");
+                return 0;
             }
             catch (Exception ex)
             {

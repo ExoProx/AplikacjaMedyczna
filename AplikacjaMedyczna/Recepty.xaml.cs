@@ -29,13 +29,26 @@ namespace AplikacjaMedyczna
         public Recepta SelectedRecepta { get; set; } // For binding to ContentDialog
         public ObservableCollection<Recepta> ReceptyCollection { get; set; }
         public Recepty()
-        {
-            this.InitializeComponent();
-            NavigationHelper.SplitViewInstance = splitView;
-            splitView.IsPaneOpen = true;
-            LoadRecepty();
-            this.DataContext = this; // Set the DataContext for the page.
-        }
+         {
+             this.InitializeComponent();
+             NavigationHelper.SplitViewInstance = splitView;
+             splitView.IsPaneOpen = true;
+             CheckUserId();
+         }
+         private void CheckUserId()
+         {
+             if (!string.IsNullOrEmpty(SharedData.id))
+             {
+                 PatientChoiceButton.Visibility = Visibility.Visible;
+                 PatientChoiceButton.IsEnabled = true;
+                 AddRecipeButton.Visibility = Visibility.Visible;
+                 AddRecipeButton.IsEnabled = true;
+             }
+         }
+         private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
+         {
+             App.MainFrame.Navigate(typeof(Insert_Recipe_Form));
+         }
 
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {

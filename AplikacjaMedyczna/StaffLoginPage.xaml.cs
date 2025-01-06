@@ -1,4 +1,9 @@
-using Microsoft.UI.Input;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -6,17 +11,10 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.System;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Text.RegularExpressions;
+using Windows.System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,29 +22,30 @@ using System.Text.RegularExpressions;
 namespace AplikacjaMedyczna
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LoginPage : Page
+    public sealed partial class StaffLoginPage : Page
     {
-        public LoginPage()
+        public StaffLoginPage()
         {
             this.InitializeComponent();
         }
-        private void MoveToStaffLogin(object sender, RoutedEventArgs e)
+        private void MoveToLogin(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(typeof(StaffLoginPage));
+            App.MainFrame.Navigate(typeof(LoginPage));
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             int stan = logowanie(Pesel.Text, Password.Password);
-            
+
             if (stan == 1)
             {
-                SharedData.pesel = Pesel.Text;
-                App.MainFrame.Navigate(typeof(PanelGlowny));
+                SharedData.id = Pesel.Text;
+                App.MainFrame.Navigate(typeof(PeselChoice));
 
             }
-            else if (stan == 2) {
+            else if (stan == 2)
+            {
                 ErrorPESEL.Visibility = Visibility.Collapsed;
                 ErrorPassword.Visibility = Visibility.Visible;
                 ErrorDatabase.Visibility = Visibility.Collapsed;
@@ -65,14 +64,14 @@ namespace AplikacjaMedyczna
             }
 
         }
+
         private void Input_KeyDown(object sender, KeyRoutedEventArgs e)
-        {       
+        {
             if (e.Key == VirtualKey.Enter)
             {
                 LoginButton_Click(sender, e);
             }
         }
-
         private void Pesel_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -95,11 +94,6 @@ namespace AplikacjaMedyczna
         }
         int logowanie(string pesel, string haslo)
         {
-            if (pesel.Length != 11)
-            {
-                // Invalid PESEL length
-                return 0;
-            }
 
             decimal peselNumeric;
 
@@ -110,30 +104,26 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-
-            var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                        "username=postgres;" +
-                        "Password=adminadmin;" +
-                        "Database=medical_database";
+            var cs = "host=localhost;username=pacjent;Password=haslo;Database=BazaMedyczna";
 
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
 
                 // Correct SQL query without array comparison
-                string sql = "SELECT pesel, haslo FROM public.\"Pacjenci\" WHERE pesel = @pesel";
+                string sql = "SELECT id, haslo FROM public.\"PersonelMedyczny\" WHERE id = @pesel";
+
 
                 using (var cmd = new NpgsqlCommand(sql, con))
                 {
                     // Ensure the parameter is a single value, not an array
                     cmd.Parameters.AddWithValue("@pesel", peselNumeric);
-                    
+
                     using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                     {
                         if (rdr.Read())
                         {
                             string hasloBaza = rdr.GetString(1);  // Retrieve password
-                            ResultTextBlock.Text = hasloBaza;
                             if (peselNumeric == rdr.GetDecimal(0))
                             {
                                 if (haslo == hasloBaza)
@@ -157,4 +147,4 @@ namespace AplikacjaMedyczna
             }
         }
     }
- }
+}
