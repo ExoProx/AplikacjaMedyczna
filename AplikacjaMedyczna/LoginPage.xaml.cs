@@ -110,7 +110,11 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-            var cs = "host=localhost;username=pacjent;Password=haslo;Database=BazaMedyczna";
+
+            var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                        "username=postgres;" +
+                        "Password=adminadmin;" +
+                        "Database=medical_database";
 
             using (var con = new NpgsqlConnection(cs))
             {

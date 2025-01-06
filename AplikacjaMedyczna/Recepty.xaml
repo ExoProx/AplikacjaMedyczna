@@ -34,7 +34,52 @@
                     <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100"/>
                 </Grid>
             </SplitView.Pane>
+            <ListView
+    x:Name="FilteredListView"
+    ItemsSource="{Binding ReceptyCollection}"
+    SelectionMode="Single"
+    Height="400"
+    Width="400"
+    BorderThickness="1"
+    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                
+    IsItemClickEnabled="True" 
+    ItemClick="FilteredListView_ItemClick">
+
+                <!-- Define the ItemTemplate -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Padding="10">
+
+                            <TextBlock Text="Recepta wystawiona: " FontSize="14" />
+                            <TextBlock Text="{Binding dataWystawieniaRecepty}" FontSize="14" />
+                            <TextBlock Text="{Binding danePersonelu}" FontSize="14" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </SplitView>
+        <ContentDialog
+    x:Name="ReceptaDetailDialog"
+    Title="Informacje o recepcie"
+    CloseButtonText="Close">
+            <StackPanel>
+                <TextBlock Text="Przepisane leki:" FontWeight="Bold" />
+                <TextBlock Text="{Binding leki}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Data wystawienia recepty:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataWystawieniaRecepty}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Data waznosci recepty:" FontWeight="Bold" />
+                <TextBlock Text="{Binding dataWaznosciRecepty}" Margin="0,0,0,10" />
+
+                <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
+                <TextBlock Text="{Binding peselPacjenta}" Margin="0,0,0,10" />
+
+                <TextBlock Text="Dane personelu:" FontWeight="Bold" />
+                <TextBlock Text="{Binding danePersonelu}" />
+            </StackPanel>
+        </ContentDialog>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
             <ToggleButton x:Name="NavbarToggleButton"
           Width="40" Height="40"
