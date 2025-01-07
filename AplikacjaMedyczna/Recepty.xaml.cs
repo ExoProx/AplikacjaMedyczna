@@ -1,3 +1,4 @@
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -13,6 +14,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -29,26 +31,36 @@ namespace AplikacjaMedyczna
         public Recepta SelectedRecepta { get; set; } // For binding to ContentDialog
         public ObservableCollection<Recepta> ReceptyCollection { get; set; }
         public Recepty()
-         {
-             this.InitializeComponent();
-             NavigationHelper.SplitViewInstance = splitView;
-             splitView.IsPaneOpen = true;
-             CheckUserId();
-         }
-         private void CheckUserId()
-         {
-             if (!string.IsNullOrEmpty(SharedData.id))
-             {
-                 PatientChoiceButton.Visibility = Visibility.Visible;
-                 PatientChoiceButton.IsEnabled = true;
-                 AddRecipeButton.Visibility = Visibility.Visible;
-                 AddRecipeButton.IsEnabled = true;
-             }
-         }
-         private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
-         {
-             App.MainFrame.Navigate(typeof(Insert_Recipe_Form));
-         }
+        {
+            this.InitializeComponent();
+            NavigationHelper.SplitViewInstance = splitView;
+            splitView.IsPaneOpen = true;
+            LoadRecepty();
+            this.DataContext = this; // Set the DataContext for the page.
+            CheckUserId();
+        }
+        private void CheckUserId()
+        {
+            if (!string.IsNullOrEmpty(SharedData.id))
+            {
+                PatientChoiceButton.Visibility = Visibility.Visible;
+                PatientChoiceButton.IsEnabled = true;
+                AddRecipeButton.Visibility = Visibility.Visible;
+                AddRecipeButton.IsEnabled = true;
+
+                ReceptaDetailDialog.PrimaryButtonText = "Edytuj";
+                ReceptaDetailDialog.IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                ReceptaDetailDialog.PrimaryButtonText = "";
+                ReceptaDetailDialog.IsPrimaryButtonEnabled = false;
+            }
+        }
+        private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(typeof(Insert_Recipe_Form));
+        }
 
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
@@ -74,15 +86,15 @@ namespace AplikacjaMedyczna
         }
         private async void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Cast the clicked item to a Wpis object
+            // Cast the clicked item to a Recepta object
             var clickedRecepta = e.ClickedItem as Recepta;
 
             if (clickedRecepta != null)
             {
-                // Update SelectedWpis
+                // Update SelectedRecepta
                 SelectedRecepta = clickedRecepta;
 
-                // Bind the SelectedWpis to the ContentDialog DataContext
+                // Bind the SelectedRecepta to the ContentDialog DataContext
                 ReceptaDetailDialog.DataContext = SelectedRecepta;
 
                 // Show the ContentDialog
@@ -92,7 +104,7 @@ namespace AplikacjaMedyczna
         public static ObservableCollection<Recepta> GetRecepty()
         {
             var recepty = new ObservableCollection<Recepta>();
-            var cs =    "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+            var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                         "username=postgres;" +
                         "Password=adminadmin;" +
                         "Database=medical_database";
@@ -109,19 +121,19 @@ namespace AplikacjaMedyczna
             {
                 connection.Open();
                 string query = @"
-                   SELECT 
-                    Recepty.""id"" AS Recepty_id, 
-                    Recepty.""dataWystawienia"" as Recepty_dataWystawienia, 
-					Recepty.""dataWaznosci"" as Recepty_dataWaznosci, 
-                    Recepty.""przypisaneLeki"",
-                    personel.""imie"" AS personel_imie, 
-                    personel.""nazwisko"" AS personel_nazwisko
-                FROM 
-                    ""Recepty"" as Recepty
-                JOIN 
-                    ""PersonelMedyczny"" as personel
-                ON 
-                    Recepty.""idPersonelu"" = personel.""id"" WHERE Recepty.""peselPacjenta"" = @pesel ORDER BY Recepty_dataWystawienia DESC;";
+           SELECT 
+            Recepty.""id"" AS Recepty_id, 
+            Recepty.""dataWystawienia"" as Recepty_dataWystawienia, 
+            Recepty.""dataWaznosci"" as Recepty_dataWaznosci, 
+            Recepty.""przypisaneLeki"",
+            personel.""imie"" AS personel_imie, 
+            personel.""nazwisko"" AS personel_nazwisko
+        FROM 
+            ""Recepty"" as Recepty
+        JOIN 
+            ""PersonelMedyczny"" as personel
+        ON 
+            Recepty.""idPersonelu"" = personel.""id"" WHERE Recepty.""peselPacjenta"" = @pesel ORDER BY Recepty_dataWystawienia DESC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -136,11 +148,11 @@ namespace AplikacjaMedyczna
                             recepty.Add(new Recepta
                             {
                                 Id = reader.GetInt32(0),
-                                dataWystawieniaRecepty = reader.GetDateTime(1),
-                                peselPacjenta = peselNumeric,
-                                dataWaznosciRecepty = reader.GetDateTime(2),
-                                danePersonelu = String.Concat(imie, " ", nazwisko),
-                                leki = reader.GetString(3)
+                                DataWystawieniaRecepty = reader.GetDateTime(1),
+                                PeselPacjenta = peselNumeric,
+                                DataWaznosciRecepty = reader.GetDateTime(2),
+                                DanePersonelu = String.Concat(imie, " ", nazwisko),
+                                Leki = reader.GetString(3)
                             });
                         }
                     }
@@ -149,12 +161,11 @@ namespace AplikacjaMedyczna
 
             return recepty;
         }
-
         private void LoadRecepty()
         {
             ReceptyCollection = GetRecepty(); // Load the data into the ObservableCollection.
         }
-        private async void WpisDetailDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        private async void ReceptaDetailDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
             // Check if the dialog should close, or cancel the close if needed
             if (SomeConditionToPreventClose())
@@ -184,5 +195,127 @@ namespace AplikacjaMedyczna
             return false; // In this case, always allow closing
         }
 
+        private async void EditButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            await EditButton_ClickAsync(sender, args);
+        }
+
+        private async Task EditButton_ClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var selectedRecepta = ReceptaDetailDialog.DataContext as Recepta;
+
+            if (selectedRecepta != null)
+            {
+                ReceptaDetailDialog.Hide();
+
+                var editDialog = new ContentDialog
+                {
+                    Title = "Edytuj Receptê",
+                    PrimaryButtonText = "Zapisz",
+                    CloseButtonText = "Anuluj",
+                    XamlRoot = this.XamlRoot
+                };
+
+                var stackPanel = new StackPanel();
+                var lekiTextBox = new TextBox { Text = selectedRecepta.Leki, Margin = new Thickness(0, 0, 0, 10) };
+
+                stackPanel.Children.Add(new TextBlock { Text = "Leki:", FontWeight = FontWeights.Bold });
+                stackPanel.Children.Add(lekiTextBox);
+                stackPanel.Children.Add(new TextBlock { Text = "Data Wystawienia:", FontWeight = FontWeights.Bold });
+                stackPanel.Children.Add(new TextBlock { Text = selectedRecepta.DataWystawieniaRecepty.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+                stackPanel.Children.Add(new TextBlock { Text = "Data Wa¿noœci:", FontWeight = FontWeights.Bold });
+                stackPanel.Children.Add(new TextBlock { Text = selectedRecepta.DataWaznosciRecepty.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+                stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
+                stackPanel.Children.Add(new TextBlock { Text = selectedRecepta.PeselPacjenta.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+                stackPanel.Children.Add(new TextBlock { Text = "Dane personelu:", FontWeight = FontWeights.Bold });
+                stackPanel.Children.Add(new TextBlock { Text = selectedRecepta.DanePersonelu });
+
+                editDialog.Content = stackPanel;
+
+                var result = await editDialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    if (string.IsNullOrWhiteSpace(lekiTextBox.Text))
+                    {
+                        await ShowMessageDialog("B³¹d", "Pole 'Leki' nie mo¿e byæ puste.");
+                        await EditButton_ClickAsync(sender, args);
+                        return;
+                    }
+
+                    selectedRecepta.Leki = lekiTextBox.Text;
+
+                    var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                                "username=postgres;" +
+                                "Password=adminadmin;" +
+                                "Database=medical_database";
+                    using (var connection = new NpgsqlConnection(cs))
+                    {
+                        connection.Open();
+                        string query = @"
+                UPDATE ""Recepty""
+                SET ""przypisaneLeki"" = @leki
+                WHERE ""id"" = @id";
+
+                        using (var command = new NpgsqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@leki", selectedRecepta.Leki);
+                            command.Parameters.AddWithValue("@id", selectedRecepta.Id);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    var receptaToUpdate = ReceptyCollection.FirstOrDefault(r => r.Id == selectedRecepta.Id);
+                    if (receptaToUpdate != null)
+                    {
+                        receptaToUpdate.Leki = selectedRecepta.Leki;
+                    }
+
+                    await ShowMessageDialog("Sukces", "Recepta zosta³a pomyœlnie zaktualizowana.");
+                }
+                else
+                {
+                    await ShowMessageDialog("Anulowano", "Edycja recepty zosta³a anulowana.");
+                }
+
+                await ShowReceptaDetailDialog(selectedRecepta);
+            }
+        }
+
+        private async Task ShowReceptaDetailDialog(Recepta recepta)
+        {
+            ReceptaDetailDialog.DataContext = recepta;
+
+            var stackPanel = new StackPanel();
+            stackPanel.Children.Add(new TextBlock { Text = "Leki:", FontWeight = FontWeights.Bold });
+            stackPanel.Children.Add(new TextBlock { Text = recepta.Leki, Margin = new Thickness(0, 0, 0, 10) });
+            stackPanel.Children.Add(new TextBlock { Text = "Data Wystawienia:", FontWeight = FontWeights.Bold });
+            stackPanel.Children.Add(new TextBlock { Text = recepta.DataWystawieniaRecepty.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+            stackPanel.Children.Add(new TextBlock { Text = "Data Wa¿noœci:", FontWeight = FontWeights.Bold });
+            stackPanel.Children.Add(new TextBlock { Text = recepta.DataWaznosciRecepty.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+            stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
+            stackPanel.Children.Add(new TextBlock { Text = recepta.PeselPacjenta.ToString(), Margin = new Thickness(0, 0, 0, 10) });
+            stackPanel.Children.Add(new TextBlock { Text = "Dane personelu:", FontWeight = FontWeights.Bold });
+            stackPanel.Children.Add(new TextBlock { Text = recepta.DanePersonelu });
+
+            ReceptaDetailDialog.Content = stackPanel;
+            ReceptaDetailDialog.PrimaryButtonText = "Edytuj";
+            ReceptaDetailDialog.CloseButtonText = "Close";
+
+            await ReceptaDetailDialog.ShowAsync();
+        }
+
+        private async Task ShowMessageDialog(string title, string content)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = title,
+                Content = content,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+
+            await dialog.ShowAsync();
+        }
     }
 }

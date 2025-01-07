@@ -1,24 +1,128 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AplikacjaMedyczna
 {
-    public class Recepta
+    public class Recepta : INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string leki { get; set; }
-        public decimal peselPacjenta { get; set; }
-        public int idPersonelu { get; set; }
-        public DateTime dataWystawieniaRecepty { get; set; }
+        private int id;
+        private string leki;
+        private decimal peselPacjenta;
+        private int idPersonelu;
+        private DateTime dataWystawieniaRecepty;
+        private DateTime dataWaznosciRecepty;
+        private string danePersonelu;
+        private bool czyOdebrana;
 
-        public DateTime dataWaznosciRecepty { get; set; }
-        public string danePersonelu { get; set; }
+        public int Id
+        {
+            get => id;
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
 
-        public bool czyOdebrana {  get; set; }
+        public string Leki
+        {
+            get => leki;
+            set
+            {
+                if (leki != value)
+                {
+                    leki = value;
+                    OnPropertyChanged(nameof(Leki));
+                }
+            }
+        }
 
+        public decimal PeselPacjenta
+        {
+            get => peselPacjenta;
+            set
+            {
+                if (peselPacjenta != value)
+                {
+                    peselPacjenta = value;
+                    OnPropertyChanged(nameof(PeselPacjenta));
+                }
+            }
+        }
 
+        public int IdPersonelu
+        {
+            get => idPersonelu;
+            set
+            {
+                if (idPersonelu != value)
+                {
+                    idPersonelu = value;
+                    OnPropertyChanged(nameof(IdPersonelu));
+                }
+            }
+        }
+
+        public DateTime DataWystawieniaRecepty
+        {
+            get => dataWystawieniaRecepty;
+            set
+            {
+                if (dataWystawieniaRecepty != value)
+                {
+                    dataWystawieniaRecepty = value;
+                    OnPropertyChanged(nameof(DataWystawieniaRecepty));
+                }
+            }
+        }
+
+        public DateTime DataWaznosciRecepty
+        {
+            get => dataWaznosciRecepty;
+            set
+            {
+                if (dataWaznosciRecepty != value)
+                {
+                    dataWaznosciRecepty = value;
+                    OnPropertyChanged(nameof(DataWaznosciRecepty));
+                }
+            }
+        }
+
+        public string DanePersonelu
+        {
+            get => danePersonelu;
+            set
+            {
+                if (danePersonelu != value)
+                {
+                    danePersonelu = value;
+                    OnPropertyChanged(nameof(DanePersonelu));
+                }
+            }
+        }
+
+        public bool CzyOdebrana
+        {
+            get => czyOdebrana;
+            set
+            {
+                if (czyOdebrana != value)
+                {
+                    czyOdebrana = value;
+                    OnPropertyChanged(nameof(CzyOdebrana));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -1,20 +1,101 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AplikacjaMedyczna
 {
-    public class Skierowanie
+    public class Skierowanie : INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string skierowanie { get; set; }
-        public decimal peselPacjenta { get; set; }
-        public int idPersonelu { get; set; }
-        public DateTime dataSkierowania { get; set; }
+        private int id;
+        private string skierowanieText;
+        private decimal peselPacjenta;
+        private int idPersonelu;
+        private DateTime dataSkierowania;
+        private string danePersonelu;
 
-        public string danePersonelu { get; set; }
-        
+        public int Id
+        {
+            get => id;
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+
+        public string SkierowanieText
+        {
+            get => skierowanieText;
+            set
+            {
+                if (skierowanieText != value)
+                {
+                    skierowanieText = value;
+                    OnPropertyChanged(nameof(SkierowanieText));
+                }
+            }
+        }
+
+        public decimal PeselPacjenta
+        {
+            get => peselPacjenta;
+            set
+            {
+                if (peselPacjenta != value)
+                {
+                    peselPacjenta = value;
+                    OnPropertyChanged(nameof(PeselPacjenta));
+                }
+            }
+        }
+
+        public int IdPersonelu
+        {
+            get => idPersonelu;
+            set
+            {
+                if (idPersonelu != value)
+                {
+                    idPersonelu = value;
+                    OnPropertyChanged(nameof(IdPersonelu));
+                }
+            }
+        }
+
+        public DateTime DataSkierowania
+        {
+            get => dataSkierowania;
+            set
+            {
+                if (dataSkierowania != value)
+                {
+                    dataSkierowania = value;
+                    OnPropertyChanged(nameof(DataSkierowania));
+                }
+            }
+        }
+
+        public string DanePersonelu
+        {
+            get => danePersonelu;
+            set
+            {
+                if (danePersonelu != value)
+                {
+                    danePersonelu = value;
+                    OnPropertyChanged(nameof(DanePersonelu));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
+
