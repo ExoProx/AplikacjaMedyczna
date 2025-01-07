@@ -206,10 +206,22 @@ namespace AplikacjaMedyczna
                 };
 
                 var stackPanel = new StackPanel();
-                var skierowanieTextBox = new TextBox { Text = selectedSkierowanie.SkierowanieText, Margin = new Thickness(0, 0, 0, 10) };
+                var skierowanieTextBox = new TextBox
+                {
+                    Text = selectedSkierowanie.SkierowanieText,
+                    Margin = new Thickness(0, 0, 0, 10),
+                    TextWrapping = TextWrapping.Wrap,
+                    AcceptsReturn = true
+                };
+                ScrollViewer.SetVerticalScrollBarVisibility(skierowanieTextBox, ScrollBarVisibility.Auto);
 
                 stackPanel.Children.Add(new TextBlock { Text = "Skierowanie:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(skierowanieTextBox);
+                stackPanel.Children.Add(new ScrollViewer
+                {
+                    Content = skierowanieTextBox,
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                    Height = 200
+                });
                 stackPanel.Children.Add(new TextBlock { Text = "Data Skierowania:", FontWeight = FontWeights.Bold });
                 stackPanel.Children.Add(new TextBlock { Text = selectedSkierowanie.DataSkierowania.ToString(), Margin = new Thickness(0, 0, 0, 10) });
                 stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
@@ -240,9 +252,9 @@ namespace AplikacjaMedyczna
                     {
                         connection.Open();
                         string query = @"
-                UPDATE ""Skierowania""
-                SET ""skierowanie"" = @skierowanie
-                WHERE ""id"" = @id";
+            UPDATE ""Skierowania""
+            SET ""skierowanie"" = @skierowanie
+            WHERE ""id"" = @id";
 
                         using (var command = new NpgsqlCommand(query, connection))
                         {

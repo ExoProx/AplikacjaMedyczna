@@ -220,10 +220,22 @@ namespace AplikacjaMedyczna
                 };
 
                 var stackPanel = new StackPanel();
-                var wpisTextBox = new TextBox { Text = selectedWpis.WpisText, Margin = new Thickness(0, 0, 0, 10) };
+                var wpisTextBox = new TextBox
+                {
+                    Text = selectedWpis.WpisText,
+                    Margin = new Thickness(0, 0, 0, 10),
+                    TextWrapping = TextWrapping.Wrap,
+                    AcceptsReturn = true
+                };
+                ScrollViewer.SetVerticalScrollBarVisibility(wpisTextBox, ScrollBarVisibility.Auto);
 
                 stackPanel.Children.Add(new TextBlock { Text = "Wpis:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(wpisTextBox);
+                stackPanel.Children.Add(new ScrollViewer
+                {
+                    Content = wpisTextBox,
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                    Height = 200
+                });
                 stackPanel.Children.Add(new TextBlock { Text = "Data Wpisu:", FontWeight = FontWeights.Bold });
                 stackPanel.Children.Add(new TextBlock { Text = selectedWpis.DataWpisu.ToString(), Margin = new Thickness(0, 0, 0, 10) });
                 stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
@@ -240,7 +252,7 @@ namespace AplikacjaMedyczna
                     if (string.IsNullOrWhiteSpace(wpisTextBox.Text))
                     {
                         await ShowMessageDialog("B³¹d", "Pole 'Wpis' nie mo¿e byæ puste.");
-                        await EditButton_ClickAsync(sender, args); // Ponownie uruchom dialog edycji
+                        await EditButton_ClickAsync(sender, args);
                         return;
                     }
 
@@ -254,9 +266,9 @@ namespace AplikacjaMedyczna
                     {
                         connection.Open();
                         string query = @"
-                UPDATE ""WpisyMedyczne""
-                SET ""wpis"" = @wpis
-                WHERE ""id"" = @id";
+            UPDATE ""WpisyMedyczne""
+            SET ""wpis"" = @wpis
+            WHERE ""id"" = @id";
 
                         using (var command = new NpgsqlCommand(query, connection))
                         {

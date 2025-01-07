@@ -217,10 +217,22 @@ namespace AplikacjaMedyczna
                 };
 
                 var stackPanel = new StackPanel();
-                var lekiTextBox = new TextBox { Text = selectedRecepta.Leki, Margin = new Thickness(0, 0, 0, 10) };
+                var lekiTextBox = new TextBox
+                {
+                    Text = selectedRecepta.Leki,
+                    Margin = new Thickness(0, 0, 0, 10),
+                    TextWrapping = TextWrapping.Wrap,
+                    AcceptsReturn = true
+                };
+                ScrollViewer.SetVerticalScrollBarVisibility(lekiTextBox, ScrollBarVisibility.Auto);
 
                 stackPanel.Children.Add(new TextBlock { Text = "Leki:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(lekiTextBox);
+                stackPanel.Children.Add(new ScrollViewer
+                {
+                    Content = lekiTextBox,
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                    Height = 200
+                });
                 stackPanel.Children.Add(new TextBlock { Text = "Data Wystawienia:", FontWeight = FontWeights.Bold });
                 stackPanel.Children.Add(new TextBlock { Text = selectedRecepta.DataWystawieniaRecepty.ToString(), Margin = new Thickness(0, 0, 0, 10) });
                 stackPanel.Children.Add(new TextBlock { Text = "Data Wa¿noœci:", FontWeight = FontWeights.Bold });
@@ -253,9 +265,9 @@ namespace AplikacjaMedyczna
                     {
                         connection.Open();
                         string query = @"
-                UPDATE ""Recepty""
-                SET ""przypisaneLeki"" = @leki
-                WHERE ""id"" = @id";
+            UPDATE ""Recepty""
+            SET ""przypisaneLeki"" = @leki
+            WHERE ""id"" = @id";
 
                         using (var command = new NpgsqlCommand(query, connection))
                         {
