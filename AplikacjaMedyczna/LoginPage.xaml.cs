@@ -133,7 +133,6 @@ namespace AplikacjaMedyczna
                         if (rdr.Read())
                         {
                             string hasloBaza = rdr.GetString(1);  // Retrieve password
-                            ResultTextBlock.Text = hasloBaza;
                             if (peselNumeric == rdr.GetDecimal(0))
                             {
                                 if (haslo == hasloBaza)
