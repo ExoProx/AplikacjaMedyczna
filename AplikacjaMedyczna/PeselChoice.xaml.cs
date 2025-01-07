@@ -35,7 +35,10 @@ namespace AplikacjaMedyczna
         }
         private void OnSearchButtonClicked(object sender, RoutedEventArgs e)
         {
-            var connectionString = "Host=localhost;Username=pacjent;Password=haslo;Database=BazaMedyczna";
+            var connectionString = "host = bazamedyczna.cziamyieoagt.eu - north - 1.rds.amazonaws.com; " +
+                        "username=postgres;" +
+                        "Password=adminadmin;" +
+                        "Database=medical_database";
             var patients = GetPatientsFromDatabase(connectionString, NameTextBox.Text, SurnameTextBox.Text, AddressTextBox.Text, TelephoneTextBox.Text, PeselTextBox.Text);
             PatientsListBox.ItemsSource = patients;
         }
