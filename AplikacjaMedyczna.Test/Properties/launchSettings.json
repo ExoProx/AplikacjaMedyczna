@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AplikacjaMedyczna.Test (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AplikacjaMedyczna.Test (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
