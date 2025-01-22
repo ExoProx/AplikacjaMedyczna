@@ -1,19 +1,100 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AplikacjaMedyczna
 {
-    public class Wpis
+    public class Wpis : INotifyPropertyChanged
     {
-       
-            public int Id { get; set; }
-            public string wpis { get; set; }
-            public decimal peselPacjenta { get; set; }
-            public int idPersonelu { get; set; }
-            public DateTime dataWpisu { get; set; }
-            public string danePersonelu { get; set; }
+        private int id;
+        private string wpisText;
+        private decimal peselPacjenta;
+        private int idPersonelu;
+        private DateTime dataWpisu;
+        private string danePersonelu;
+
+        public int Id
+        {
+            get => id;
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+
+        public string WpisText
+        {
+            get => wpisText;
+            set
+            {
+                if (wpisText != value)
+                {
+                    wpisText = value;
+                    OnPropertyChanged(nameof(WpisText));
+                }
+            }
+        }
+
+        public decimal PeselPacjenta
+        {
+            get => peselPacjenta;
+            set
+            {
+                if (peselPacjenta != value)
+                {
+                    peselPacjenta = value;
+                    OnPropertyChanged(nameof(PeselPacjenta));
+                }
+            }
+        }
+
+        public int IdPersonelu
+        {
+            get => idPersonelu;
+            set
+            {
+                if (idPersonelu != value)
+                {
+                    idPersonelu = value;
+                    OnPropertyChanged(nameof(IdPersonelu));
+                }
+            }
+        }
+
+        public DateTime DataWpisu
+        {
+            get => dataWpisu;
+            set
+            {
+                if (dataWpisu != value)
+                {
+                    dataWpisu = value;
+                    OnPropertyChanged(nameof(DataWpisu));
+                }
+            }
+        }
+
+        public string DanePersonelu
+        {
+            get => danePersonelu;
+            set
+            {
+                if (danePersonelu != value)
+                {
+                    danePersonelu = value;
+                    OnPropertyChanged(nameof(DanePersonelu));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
