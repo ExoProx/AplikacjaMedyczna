@@ -42,7 +42,12 @@ public static class NavigationHelper
             case "WynikiButton":
                 NavigateToWyniki();
                 break;
-
+            case "ManageWorkersButton":
+                NavigateToManageWorkers();
+                break;
+            case "InsertPatientButton":
+                NavigateToManagePatients();
+                break;
             case "BackButton":
                 GoBack();
                 break;
@@ -52,6 +57,18 @@ public static class NavigationHelper
         }
     }
 
+    private static void NavigateToManageWorkers()
+    {
+        // Add navigation logic for ManageWorkers
+        System.Diagnostics.Debug.WriteLine("Navigating to ManageWorkers...");
+        App.MainFrame.Navigate(typeof(Admin_Panel), null, new DrillInNavigationTransitionInfo());
+    }
+    private static void NavigateToManagePatients()
+    {
+        // Add navigation logic for ManagePatients
+        System.Diagnostics.Debug.WriteLine("Navigating to ManagePatients...");
+        App.MainFrame.Navigate(typeof(InsertPatient), null, new DrillInNavigationTransitionInfo());
+    }
     private static void NavigateToWpisy()
     {
         // Add navigation logic for Wpisy

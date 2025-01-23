@@ -13,9 +13,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Admin_Panel.xaml" />
+    <None Remove="InsertPatient.xaml" />
     <None Remove="Insert_Recipe_Form.xaml" />
     <None Remove="Insert_referral_Form.xaml" />
     <None Remove="Insert_result_form.xaml" />
+    <None Remove="ManageWorkers.xaml" />
     <None Remove="PeselChoice.xaml" />
   </ItemGroup>
 
@@ -46,6 +49,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="apkaStart.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="InsertPatient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ManageWorkers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Admin_Panel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Insert_result_form.xaml">

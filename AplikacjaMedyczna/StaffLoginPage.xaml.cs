@@ -41,7 +41,14 @@ namespace AplikacjaMedyczna
             if (stan == 1)
             {
                 SharedData.id = Pesel.Text;
-                App.MainFrame.Navigate(typeof(PeselChoice));
+                if(SharedData.rola == "Administrator")
+                {
+                    App.MainFrame.Navigate(typeof(Admin_Panel));
+                }
+                else
+                {
+                    App.MainFrame.Navigate(typeof(PanelGlowny));
+                }
 
             }
             else if (stan == 2)
@@ -94,7 +101,6 @@ namespace AplikacjaMedyczna
         }
         int logowanie(string pesel, string haslo)
         {
-
             decimal peselNumeric;
 
             // Convert PESEL to numeric (decimal)
@@ -104,35 +110,45 @@ namespace AplikacjaMedyczna
                 return 0;
             }
 
-            var cs = "host = bazamedyczna.cziamyieoagt.eu - north - 1.rds.amazonaws.com; " +
-                        "username=postgres;" +
-                        "Password=adminadmin;" +
-                        "Database=medical_database";
+            var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                     "username=postgres;" +
+                     "Password=adminadmin;" +
+                     "Database=medical_database";
 
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
 
-                // Correct SQL query without array comparison
-                string sql = "SELECT id, haslo FROM public.\"PersonelMedyczny\" WHERE id = @pesel";
-
+                // SQL query with JOIN
+                string sql = @"
+            SELECT 
+                pm.*, rp.nazwa AS rola
+            FROM 
+                public.""PersonelMedyczny"" AS pm
+            JOIN 
+                public.""RolePersonelu"" AS rp 
+            ON 
+                pm.""idRoli"" = rp.id
+            WHERE 
+                pm.""id"" = @pesel AND pm.""haslo"" = @haslo";
 
                 using (var cmd = new NpgsqlCommand(sql, con))
                 {
-                    // Ensure the parameter is a single value, not an array
                     cmd.Parameters.AddWithValue("@pesel", peselNumeric);
+                    cmd.Parameters.AddWithValue("@haslo", haslo);
 
                     using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                     {
                         if (rdr.Read())
                         {
-                            string hasloBaza = rdr.GetString(1);  // Retrieve password
-                            if (peselNumeric == rdr.GetDecimal(0))
+                            string hasloBaza = rdr.GetString(rdr.GetOrdinal("haslo"));
+                            if (peselNumeric == rdr.GetDecimal(rdr.GetOrdinal("id")))
                             {
                                 if (haslo == hasloBaza)
                                 {
+                                    // Save the value of "rola" column in SharedData.rola
+                                    SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
                                     return 1;
-
                                 }
                                 else return 2;
                             }
@@ -143,7 +159,7 @@ namespace AplikacjaMedyczna
                         }
                         else
                         {
-                            return 3;// Invalid PESEL
+                            return 3; // Invalid PESEL
                         }
                     }
                 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="AplikacjaMedyczna.Admin_Panel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AplikacjaMedyczna"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <SplitView x:Name="splitView" PaneBackground="#004AAD"
+                   IsPaneOpen="False" OpenPaneLength="180" CompactPaneLength="48" DisplayMode="Inline">
+            <SplitView.Pane>
+                <Grid Margin="10,60,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="ManageWorkersButton" Content="Zarządaj Lekarzami" Click="NavButton_Click" Grid.Row="0" Width="150" Height="50"/>
+                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="5" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="150" Height="50"/>
+                </Grid>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame x:Name="ContentFrame"/>
+            </SplitView.Content>
+        </SplitView>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
+            <ToggleButton x:Name="NavbarToggleButton"
+                          Width="40" Height="40"
+                          Checked="NavbarToggleButton_Checked"
+                          Unchecked="NavbarToggleButton_Unchecked"
+                          Background="Transparent">
+                <FontIcon Glyph="&#xE700;" />
+            </ToggleButton>
+        </Grid>
+    </Grid>
+</Page>

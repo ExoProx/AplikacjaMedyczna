@@ -35,7 +35,7 @@ namespace AplikacjaMedyczna
         }
         private void OnSearchButtonClicked(object sender, RoutedEventArgs e)
         {
-            var connectionString = "host = bazamedyczna.cziamyieoagt.eu - north - 1.rds.amazonaws.com; " +
+            var connectionString = "host = bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com; " +
                         "username=postgres;" +
                         "Password=adminadmin;" +
                         "Database=medical_database";
