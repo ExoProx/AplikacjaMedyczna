@@ -11,9 +11,6 @@
     <Page Update="InsertPatient.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ManageWorkers.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Insert_result_form.xaml">
       <SubType>Designer</SubType>
     </Page>
