@@ -71,6 +71,7 @@ public static class NavigationHelper
     private static void Logout()
     {
         ClearUserData();
+        ClearNavigationStack();
         App.MainFrame.Navigate(typeof(LoginPage));
     }
 
@@ -78,8 +79,13 @@ public static class NavigationHelper
     {
         SharedData.pesel = null;
         SharedData.id = null;
+        SharedData.rola = null;
+        SharedData.PrimaryPesel = null;
     }
-
+    private static void ClearNavigationStack()
+    {
+        App.MainFrame.BackStack.Clear();
+    }
     private static void NavigateToRecepty()
     {
         App.MainFrame.Navigate(typeof(Recepty));

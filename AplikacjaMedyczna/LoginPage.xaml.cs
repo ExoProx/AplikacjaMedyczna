@@ -26,6 +26,7 @@ namespace AplikacjaMedyczna
             if (stan == 1)
             {
                 SharedData.pesel = Pesel.Text;
+                SharedData.PrimaryPesel = Pesel.Text;
                 App.MainFrame.Navigate(typeof(PanelGlowny));
             }
             else if (stan == 2 || stan == 0)
