@@ -7,18 +7,19 @@ using Windows.System;
 
 namespace AplikacjaMedyczna
 {
+    /// <summary>
+    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// </summary>
     public sealed partial class StaffLoginPage : Page
     {
         public StaffLoginPage()
         {
             this.InitializeComponent();
         }
-
         private void MoveToLogin(object sender, RoutedEventArgs e)
         {
             App.MainFrame.Navigate(typeof(LoginPage));
         }
-
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             int stan = logowanie(Pesel.Text, Password.Password);
@@ -26,18 +27,35 @@ namespace AplikacjaMedyczna
             if (stan == 1)
             {
                 SharedData.id = Pesel.Text;
-                App.MainFrame.Navigate(typeof(PeselChoice));
+                if(SharedData.rola == "Administrator")
+                {
+                    App.MainFrame.Navigate(typeof(Admin_Panel));
+                }
+                else
+                {
+                    App.MainFrame.Navigate(typeof(PanelGlowny));
+                }
+
             }
-            else if (stan == 2 || stan == 0)
+            else if (stan == 2)
             {
-                ErrorMessage.Text = "Nieprawid³owy ID Pracownika lub has³o";
-                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorPESEL.Visibility = Visibility.Collapsed;
+                ErrorPassword.Visibility = Visibility.Visible;
+                ErrorDatabase.Visibility = Visibility.Collapsed;
+            }
+            else if (stan == 0)
+            {
+                ErrorPESEL.Visibility = Visibility.Visible;
+                ErrorPassword.Visibility = Visibility.Collapsed;
+                ErrorDatabase.Visibility = Visibility.Collapsed;
             }
             else if (stan == 3)
             {
-                ErrorMessage.Text = "B³¹d po³¹czenia z baz¹ danych";
-                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorPESEL.Visibility = Visibility.Collapsed;
+                ErrorPassword.Visibility = Visibility.Collapsed;
+                ErrorDatabase.Visibility = Visibility.Visible;
             }
+
         }
 
         private void Input_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -47,27 +65,34 @@ namespace AplikacjaMedyczna
                 LoginButton_Click(sender, e);
             }
         }
-
         private void Pesel_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             string text = textBox.Text;
 
+            // Delates all non-numeric characters
             text = Regex.Replace(text, "[^0-9]", "");
 
+            // Limiting the length of the PESEL number to 11 characters
             if (text.Length > 11)
             {
                 text = text.Substring(0, 11);
             }
 
+            // Update the TextBox text
             textBox.Text = text;
+
+            // Set the cursor position to the end of the text
             textBox.SelectionStart = text.Length;
         }
-
         private int logowanie(string pesel, string haslo)
         {
-            if (!decimal.TryParse(pesel, out decimal peselNumeric))
+            decimal peselNumeric;
+
+            // Convert PESEL to numeric (decimal)
+            if (!decimal.TryParse(pesel, out peselNumeric))
             {
+                // Invalid PESEL format
                 return 0;
             }
 
@@ -76,46 +101,54 @@ namespace AplikacjaMedyczna
                      "Password=pacjent;" +
                      "Database=medical_database";
 
-            try
+            using (var con = new NpgsqlConnection(cs))
             {
-                using (var con = new NpgsqlConnection(cs))
+                con.Open();
+
+                // SQL query with JOIN
+                string sql = @"
+            SELECT 
+                pm.*, rp.nazwa AS rola
+            FROM 
+                public.""PersonelMedyczny"" AS pm
+            JOIN 
+                public.""RolePersonelu"" AS rp 
+            ON 
+                pm.""idRoli"" = rp.id
+            WHERE 
+                pm.""id"" = @pesel AND pm.""haslo"" = @haslo";
+
+                using (var cmd = new NpgsqlCommand(sql, con))
                 {
-                    con.Open();
-                    string sql = "SELECT id, haslo FROM public.\"PersonelMedyczny\" WHERE id = @pesel";
+                    cmd.Parameters.AddWithValue("@pesel", peselNumeric);
+                    cmd.Parameters.AddWithValue("@haslo", haslo);
 
-                    using (var cmd = new NpgsqlCommand(sql, con))
+                    using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@pesel", peselNumeric);
-
-                        using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+                        if (rdr.Read())
                         {
-                            if (rdr.Read())
+                            string hasloBaza = rdr.GetString(rdr.GetOrdinal("haslo"));
+                            if (peselNumeric == rdr.GetDecimal(rdr.GetOrdinal("id")))
                             {
-                                string hasloBaza = rdr.GetString(1);
-                                if (peselNumeric == rdr.GetDecimal(0))
+                                if (haslo == hasloBaza)
                                 {
-                                    if (haslo == hasloBaza)
-                                    {
-                                        return 1;
-                                    }
-                                    else return 2;
+                                    // Save the value of "rola" column in SharedData.rola
+                                    SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
+                                    return 1;
                                 }
-                                else
-                                {
-                                    return 0;
-                                }
+                                else return 2;
                             }
                             else
                             {
-                                return 3;
+                                return 0;
                             }
+                        }
+                        else
+                        {
+                            return 3; // Invalid PESEL
                         }
                     }
                 }
-            }
-            catch (NpgsqlException)
-            {
-                return 3; // B³¹d po³¹czenia z baz¹ danych
             }
         }
     }

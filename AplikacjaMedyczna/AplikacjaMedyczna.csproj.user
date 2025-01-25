@@ -2,9 +2,15 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Page Update="Admin_Panel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="InsertPatient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Insert_result_form.xaml">
       <SubType>Designer</SubType>
     </Page>

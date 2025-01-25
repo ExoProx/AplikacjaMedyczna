@@ -31,10 +31,12 @@ namespace AplikacjaMedyczna
 
         private void OnSearchButtonClicked(object sender, RoutedEventArgs e)
         {
-            var connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                                   "username=lekarz;" +
-                                   "Password=lekarz;" +
-                                   "Database=medical_database";
+
+            var connectionString = "host = bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com; " +
+                        "username=postgres;" +
+                        "Password=adminadmin;" +
+                        "Database=medical_database";
+
             var patients = GetPatientsFromDatabase(connectionString, NameTextBox.Text, SurnameTextBox.Text, AddressTextBox.Text, TelephoneTextBox.Text, PeselTextBox.Text);
             PatientsListBox.ItemsSource = patients;
         }
@@ -119,7 +121,7 @@ namespace AplikacjaMedyczna
                 // Zapisz PESEL w SharedData
                 SharedData.pesel = selectedPatient.Pesel;
 
-                // Przekieruj u¿ytkownika do strony PanelGlowny
+                // Przekieruj uÂ¿ytkownika do strony PanelGlowny
                 Frame.Navigate(typeof(PanelGlowny));
             }
         }
