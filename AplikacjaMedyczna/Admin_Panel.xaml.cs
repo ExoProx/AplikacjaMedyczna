@@ -251,8 +251,8 @@ namespace AplikacjaMedyczna
                 await connection.OpenAsync();
 
                 var query = @"
-                    INSERT INTO ""PersonelMedyczny"" (""imie"", ""nazwisko"", ""idRoli"", ""haslo"")
-                    VALUES (@imie, @nazwisko, @idRoli, @haslo)";
+            INSERT INTO ""PersonelMedyczny"" (""imie"", ""nazwisko"", ""idRoli"", ""haslo"")
+            VALUES (@imie, @nazwisko, @idRoli, crypt(@haslo, gen_salt('bf')))";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -265,6 +265,7 @@ namespace AplikacjaMedyczna
                 }
             }
         }
+
         private async void LoadPersonnelData()
         {
             allPersonnelList = await GetPersonnelAsync();
