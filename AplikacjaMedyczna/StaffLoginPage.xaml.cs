@@ -33,7 +33,7 @@ namespace AplikacjaMedyczna
                 }
                 else
                 {
-                    App.MainFrame.Navigate(typeof(PanelGlowny));
+                    App.MainFrame.Navigate(typeof(PeselChoice));
                 }
 
             }
