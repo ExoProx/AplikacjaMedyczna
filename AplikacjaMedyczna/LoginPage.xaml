@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="AplikacjaMedyczna.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,37 +5,54 @@
     xmlns:local="using:AplikacjaMedyczna"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
+
+    <!-- Gradientowe tło -->
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#D6EAF8" Offset="0.7" />
+            <GradientStop Color="#85C1E9" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>
 
     <Grid>
-        <TextBlock Text="Logowane jako Pacjent" Foreground ="Black"/>
-        <StackPanel Orientation ="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="Pesel" PlaceholderText="Pesel" Margin="0,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown" TextChanged="Pesel_TextChanged"/>
-            <PasswordBox x:Name="Password" PlaceholderText="Hasło" Margin="10,0,0,10" Height="40" Width="200" KeyDown="Input_KeyDown"/>
-            <Button Content="Login" Click="LoginButton_Click" Margin="50,0,0,10"/>
-            <TextBlock x:Name="ErrorPESEL"
-                   Text="Invalid PESEL "
-                   Foreground="Red"
-                   Visibility="Collapsed"
-                   VerticalAlignment="Top"
-                   Margin="20,200,20,0"/>
-            <TextBlock x:Name="ErrorPassword"
-                Text="Invalid Password"
-                Foreground="Red"
-                Visibility="Collapsed"
-                VerticalAlignment="Top"
-                Margin="20,200,20,0"/>
-            <TextBlock x:Name="ErrorDatabase"
-                Text="ERROR WITH CONNECTION"
-                Foreground="Red"
-                Visibility="Collapsed"
-                VerticalAlignment="Top"
-                 Margin="20,200,20,0"/>
-            <TextBlock x:Name="ResultTextBlock" VerticalAlignment="Top" Margin="20,300,20,0"/>
+        <!-- Nagłówek -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,20">
+            <Image Source="Assets/medical_logo.png" Width="100" Height="100" Margin="0,0,0,15"/>
+            <TextBlock Text="Logowanie Pacjenta" Foreground="#004AAD" FontSize="28" FontWeight="Bold" 
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="Dostęp do twojej bazy medycznej" Foreground="Gray" FontSize="14" 
+                       HorizontalAlignment="Center" Margin="0,10,0,20" />
         </StackPanel>
-        <Button Content="Logowanie Jako Pracownik" Click="MoveToStaffLogin" 
-                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-                Margin="10"/>
+
+        <!-- Formularz logowania -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Spacing="15">
+            <!-- PESEL -->
+            <StackPanel>
+                <TextBlock Text="PESEL" Foreground="Black" FontSize="16" FontWeight="SemiBold" />
+                <TextBox x:Name="Pesel" PlaceholderText="Wpisz PESEL" Margin="0,5,0,0" Height="40" 
+                         Width="300" KeyDown="Input_KeyDown" TextChanged="Pesel_TextChanged"
+                         Style="{StaticResource TextBoxStyle}" />
+            </StackPanel>
+
+            <!-- Hasło -->
+            <StackPanel>
+                <TextBlock Text="Hasło" Foreground="Black" FontSize="16" FontWeight="SemiBold" />
+                <PasswordBox x:Name="Password" KeyDown="Input_KeyDown" Style="{StaticResource PasswordBoxStyle}" />
+            </StackPanel>
+
+            <!-- Komunikat o błędzie -->
+            <StackPanel MinHeight="30">
+                <!-- Zarezerwuj miejsce na komunikat -->
+                <TextBlock x:Name="ErrorMessage" Text="" Foreground="Red" FontSize="16" 
+                           HorizontalAlignment="Center" Margin="0,10,0,0" Visibility="Collapsed" />
+            </StackPanel>
+
+            <!-- Przyciski -->
+            <Button Content="Zaloguj się" Click="LoginButton_Click" Style="{StaticResource LoginButtonStyle}"/>
+
+            <Button Content="Logowanie jako Pracownik" Click="MoveToStaffLogin" Style="{StaticResource StaffLoginButtonStyle}"/>
+        </StackPanel>
     </Grid>
 </Page>

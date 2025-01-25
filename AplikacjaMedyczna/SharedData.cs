@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AplikacjaMedyczna
+﻿namespace AplikacjaMedyczna
 {
     public static class SharedData
     {
-        public static string pesel { get; set; }  // Example value
-        public static string id { get; set; }  // Example value
+        public static string pesel { get; set; }
+        public static string id { get; set; }
     }
 }

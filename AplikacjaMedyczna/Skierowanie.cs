@@ -9,7 +9,7 @@ namespace AplikacjaMedyczna
         private string skierowanieText;
         private decimal peselPacjenta;
         private int idPersonelu;
-        private DateTime dataSkierowania;
+        private string dataSkierowania;
         private string danePersonelu;
 
         public int Id
@@ -64,7 +64,7 @@ namespace AplikacjaMedyczna
             }
         }
 
-        public DateTime DataSkierowania
+        public string DataSkierowania
         {
             get => dataSkierowania;
             set

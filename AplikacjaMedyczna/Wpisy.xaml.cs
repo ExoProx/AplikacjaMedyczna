@@ -1,52 +1,37 @@
-using AplikacjaMedyczna;
+using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.IO;
+using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Contacts;
 using Windows.UI;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
-
     public sealed partial class Wpisy : Page
     {
-        public Wpis SelectedWpis { get; set; } // For binding to ContentDialog
+        public Wpis SelectedWpis { get; set; }
         public ObservableCollection<Wpis> WpisyCollection { get; set; }
+        private ObservableCollection<Wpis> wpisyFiltered;
+
         public Wpisy()
         {
             this.InitializeComponent();
             NavigationHelper.SplitViewInstance = splitView;
             splitView.IsPaneOpen = true;
             LoadWpisy();
-            this.DataContext = this; // Set the DataContext for the page.
+            this.DataContext = this;
             CheckUserId();
         }
-        private void AddDescriptionButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainFrame.Navigate(typeof(dodaj_wpis));
-        }
+
         private void CheckUserId()
         {
             if (!string.IsNullOrEmpty(SharedData.id))
@@ -65,14 +50,15 @@ namespace AplikacjaMedyczna
                 WpisDetailDialog.IsPrimaryButtonEnabled = false;
             }
         }
+
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
-                // Pass the button name or content to a helper method
                 NavigationHelper.Navigate(button.Name);
             }
         }
+
         private void NavbarToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             NavigationHelper.TogglePane();
@@ -82,68 +68,71 @@ namespace AplikacjaMedyczna
         {
             NavigationHelper.TogglePane();
         }
-        private void DodajButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainFrame.Navigate(typeof(dodaj_wpis));
 
-        }
-        private async void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
+        public async void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Cast the clicked item to a Wpis object
             var clickedWpis = e.ClickedItem as Wpis;
 
             if (clickedWpis != null)
             {
-                // Update SelectedWpis
                 SelectedWpis = clickedWpis;
 
-                // Bind the SelectedWpis to the ContentDialog DataContext
+                // Resetuj ContentDialog przed pokazaniem
+                WpisDetailDialog.Content = null;
                 WpisDetailDialog.DataContext = SelectedWpis;
 
-                // Show the ContentDialog
+                // Utwórz nowy StackPanel i dodaj TextBlocki
+                var stackPanel = new StackPanel();
+                AddTextBlock(stackPanel, "Wpis:", SelectedWpis.WpisText);
+                AddTextBlock(stackPanel, "Data Wpisu:", SelectedWpis.DataWpisu);
+                AddTextBlock(stackPanel, "PESEL Pacjenta:", SelectedWpis.PeselPacjenta.ToString());
+                AddTextBlock(stackPanel, "Dane personelu:", SelectedWpis.DanePersonelu);
+
+                WpisDetailDialog.Content = stackPanel;
+
                 await WpisDetailDialog.ShowAsync();
             }
         }
         public static ObservableCollection<Wpis> GetWpisy()
         {
             var wpisy = new ObservableCollection<Wpis>();
-
             var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                        "username=postgres;" +
-                        "Password=adminadmin;" +
-                        "Database=medical_database";
+                     "username=pacjent;" +
+                     "Password=pacjent;" +
+                     "Database=medical_database";
             string pesel = SharedData.pesel;
-            decimal peselNumeric;
 
-            // Convert PESEL to numeric (decimal)
-            if (!decimal.TryParse(pesel, out peselNumeric))
+            if (!decimal.TryParse(pesel, out decimal peselNumeric))
             {
-                // Invalid PESEL format
-                return new ObservableCollection<Wpis>(); ;
+                return new ObservableCollection<Wpis>();
             }
+
             using (var connection = new NpgsqlConnection(cs))
             {
                 connection.Open();
                 string query = @"
-            SELECT 
-            Wpisy.""id"" AS wpisy_id, 
-            Wpisy.""wpis"",
-            Wpisy.""dataWpisu"",  
-            personel.""imie"", 
-            personel.""nazwisko"" 
-        FROM 
-            ""WpisyMedyczne"" as Wpisy
-        JOIN 
-            ""PersonelMedyczny"" as personel
-        ON 
-            Wpisy.""idPersonelu"" = personel.""id"" WHERE Wpisy.""peselPacjenta"" = @pesel ORDER BY Wpisy.""dataWpisu"" DESC;";
+                    SELECT 
+                        Wpisy.""id"" AS wpisy_id, 
+                        Wpisy.""wpis"",
+                        TO_CHAR(Wpisy.""dataWpisu"", 'DD.MM.YYYY') AS data_wpisu_formatted,  
+                        personel.""imie"", 
+                        personel.""nazwisko"" 
+                    FROM 
+                        ""WpisyMedyczne"" as Wpisy
+                    JOIN 
+                        ""PersonelMedyczny"" as personel
+                    ON 
+                        Wpisy.""idPersonelu"" = personel.""id"" 
+                    WHERE 
+                        Wpisy.""peselPacjenta"" = @pesel 
+                    ORDER BY 
+                        Wpisy.""dataWpisu"" DESC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@pesel", peselNumeric);
                     using (var reader = command.ExecuteReader())
                     {
-
                         while (reader.Read())
                         {
                             string imie = reader.GetString(3);
@@ -153,7 +142,7 @@ namespace AplikacjaMedyczna
                                 Id = reader.GetInt32(0),
                                 WpisText = reader.GetString(1),
                                 PeselPacjenta = peselNumeric,
-                                DataWpisu = reader.GetDateTime(2),
+                                DataWpisu = reader.GetString(2),
                                 DanePersonelu = String.Concat(imie, " ", nazwisko)
                             });
                         }
@@ -166,36 +155,65 @@ namespace AplikacjaMedyczna
 
         private void LoadWpisy()
         {
-            WpisyCollection = GetWpisy(); // Load the data into the ObservableCollection.
+            WpisyCollection = GetWpisy();
+            wpisyFiltered = new ObservableCollection<Wpis>(WpisyCollection);
+            FilteredListView.ItemsSource = wpisyFiltered;
         }
+
+        private void OnFilterChanged(object sender, TextChangedEventArgs args)
+        {
+            var filtered = WpisyCollection.Where(wpis => Filter(wpis));
+            Remove_NonMatching(filtered);
+            AddBack_Wpisy(filtered);
+        }
+
+        private bool Filter(Wpis wpis)
+        {
+            return wpis.DataWpisu.Contains(FilterByDataWpisu.Text, StringComparison.InvariantCultureIgnoreCase) &&
+                   wpis.DanePersonelu.Contains(FilterByDanePersonelu.Text, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private void Remove_NonMatching(IEnumerable<Wpis> filteredData)
+        {
+            for (int i = wpisyFiltered.Count - 1; i >= 0; i--)
+            {
+                var item = wpisyFiltered[i];
+                if (!filteredData.Contains(item))
+                {
+                    wpisyFiltered.Remove(item);
+                }
+            }
+        }
+
+        private void AddBack_Wpisy(IEnumerable<Wpis> filteredData)
+        {
+            foreach (var item in filteredData)
+            {
+                if (!wpisyFiltered.Contains(item))
+                {
+                    wpisyFiltered.Add(item);
+                }
+            }
+        }
+
         private async void WpisDetailDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
-            // Check if the dialog should close, or cancel the close if needed
             if (SomeConditionToPreventClose())
             {
-                args.Cancel = true; // This will prevent the dialog from closing
-                                    // Optionally, you can show a message or handle additional logic
+                args.Cancel = true;
                 var dialog = new ContentDialog
                 {
                     Title = "Cannot Close",
                     Content = "Please complete all necessary actions before closing.",
                     CloseButtonText = "OK"
                 };
-                await dialog.ShowAsync(); // Show a new dialog if needed
-            }
-            else
-            {
-                // Perform any necessary cleanup or actions before closing
-                // For example, you could save data or log an action
-
+                await dialog.ShowAsync();
             }
         }
 
         private bool SomeConditionToPreventClose()
         {
-            // Your custom condition to prevent closing, for example:
-            // return true if the dialog should not close
-            return false; // In this case, always allow closing
+            return false;
         }
 
         private async void EditButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -203,6 +221,22 @@ namespace AplikacjaMedyczna
             await EditButton_ClickAsync(sender, args);
         }
 
+        private void AddTextBlock(StackPanel stackPanel, string headerText, string contentText)
+        {
+            // Dodaj TextBlock dla nag³ówka
+            stackPanel.Children.Add(new TextBlock
+            {
+                Text = headerText,
+                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] // Styl dla nag³ówka
+            });
+
+            // Dodaj TextBlock dla treœci
+            stackPanel.Children.Add(new TextBlock
+            {
+                Text = contentText,
+                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] // Styl dla treœci
+            });
+        }
         private async Task EditButton_ClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var selectedWpis = WpisDetailDialog.DataContext as Wpis;
@@ -213,35 +247,68 @@ namespace AplikacjaMedyczna
 
                 var editDialog = new ContentDialog
                 {
-                    Title = "Edytuj Wpis",
                     PrimaryButtonText = "Zapisz",
                     CloseButtonText = "Anuluj",
-                    XamlRoot = this.XamlRoot
+                    XamlRoot = this.XamlRoot,
+                    Style = (Style)Application.Current.Resources["ContentDialogStyle"],
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
                 };
 
                 var stackPanel = new StackPanel();
+
+                // Dodaj niestandardowy nag³ówek
+                var headerGrid = new Grid
+                {
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a #004AAD
+                    Padding = new Thickness(10),
+                    Width = 477
+                };
+
+                var headerTextBlock = new TextBlock
+                {
+                    Text = "Edytuj Wpis", // Mo¿esz zmieniæ tekst na dowolny
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold
+                };
+
+                headerGrid.Children.Add(headerTextBlock);
+                stackPanel.Children.Add(headerGrid);
+
+                // Dodaj TextBox dla wpisu
                 var wpisTextBox = new TextBox
                 {
                     Text = selectedWpis.WpisText,
                     Margin = new Thickness(0, 0, 0, 10),
                     TextWrapping = TextWrapping.Wrap,
-                    AcceptsReturn = true
+                    AcceptsReturn = true,
                 };
-                ScrollViewer.SetVerticalScrollBarVisibility(wpisTextBox, ScrollBarVisibility.Auto);
 
-                stackPanel.Children.Add(new TextBlock { Text = "Wpis:", FontWeight = FontWeights.Bold });
+                // Dodaj TextBlock dla etykiety "Wpis:"
+                var wpisLabel = new TextBlock
+                {
+                    Text = "Wpis:",
+                    Margin = new Thickness(0, 0, 0, 2), // Minimalny margines dolny, aby odseparowaæ TextBlock od TextBox
+                    FontSize = 14, // Opcjonalnie dostosuj rozmiar czcionki
+                    FontWeight = FontWeights.SemiBold,
+                    Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
+                };
+                stackPanel.Children.Add(wpisLabel);
+
+                ScrollViewer.SetVerticalScrollBarVisibility(wpisTextBox, ScrollBarVisibility.Auto);
                 stackPanel.Children.Add(new ScrollViewer
                 {
                     Content = wpisTextBox,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     Height = 200
                 });
-                stackPanel.Children.Add(new TextBlock { Text = "Data Wpisu:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(new TextBlock { Text = selectedWpis.DataWpisu.ToString(), Margin = new Thickness(0, 0, 0, 10) });
-                stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(new TextBlock { Text = selectedWpis.PeselPacjenta.ToString(), Margin = new Thickness(0, 0, 0, 10) });
-                stackPanel.Children.Add(new TextBlock { Text = "Dane personelu:", FontWeight = FontWeights.Bold });
-                stackPanel.Children.Add(new TextBlock { Text = selectedWpis.DanePersonelu });
+
+                // U¿yj metody pomocniczej do dodawania pozosta³ych TextBlock
+                AddTextBlock(stackPanel, "Data Wpisu:", selectedWpis.DataWpisu.ToString());
+                AddTextBlock(stackPanel, "PESEL Pacjenta:", selectedWpis.PeselPacjenta.ToString());
+                AddTextBlock(stackPanel, "Dane personelu:", selectedWpis.DanePersonelu);
 
                 editDialog.Content = stackPanel;
 
@@ -259,16 +326,16 @@ namespace AplikacjaMedyczna
                     selectedWpis.WpisText = wpisTextBox.Text;
 
                     var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                                "username=postgres;" +
-                                "Password=adminadmin;" +
-                                "Database=medical_database";
+                             "username=lekarz;" +
+                             "Password=lekarz;" +
+                             "Database=medical_database";
                     using (var connection = new NpgsqlConnection(cs))
                     {
                         connection.Open();
                         string query = @"
-            UPDATE ""WpisyMedyczne""
-            SET ""wpis"" = @wpis
-            WHERE ""id"" = @id";
+                            UPDATE ""WpisyMedyczne""
+                            SET ""wpis"" = @wpis
+                            WHERE ""id"" = @id";
 
                         using (var command = new NpgsqlCommand(query, connection))
                         {
@@ -300,31 +367,158 @@ namespace AplikacjaMedyczna
             WpisDetailDialog.DataContext = wpis;
 
             var stackPanel = new StackPanel();
-            stackPanel.Children.Add(new TextBlock { Text = "Wpis:", FontWeight = FontWeights.Bold });
-            stackPanel.Children.Add(new TextBlock { Text = wpis.WpisText, Margin = new Thickness(0, 0, 0, 10) });
-            stackPanel.Children.Add(new TextBlock { Text = "Data Wpisu:", FontWeight = FontWeights.Bold });
-            stackPanel.Children.Add(new TextBlock { Text = wpis.DataWpisu.ToString(), Margin = new Thickness(0, 0, 0, 10) });
-            stackPanel.Children.Add(new TextBlock { Text = "PESEL Pacjenta:", FontWeight = FontWeights.Bold });
-            stackPanel.Children.Add(new TextBlock { Text = wpis.PeselPacjenta.ToString(), Margin = new Thickness(0, 0, 0, 10) });
-            stackPanel.Children.Add(new TextBlock { Text = "Dane personelu:", FontWeight = FontWeights.Bold });
-            stackPanel.Children.Add(new TextBlock { Text = wpis.DanePersonelu });
+
+            // U¿yj metody pomocniczej do dodawania TextBlock
+            AddTextBlock(stackPanel, "Wpis:", wpis.WpisText);
+            AddTextBlock(stackPanel, "Data Wpisu:", wpis.DataWpisu);
+            AddTextBlock(stackPanel, "PESEL Pacjenta:", wpis.PeselPacjenta.ToString());
+            AddTextBlock(stackPanel, "Dane personelu:", wpis.DanePersonelu);
 
             WpisDetailDialog.Content = stackPanel;
             WpisDetailDialog.PrimaryButtonText = "Edytuj";
-            WpisDetailDialog.CloseButtonText = "Close";
+            WpisDetailDialog.CloseButtonText = "Zamknij";
+            WpisDetailDialog.Style = (Style)Application.Current.Resources["ContentDialogStyle"];
+            WpisDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"]; // Przypisz styl PrimaryButton
+            WpisDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];   // Przypisz styl CloseButton
 
             await WpisDetailDialog.ShowAsync();
         }
+
+        private async Task AddDescriptionButton_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            // Utworzenie ContentDialog dla dodawania wpisu
+            var addWpisDialog = new ContentDialog
+            {
+                PrimaryButtonText = "Zapisz",
+                CloseButtonText = "Anuluj",
+                XamlRoot = this.XamlRoot,
+                Style = (Style)Application.Current.Resources["ContentDialogStyle"],
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
+            };
+
+            var stackPanel = new StackPanel();
+
+            // Nag³ówek dialogu
+            var headerGrid = new Grid
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
+                Width = 477
+            };
+
+            var headerTextBlock = new TextBlock
+            {
+                Text = "Dodaj Wpis",
+                TextAlignment = TextAlignment.Center,
+                Foreground = new SolidColorBrush(Colors.White),
+                FontSize = 20,
+                FontWeight = FontWeights.Bold
+            };
+
+            headerGrid.Children.Add(headerTextBlock);
+            stackPanel.Children.Add(headerGrid);
+
+            // Pole tekstowe dla treœci wpisu
+            var wpisTextBox = new TextBox
+            {
+                PlaceholderText = "Wpisz treœæ wpisu...",
+                AcceptsReturn = true,
+                TextWrapping = TextWrapping.Wrap,
+                Height = 200,
+                Margin = new Thickness(0, 10, 0, 10)
+            };
+            ScrollViewer.SetVerticalScrollBarVisibility(wpisTextBox, ScrollBarVisibility.Auto);
+
+            stackPanel.Children.Add(wpisTextBox);
+
+            addWpisDialog.Content = stackPanel;
+
+            var result = await addWpisDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                // Sprawdzenie, czy pole tekstowe nie jest puste
+                if (string.IsNullOrWhiteSpace(wpisTextBox.Text))
+                {
+                    await ShowMessageDialog("B³¹d", "Treœæ wpisu nie mo¿e byæ puste.");
+                    await AddDescriptionButton_ClickAsync(sender, e); // Ponowne otwarcie dialogu
+                    return;
+                }
+
+                // Dodanie wpisu do bazy danych
+                var wpis = wpisTextBox.Text;
+                var connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
+                                       "username=lekarz;" +
+                                       "Password=lekarz;" +
+                                       "Database=medical_database";
+
+                try
+                {
+                    using (var connection = new NpgsqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        string sql = "INSERT INTO public.\"WpisyMedyczne\" (id, \"peselPacjenta\", \"idPersonelu\", wpis, \"dataWpisu\") VALUES (default, @pesel, @id, @wpis, CURRENT_DATE);";
+                        using (var command = new NpgsqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@wpis", wpis);
+                            command.Parameters.AddWithValue("@pesel", long.Parse(SharedData.pesel));
+                            command.Parameters.AddWithValue("@id", long.Parse(SharedData.id));
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    LoadWpisy();
+                    await ShowMessageDialog("Sukces", "Wpis zosta³ pomyœlnie dodany.");
+                }
+                catch (Exception ex)
+                {
+                    // Obs³uga b³êdu po³¹czenia z baz¹ danych
+                    await ShowMessageDialog("B³¹d", "B³¹d po³¹czenia z baz¹ danych.");
+                }
+            }
+            else
+            {
+                // Anulowanie dodawania wpisu
+                await ShowMessageDialog("Anulowano", "Dodawanie wpisu zosta³o anulowane.");
+            }
+        }
+        private async void AddDescriptionButton_Click(object sender, RoutedEventArgs e)
+        {
+            await AddDescriptionButton_ClickAsync(sender, e);
+        }
+
 
         private async Task ShowMessageDialog(string title, string content)
         {
             var dialog = new ContentDialog
             {
-                Title = title,
                 Content = content,
                 CloseButtonText = "OK",
-                XamlRoot = this.XamlRoot
+                XamlRoot = this.XamlRoot,
+                CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor t³a dialogu
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
             };
+
+            // Tworzenie kontenera dla tytu³u
+            var titleContainer = new Border
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a (#004AAD)
+                Padding = new Thickness(10), // Odstêpy wewnêtrzne
+                Child = new TextBlock
+                {
+                    Text = title, // Ustawienie tekstu
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold,
+                    Width = 250
+                }
+            };
+
+            // Ustawienie dostosowanego elementu jako tytu³u dialogu
+            dialog.Title = titleContainer;
 
             await dialog.ShowAsync();
         }

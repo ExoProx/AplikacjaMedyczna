@@ -9,7 +9,7 @@ namespace AplikacjaMedyczna
         private string wpisText;
         private decimal peselPacjenta;
         private int idPersonelu;
-        private DateTime dataWpisu;
+        private string dataWpisu;
         private string danePersonelu;
 
         public int Id
@@ -64,7 +64,7 @@ namespace AplikacjaMedyczna
             }
         }
 
-        public DateTime DataWpisu
+        public string DataWpisu
         {
             get => dataWpisu;
             set
