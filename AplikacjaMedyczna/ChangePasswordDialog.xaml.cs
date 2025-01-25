@@ -65,9 +65,9 @@ namespace AplikacjaMedyczna
                 con.Open();
 
                 string sql = @"
-                UPDATE public.""PersonelMedyczny""
-                SET ""haslo"" = @newPassword, ""pierwszehaslo"" = false
-                WHERE ""id"" = @userId";
+        UPDATE public.""PersonelMedyczny""
+        SET ""haslo"" = crypt(@newPassword, gen_salt('bf')), ""pierwszehaslo"" = false
+        WHERE ""id"" = @userId";
 
                 using (var cmd = new NpgsqlCommand(sql, con))
                 {

@@ -98,8 +98,10 @@ namespace AplikacjaMedyczna
         {
             decimal peselNumeric;
 
+            // Convert PESEL to numeric (decimal)
             if (!decimal.TryParse(pesel, out peselNumeric))
             {
+                // Invalid PESEL format
                 return 0;
             }
 
@@ -112,17 +114,18 @@ namespace AplikacjaMedyczna
             {
                 con.Open();
 
+                // SQL query with JOIN and password decryption
                 string sql = @"
-                SELECT 
-                    pm.*, rp.nazwa AS rola
-                FROM 
-                    public.""PersonelMedyczny"" AS pm
-                JOIN 
-                    public.""RolePersonelu"" AS rp 
-                ON 
-                    pm.""idRoli"" = rp.id
-                WHERE 
-                    pm.""id"" = @pesel AND pm.""haslo"" = @haslo";
+                        SELECT 
+                            pm.*, rp.nazwa AS rola
+                        FROM 
+                            public.""PersonelMedyczny"" AS pm
+                        JOIN 
+                            public.""RolePersonelu"" AS rp 
+                        ON 
+                            pm.""idRoli"" = rp.id
+                        WHERE 
+                            pm.""id"" = @pesel AND pm.""haslo"" = crypt(@haslo, pm.""haslo"")";
 
                 using (var cmd = new NpgsqlCommand(sql, con))
                 {
@@ -133,36 +136,25 @@ namespace AplikacjaMedyczna
                     {
                         if (rdr.Read())
                         {
-                            string hasloBaza = rdr.GetString(rdr.GetOrdinal("haslo"));
-                            if (peselNumeric == rdr.GetDecimal(rdr.GetOrdinal("id")))
+                            if (rdr.GetBoolean(rdr.GetOrdinal("aktywne")) == false)
                             {
-                                if (haslo == hasloBaza)
-                                {
-                                    if (rdr.GetBoolean(rdr.GetOrdinal("aktywne")) == false)
-                                    {
-                                        return 4; // Account is inactive
-                                    }
-                                    SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
-                                    if (rdr.GetBoolean(rdr.GetOrdinal("pierwszehaslo")))
-                                    {
-                                        return 5; // First login detected
-                                    }
-                                    return 1;
-                                }
-                                else return 2;
+                                return 4; // Account is inactive
                             }
-                            else
+                            SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
+                            if (rdr.GetBoolean(rdr.GetOrdinal("pierwszehaslo")))
                             {
-                                return 0;
+                                return 5; // First login detected
                             }
+                            return 1;
                         }
                         else
                         {
-                            return 3; // Invalid PESEL
+                            return 3; // Invalid PESEL or password
                         }
                     }
                 }
             }
         }
     }
+    
 }
