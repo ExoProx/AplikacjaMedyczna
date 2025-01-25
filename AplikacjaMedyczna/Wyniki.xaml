@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="AplikacjaMedyczna.Wyniki"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -42,6 +41,41 @@
                     <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
+            <SplitView.Content>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <ListView
+                        x:Name="FilteredListView"
+                        SelectionMode="Single"
+                        ShowsScrollingPlaceholders="True"
+                        Background="#6497b1"
+                        Height="422"
+                        Width="400"
+                        BorderThickness="1"
+                        BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                        Style="{StaticResource CustomListViewStyle}"
+                        ItemClick="FilteredListView_ItemClick"
+                        IsItemClickEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#F0F8FF" CornerRadius="10" Padding="10" Margin="5">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding WynikNr}" FontSize="16" FontWeight="Bold" Width="345" TextTrimming="CharacterEllipsis" Foreground="#004AAD" />
+                                        <TextBlock Text="{Binding DataWykonaniaWyniku}" FontSize="14" Foreground="#004AAD" />
+                                        <TextBlock Text="{Binding PersonelWykonujacyBadanie}" FontSize="14" Foreground="#004AAD" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackPanel Width="200" Margin="20,0,0,0" Background="#004AAD">
+                        <TextBlock Margin="8,8,8,4" TextAlignment="Center" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Filtruj</TextBlock>
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data Wpisu</TextBlock>
+                        <TextBox x:Name="FilterByDataWpisu" Width="185" Margin="8" HorizontalAlignment="Left"/>
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Lekarz</TextBlock>
+                        <TextBox x:Name="FilterByDanePersonelu" Width="185" Margin="8" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </SplitView.Content>
         </SplitView>
         <!-- Przycisk do otwierania/zamykania panelu nawigacyjnego -->
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">

@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Npgsql;
@@ -10,6 +11,14 @@ namespace AplikacjaMedyczna
         public Insert_result_form()
         {
             this.InitializeComponent();
+            SetCalendarRestrictions();
+        }
+
+        private void SetCalendarRestrictions()
+        {
+            var today = DateTime.Today;
+            TerminReceptyCalendarView.MinDate = today.AddYears(-50);
+            TerminReceptyCalendarView.MaxDate = today;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -19,7 +28,16 @@ namespace AplikacjaMedyczna
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            int status = SaveEntry(ResultTextBox.Text, TerminReceptyDatePicker.Date.DateTime);
+            var selectedDate = TerminReceptyCalendarView.Date;
+            if (selectedDate == null)
+            {
+                SuccessMessage.Visibility = Visibility.Collapsed;
+                EmptyFieldMessage.Visibility = Visibility.Visible;
+                ErrorDatabaseMessage.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            int status = SaveEntry(ResultTextBox.Text, selectedDate.Value.DateTime);
 
             if (status == 1)
             {
