@@ -12,18 +12,21 @@
     <Grid Padding="20">
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel x:Name="PanelWpisu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Margin="20">
-                <TextBlock Text="Dodaj Wyniki" HorizontalAlignment="Center" Margin="0,20,0,20" FontSize="36" FontWeight="Bold" Foreground="Black" />
-                <TextBox x:Name="ResultTextBox" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" SelectionHighlightColor="Green" MinWidth="400" />
-                <TextBlock Text="Termin Wykonania Wyniku:" Margin="0,20,0,10" FontSize="16" FontWeight="Bold" />
-                <DatePicker x:Name="TerminReceptyDatePicker" Margin="0,0,0,20" />
+                <Grid Background="#004AAD" Padding="10" Width="800">
+                    <TextBlock Text="Dodaj Wynik" TextAlignment="Center" Foreground="White" FontSize="20" FontWeight="Bold" />
+                </Grid>
+                <TextBox x:Name="ResultTextBox" PlaceholderText="Wpisz Treść Wyniku" TextWrapping="Wrap" AcceptsReturn="True" Height="200" Margin="0,10,0,10" />
+                <TextBlock Text="Termin Wykonania Wyniku:" Margin="0,20,0,10" FontSize="16" FontWeight="Bold" Foreground="#004AAD" />
+                <CalendarDatePicker x:Name="TerminReceptyCalendarView" Margin="0,5,0,5" />
                 <TextBlock x:Name="SuccessMessage" Text="Wpis zapisano pomyślnie." Foreground="Green" Visibility="Collapsed" Margin="0,0,0,10" />
                 <TextBlock x:Name="EmptyFieldMessage" Text="Pole skierowania nie może być puste." Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
                 <TextBlock x:Name="ErrorDatabaseMessage" Text="Błąd połączenia z bazą danych." Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
                 <StackPanel x:Name="PanelPrzyciskow" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Button x:Name="CancelButton" Content="Anuluj" Click="CancelButton_Click" Margin="10,0,0,0" />
-                    <Button x:Name="SubmitButton" Content="Zapisz" Click="SubmitButton_Click" Margin="10,0,0,0" />
+                    <Button x:Name="SubmitButton" Content="Zapisz" Click="SubmitButton_Click" Width="100" Margin="10,0,0,0" Style="{StaticResource PrimaryButtonStyle}" />
+                    <Button x:Name="CancelButton" Content="Anuluj" Click="CancelButton_Click" Width="100" Margin="10,0,0,0" Style="{StaticResource CloseButtonStyle}" />
                 </StackPanel>
             </StackPanel>
         </Border>
     </Grid>
 </Page>
+
