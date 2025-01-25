@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -37,23 +37,15 @@ namespace AplikacjaMedyczna
                 }
 
             }
-            else if (stan == 2)
+            else if (stan == 2 || stan == 0)
             {
-                ErrorPESEL.Visibility = Visibility.Collapsed;
-                ErrorPassword.Visibility = Visibility.Visible;
-                ErrorDatabase.Visibility = Visibility.Collapsed;
-            }
-            else if (stan == 0)
-            {
-                ErrorPESEL.Visibility = Visibility.Visible;
-                ErrorPassword.Visibility = Visibility.Collapsed;
-                ErrorDatabase.Visibility = Visibility.Collapsed;
+                ErrorMessage.Text = "Nieprawidłowy ID Pracownika lub hasło";
+                ErrorMessage.Visibility = Visibility.Visible;
             }
             else if (stan == 3)
             {
-                ErrorPESEL.Visibility = Visibility.Collapsed;
-                ErrorPassword.Visibility = Visibility.Collapsed;
-                ErrorDatabase.Visibility = Visibility.Visible;
+                ErrorMessage.Text = "Błąd połączenia z bazą o odanych";
+                ErrorMessage.Visibility = Visibility.Visible;
             }
 
         }

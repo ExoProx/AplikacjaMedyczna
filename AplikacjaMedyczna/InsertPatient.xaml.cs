@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using System.Threading.Tasks;
+using Microsoft.UI.Xaml.Media.Animation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -132,7 +133,11 @@ namespace AplikacjaMedyczna
                 AdresZamieszkaniaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
-
+            if(TypKrwiTextBox.Text.Length > 6)
+            {
+                TypKrwiTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
+                allFieldsFilled = false;
+            }
             DateTime dataUrodzenia = DataUrodzeniaDatePicker.Date.Value.DateTime;
             bool isUnderage = (DateTime.Now - dataUrodzenia).TotalDays < 18 * 365;
 
@@ -183,6 +188,7 @@ namespace AplikacjaMedyczna
 
                     // Show success dialog
                     await ShowSuccessDialog();
+                    App.MainFrame.Navigate(typeof(Admin_Panel), null, new DrillInNavigationTransitionInfo());
                 }
             }
         }
