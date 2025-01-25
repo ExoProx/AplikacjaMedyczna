@@ -13,8 +13,6 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Insert_Recipe_Form.xaml" />
-    <None Remove="Insert_referral_Form.xaml" />
     <None Remove="Insert_result_form.xaml" />
     <None Remove="PeselChoice.xaml" />
   </ItemGroup>
@@ -53,27 +51,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Insert_referral_Form.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Insert_Recipe_Form.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="PeselChoice.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="StaffLoginPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="dodaj_wpis.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

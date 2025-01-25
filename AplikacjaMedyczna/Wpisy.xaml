@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="AplikacjaMedyczna.Wpisy"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -5,14 +6,23 @@
     xmlns:local="using:AplikacjaMedyczna"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
+    <!-- Gradientowe tło -->
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#D6EAF8" Offset="0.7" />
+            <GradientStop Color="#85C1E9" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>
+    
     <Grid>
-        <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-           IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
+        <!-- SplitView z przyciskami nawigacyjnymi -->
+        <SplitView x:Name="splitView" PaneBackground="#004AAD"
+                   IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
-                <Grid Margin="12,0,0,0">
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
@@ -23,75 +33,104 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" 
-                            Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100"/>
-                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="2" Width="100"/>
-                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="3" Width="100"/>
-                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="4" Width="100"/>
-                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="5" Width="100"/>
-                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="6" Width="100"/>
-                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100"/>
+                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="PanelButton" Content="Panel" Click="NavButton_Click" Grid.Row="2" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="3" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="4" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="5" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                <ListView
-                    x:Name="FilteredListView"
-                    ItemsSource="{Binding WpisyCollection}"
-                    SelectionMode="Single"
-                    Height="400"
-                    Width="400"
-                    BorderThickness="1"
-                    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
-                    IsItemClickEnabled="True" 
-                    ItemClick="FilteredListView_ItemClick">
-
-                    <!-- Define the ItemTemplate -->
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical" Padding="10">
-                                <TextBlock Text="{Binding WpisText}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
-                                <TextBlock Text="{Binding DataWpisu}" FontSize="14" />
-                                <TextBlock Text="{Binding DanePersonelu}" FontSize="14" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <ListView
+                        x:Name="FilteredListView"
+                        SelectionMode="Single"
+                        ShowsScrollingPlaceholders="True"
+                        Background="#6497b1"
+                        Height="422"
+                        Width="400"
+                        BorderThickness="1"
+                        BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                        Style="{StaticResource CustomListViewStyle}"
+                        ItemClick="FilteredListView_ItemClick"
+                        IsItemClickEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#F0F8FF" CornerRadius="10" Padding="10" Margin="5">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding WpisText}" FontSize="16" FontWeight="Bold" Width="345" TextTrimming="CharacterEllipsis" Foreground="#004AAD" />
+                                        <TextBlock Text="{Binding DataWpisu}" FontSize="14" Foreground="#004AAD" />
+                                        <TextBlock Text="{Binding DanePersonelu}" FontSize="14" Foreground="#004AAD" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackPanel Width="200" Margin="20,0,0,0" Background="#004AAD">
+                        <TextBlock Margin="8,8,8,4" TextAlignment="Center" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Filtruj</TextBlock>
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data Wpisu</TextBlock>
+                        <TextBox x:Name="FilterByDataWpisu" Width="185" Margin="8"
+                                 HorizontalAlignment="Left" TextChanged="OnFilterChanged"/>
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Lekarz</TextBlock>
+                        <TextBox x:Name="FilterByDanePersonelu" Width="185" Margin="8"
+                                 HorizontalAlignment="Left" TextChanged="OnFilterChanged"/>
+                    </StackPanel>
+                </StackPanel>
             </SplitView.Content>
         </SplitView>
 
         <ContentDialog
             x:Name="WpisDetailDialog"
-            Title="Wpis Details"
-            CloseButtonText="Close"
+            Title="Szczegóły Wpisu"
+            CloseButtonText="Zamknij"
             PrimaryButtonText="Edytuj"
             PrimaryButtonClick="EditButton_Click"
-            Closing="WpisDetailDialog_Closing">
-            <StackPanel>
-                <TextBlock Text="Wpis:" FontWeight="Bold" />
-                <TextBlock Text="{Binding WpisText}" Margin="0,0,0,10" TextWrapping="Wrap" />
-
-                <TextBlock Text="Data Wpisu:" FontWeight="Bold" />
-                <TextBlock Text="{Binding DataWpisu}" Margin="0,0,0,10" />
-
-                <TextBlock Text="PESEL Pacjenta:" FontWeight="Bold" />
-                <TextBlock Text="{Binding PeselPacjenta}" Margin="0,0,0,10" />
-
-                <TextBlock Text="Dane personelu:" FontWeight="Bold" />
-                <TextBlock Text="{Binding DanePersonelu}" />
+            Closing="WpisDetailDialog_Closing"
+            PrimaryButtonStyle="{StaticResource PrimaryButtonStyle}"
+            CloseButtonStyle="{StaticResource CloseButtonStyle}">
+            <ContentDialog.Resources>
+                <!-- Styl nagłówka dialogu -->
+                <Style TargetType="ContentDialog">
+                    <Setter Property="Background" Value="#F0F8FF" />
+                    <Setter Property="BorderBrush" Value="#004AAD" />
+                    <Setter Property="BorderThickness" Value="2" />
+                </Style>
+            </ContentDialog.Resources>
+            <ContentDialog.TitleTemplate>
+                <DataTemplate>
+                    <!-- Nagłówek z gradientem i ikoną -->
+                    <Grid Background="#004AAD" Padding="10" Width="477">
+                        <TextBlock Text="{Binding}" TextAlignment="center" Foreground="White" FontSize="20" FontWeight="Bold" />
+                    </Grid>
+                </DataTemplate>
+            </ContentDialog.TitleTemplate>
+            <StackPanel Padding="10">
+                <TextBlock Text="Wpis:" Style="{StaticResource HeaderTextBlockStyle}" />
+                <TextBlock Text="{Binding WpisText}" Style="{StaticResource ContentTextBlockStyle}" />
+                <TextBlock Text="Data Wpisu:" Style="{StaticResource HeaderTextBlockStyle}" />
+                <TextBlock Text="{Binding DataWpisu}" Style="{StaticResource ContentTextBlockStyle}" />
+                <TextBlock Text="PESEL Pacjenta:" Style="{StaticResource HeaderTextBlockStyle}" />
+                <TextBlock Text="{Binding PeselPacjenta}" Style="{StaticResource ContentTextBlockStyle}" />
+                <TextBlock Text="Dane personelu:" Style="{StaticResource HeaderTextBlockStyle}" />
+                <TextBlock Text="{Binding DanePersonelu}" Style="{StaticResource ContentTextBlockStyle}" />
             </StackPanel>
         </ContentDialog>
 
+
+        <!-- Przycisk do otwierania/zamykania panelu nawigacyjnego -->
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
-            <ToggleButton x:Name="NavbarToggleButton"
-                Width="40" Height="40"
-                Checked="NavbarToggleButton_Checked"
-                Unchecked="NavbarToggleButton_Unchecked"
-                Background="Transparent">
-                <FontIcon Glyph="&#xE700;" />
+            <ToggleButton x:Name="NavbarToggleButton" Width="40" Height="40" 
+                          Checked="NavbarToggleButton_Checked" Unchecked="NavbarToggleButton_Unchecked" 
+                          Style="{StaticResource NavToggleButtonStyle}">
+                <FontIcon Glyph="&#xE700;" Foreground="White"/>
             </ToggleButton>
         </Grid>
 
-        <!-- Description Button -->
-        <Button x:Name="AddDescriptionButton" Visibility="Collapsed" IsEnabled="False" Content="Dodaj Wpis" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12" Click="AddDescriptionButton_Click"/>
+        <!-- Przycisk "Dodaj Wpis" -->
+        <Button x:Name="AddDescriptionButton" Visibility="Collapsed" IsEnabled="False" Content="Dodaj Wpis" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12" 
+                Click="AddDescriptionButton_Click" Style="{StaticResource LoginButtonStyle}"/>
     </Grid>
 </Page>

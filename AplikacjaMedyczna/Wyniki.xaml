@@ -6,14 +6,23 @@
     xmlns:local="using:AplikacjaMedyczna"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
+
+    <!-- Gradientowe tło -->
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#D6EAF8" Offset="0.7" />
+            <GradientStop Color="#85C1E9" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>
 
     <Grid>
-        <SplitView x:Name="splitView" PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
-       IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
+        <!-- SplitView z przyciskami nawigacyjnymi -->
+        <SplitView x:Name="splitView" PaneBackground="#004AAD"
+                   IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
-                <Grid Margin="12,0,0,0">
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
@@ -24,27 +33,25 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" 
-                            Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100"/>
-                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="2" Width="100"/>
-                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="3" Width="100"/>
-                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="4" Width="100"/>
-                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="5" Width="100"/>
-                    <Button x:Name="BackButton" Content="Powrót" Click="NavButton_Click" Grid.Row="6" Width="100"/>
-                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100"/>
+                    <Button x:Name="PatientChoiceButton" Visibility="Collapsed" Content="Wybierz" Click="NavButton_Click" IsEnabled="False" Grid.Row="1" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="PanelButton" Content="Panel" Click="NavButton_Click" Grid.Row="2" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="3" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="4" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="5" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WynikiButton" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>
+        <!-- Przycisk do otwierania/zamykania panelu nawigacyjnego -->
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
-            <ToggleButton x:Name="NavbarToggleButton"
-      Width="40" Height="40"
-      Checked="NavbarToggleButton_Checked"
-      Unchecked="NavbarToggleButton_Unchecked"
-                  Background="Transparent">
-                <FontIcon Glyph="&#xE700;" />
+            <ToggleButton x:Name="NavbarToggleButton" Width="40" Height="40" 
+                          Checked="NavbarToggleButton_Checked" Unchecked="NavbarToggleButton_Unchecked" 
+                          Style="{StaticResource NavToggleButtonStyle}">
+                <FontIcon Glyph="&#xE700;" Foreground="White"/>
             </ToggleButton>
         </Grid>
         <Button x:Name="AddResultButton" Visibility="Collapsed" IsEnabled="False" Content="Dodaj Wyniki" 
-        HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12" Click="AddResultButton_Click"/>
+        HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12,30,12,12" Click="AddResultButton_Click" Style="{StaticResource LoginButtonStyle}"/>
     </Grid>
 </Page>
