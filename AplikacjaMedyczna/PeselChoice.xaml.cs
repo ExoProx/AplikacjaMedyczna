@@ -5,20 +5,15 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Npgsql;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class PeselChoice : Page
     {
         public PeselChoice()
         {
             this.InitializeComponent();
         }
+
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
             SearchButton.IsEnabled = CountFilledFields() >= 2;
@@ -33,42 +28,37 @@ namespace AplikacjaMedyczna
             if (!string.IsNullOrEmpty(TelephoneTextBox.Text)) count++;
             return count;
         }
+
         private void OnSearchButtonClicked(object sender, RoutedEventArgs e)
         {
+
             var connectionString = "host = bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com; " +
                         "username=postgres;" +
                         "Password=adminadmin;" +
                         "Database=medical_database";
+
             var patients = GetPatientsFromDatabase(connectionString, NameTextBox.Text, SurnameTextBox.Text, AddressTextBox.Text, TelephoneTextBox.Text, PeselTextBox.Text);
             PatientsListBox.ItemsSource = patients;
         }
+
         private void Pesel_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             string text = textBox.Text;
 
-            // Delates all non-numeric characters
             text = Regex.Replace(text, "[^0-9]", "");
 
-            // Limiting the length of the PESEL number to 11 characters
             if (text.Length > 11)
             {
                 text = text.Substring(0, 11);
             }
-            if (text.Length == 11)
-            {
-                SearchButton.IsEnabled = true;
-            }
-            else
-            {
-                SearchButton.IsEnabled = false;
-            }
-            // Update the TextBox text
-            textBox.Text = text;
 
-            // Set the cursor position to the end of the text
+            SearchButton.IsEnabled = text.Length == 11;
+
+            textBox.Text = text;
             textBox.SelectionStart = text.Length;
         }
+
         private List<Patient> GetPatientsFromDatabase(string connectionString, string name, string surname, string address, string telephone, string pesel)
         {
             var patients = new List<Patient>();
@@ -122,21 +112,18 @@ namespace AplikacjaMedyczna
 
             return patients;
         }
+
         private void OnPatientSelected(object sender, SelectionChangedEventArgs e)
         {
             var selectedPatient = (Patient)PatientsListBox.SelectedItem;
             if (selectedPatient != null)
             {
-                ChoiceButton.IsEnabled = true;
+                // Zapisz PESEL w SharedData
                 SharedData.pesel = selectedPatient.Pesel;
-                // Implement any additional logic needed when a patient is selected
+
+                // Przekieruj u¿ytkownika do strony PanelGlowny
+                Frame.Navigate(typeof(PanelGlowny));
             }
-        }
-        private void OnWybierzButtonClicked(object sender, RoutedEventArgs e)
-        {
-            var selectedPatient = (Patient)PatientsListBox.SelectedItem;
-            SharedData.pesel = selectedPatient.Pesel;
-            Frame.Navigate(typeof(PanelGlowny));
         }
 
         public class Patient

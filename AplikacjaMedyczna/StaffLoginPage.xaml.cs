@@ -1,23 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using Npgsql;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.System;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace AplikacjaMedyczna
 {
@@ -99,7 +85,7 @@ namespace AplikacjaMedyczna
             // Set the cursor position to the end of the text
             textBox.SelectionStart = text.Length;
         }
-        int logowanie(string pesel, string haslo)
+        private int logowanie(string pesel, string haslo)
         {
             decimal peselNumeric;
 
@@ -111,8 +97,8 @@ namespace AplikacjaMedyczna
             }
 
             var cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                     "username=postgres;" +
-                     "Password=adminadmin;" +
+                     "username=pacjent;" +
+                     "Password=pacjent;" +
                      "Database=medical_database";
 
             using (var con = new NpgsqlConnection(cs))

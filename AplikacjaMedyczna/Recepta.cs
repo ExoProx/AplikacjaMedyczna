@@ -9,8 +9,8 @@ namespace AplikacjaMedyczna
         private string leki;
         private decimal peselPacjenta;
         private int idPersonelu;
-        private DateTime dataWystawieniaRecepty;
-        private DateTime dataWaznosciRecepty;
+        private string dataWystawieniaRecepty;
+        private string dataWaznosciRecepty;
         private string danePersonelu;
         private bool czyOdebrana;
 
@@ -66,7 +66,7 @@ namespace AplikacjaMedyczna
             }
         }
 
-        public DateTime DataWystawieniaRecepty
+        public string DataWystawieniaRecepty
         {
             get => dataWystawieniaRecepty;
             set
@@ -79,7 +79,7 @@ namespace AplikacjaMedyczna
             }
         }
 
-        public DateTime DataWaznosciRecepty
+        public string DataWaznosciRecepty
         {
             get => dataWaznosciRecepty;
             set
