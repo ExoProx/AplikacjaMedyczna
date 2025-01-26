@@ -80,7 +80,7 @@ namespace AplikacjaMedyczna
                             results.Add(new Result
                             {
                                 WynikNr = rdr.GetInt32(0),
-                                DataWykonaniaWyniku = rdr.GetDateTime(1).ToString("yyyy-MM-dd"),
+                                DataWykonaniaWyniku = rdr.GetDateTime(1).ToString("dd.MM.yyyy"),
                                 PersonelWykonujacyBadanie = rdr.GetString(2),
                                 WynikiBadania = rdr.IsDBNull(3) ? string.Empty : rdr.GetString(3)
                             });

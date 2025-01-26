@@ -14,6 +14,50 @@
             <Setter Property="BorderBrush" Value="#004AAD" />
             <Setter Property="BorderThickness" Value="2" />
         </Style>
+        <Style x:Key="PersonelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#004AAD"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" 
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <!-- Stan domyślny -->
+                                    <VisualState x:Name="Normal"/>
+                                    <!-- Efekt przy najechaniu myszką -->
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#0078D7"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <!-- Efekt przy kliknięciu -->
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#003366"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Page.Background>
@@ -32,14 +76,13 @@
                 <Grid Margin="10,60,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="ManageWorkersButton" Content="Zarządaj Lekarzami" Click="NavButton_Click" Grid.Row="0" Width="150" Height="50"/>
-                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50"/>
-                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="5" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="150" Height="50"/>
+                    <Button x:Name="ManageWorkersButton" Content="Zarządzaj Lekarzami" Click="NavButton_Click" Grid.Row="1" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="3" VerticalAlignment="Bottom" Margin="0,0,0,20" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
@@ -52,45 +95,56 @@
                     </Grid.RowDefinitions>
 
                     <!-- Filter Section -->
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+                    <Border BorderBrush="Black" Background="white" BorderThickness="1" Margin="10" Width="1050">
                         <StackPanel Orientation="Horizontal" Margin="10">
-                            <TextBox x:Name="FilterNumerId" PlaceholderText="Numer id" Width="150" Margin="5"/>
-                            <TextBox x:Name="FilterImie" PlaceholderText="Imię" Width="150" Margin="5"/>
-                            <TextBox x:Name="FilterNazwisko" PlaceholderText="Nazwisko" Width="150" Margin="5"/>
-                            <TextBox x:Name="FilterProfesja" PlaceholderText="Profesja" Width="150" Margin="5"/>
-                            <Button x:Name="FilterButton" Content="Filtruj" Click="FilterButton_Click" Margin="5" Width="100"/>
+                            <TextBox x:Name="FilterNumerId" TextChanged="OnFilterChanged" PlaceholderText="Numer id" Width="150" Margin="5"/>
+                            <TextBox x:Name="FilterImie" TextChanged="OnFilterChanged" PlaceholderText="Imię" Width="150" Margin="5"/>
+                            <TextBox x:Name="FilterNazwisko" TextChanged="OnFilterChanged" PlaceholderText="Nazwisko" Width="150" Margin="5"/>
+                            <TextBox x:Name="FilterProfesja" TextChanged="OnFilterChanged" PlaceholderText="Rola" Width="150" Margin="5"/>
                         </StackPanel>
                     </Border>
 
                     <!-- Header Section -->
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="10,0,0,0" Grid.Row="1">
+                    <Border BorderBrush="Black" Background="white" BorderThickness="1" Grid.Row="1" Width="1050">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="165"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="145"/>
+                                <ColumnDefinition Width="140"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Id" FontWeight="Bold" Margin="28,5,5,5"/>
-                            <TextBlock Text="Imię" Grid.Column="1" FontWeight="Bold" Margin="28,5,5,5"/>
-                            <TextBlock Text="Nazwisko" Grid.Column="2" FontWeight="Bold" Margin="28,5,5,5"/>
-                            <TextBlock Text="Rola" Grid.Column="3" FontWeight="Bold" Margin="28,5,5,5"/>
-                            <TextBlock Text="Stan Konta" Grid.Column="4" FontWeight="Bold" Margin="28,5,5,5"/>
+                            <TextBlock Text="Id" FontWeight="Bold" Margin="15,5,5,5"/>
+                            <TextBlock Text="Imię" Grid.Column="1" FontWeight="Bold" Margin="0,5,5,5"/>
+                            <TextBlock Text="Nazwisko" Grid.Column="2" FontWeight="Bold" Margin="0,5,5,5"/>
+                            <TextBlock Text="Rola" Grid.Column="3" FontWeight="Bold" Margin="0,5,5,5"/>
+                            <TextBlock Text="Stan Konta" Grid.Column="4" FontWeight="Bold" Margin="0,5,5,5"/>
                         </Grid>
                     </Border>
 
                     <!-- DataGrid Section -->
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="10" Grid.Row="2">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                    <Border BorderBrush="Gray" Background="White" BorderThickness="1" Margin="10" Grid.Row="2" Width="1050">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <ListView x:Name="MedicalStaffListView" Margin="10">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <!-- Dolny border -->
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <!-- Kolor linii -->
+                                        <Setter Property="Padding" Value="0"/>
+                                        <!-- Usuń domyślny padding -->
+                                        <Setter Property="Background" Value="White"/>
+                                        <!-- Tło wiersza -->
+                                    </Style>
+                                </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="250"/>
+                                                <ColumnDefinition Width="250"/>
                                                 <ColumnDefinition Width="150"/>
                                                 <ColumnDefinition Width="200"/>
                                             </Grid.ColumnDefinitions>
@@ -98,10 +152,8 @@
                                             <TextBlock Text="{Binding Imie}" Grid.Column="1" Margin="5"/>
                                             <TextBlock Text="{Binding Nazwisko}" Grid.Column="2" Margin="5"/>
                                             <TextBlock Text="{Binding Rola}" Grid.Column="3" Margin="5"/>
-                                            <CheckBox IsChecked="{Binding Aktywne}" Content="Aktywne" Click="CheckBox_Click" Grid.Column="4" Margin="5"/>
-                                            <Button Content="Zmień Rolę" Click="EditPersonnelButton_Click" Grid.Column="5" Width="100" Margin="100,5,5,5" Tag="{Binding Id}"/>
-                                            <!-- Add Edit button -->
-
+                                            <CheckBox IsChecked="{Binding Aktywne}" Content="Aktywne" Click="CheckBox_Click" Grid.Column="4"/>
+                                            <Button Content="Zmień Rolę" Click="EditPersonnelButton_Click" Grid.Column="5" Width="100" Margin="100, 0, 0, 0" Tag="{Binding Id}" Style="{StaticResource PersonelButtonStyle}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -110,7 +162,7 @@
                     </Border>
 
                     <!-- Add Personnel Button -->
-                    <Button x:Name="AddPersonnelButton" Content="Dodaj Personel" Click="AddPersonnelButton_Click" Grid.Row="3" Margin="10" HorizontalAlignment="Right"/>
+                    <Button x:Name="AddPersonnelButton" Content="Dodaj Personel" Click="AddPersonnelButton_Click" Grid.Row="3" Margin="10" HorizontalAlignment="Right"  Style="{StaticResource LoginButtonStyle}"/>
                 </Grid>
             </SplitView.Content>
         </SplitView>

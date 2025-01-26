@@ -153,10 +153,19 @@ namespace AplikacjaMedyczna
             return skierowania;
         }
 
-        private void LoadSkierowania()
+        private async void LoadSkierowania()
         {
             SkierowaniaCollection = GetSkierowania();
             skierowaniaFiltered = new ObservableCollection<Skierowanie>(SkierowaniaCollection);
+
+            if (!SkierowaniaCollection.Any())
+            {
+                this.Loaded += async (s, e) =>
+                {
+                    await ShowMessageDialog("Brak dodanych skierowañ", "Nie znaleziono ¿adnych skierowañ w systemie.");
+                };
+            }
+
             FilteredListView.ItemsSource = skierowaniaFiltered;
         }
 

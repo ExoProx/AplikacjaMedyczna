@@ -153,11 +153,19 @@ namespace AplikacjaMedyczna
             return wpisy;
         }
 
-        private void LoadWpisy()
+        private async void LoadWpisy()
         {
             WpisyCollection = GetWpisy();
             wpisyFiltered = new ObservableCollection<Wpis>(WpisyCollection);
             FilteredListView.ItemsSource = wpisyFiltered;
+
+            if (!WpisyCollection.Any())
+            {
+                this.Loaded += async (s, e) =>
+                {
+                    await ShowMessageDialog("Brak dodanych wpisów", "Nie znaleziono ¿adnych wpisów w systemie.");
+                };
+            }
         }
 
         private void OnFilterChanged(object sender, TextChangedEventArgs args)

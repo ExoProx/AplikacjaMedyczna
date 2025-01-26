@@ -158,10 +158,19 @@ namespace AplikacjaMedyczna
             return recepty;
         }
 
-        private void LoadRecepty()
+        private async void LoadRecepty()
         {
             ReceptyCollection = GetRecepty();
             receptyFiltered = new ObservableCollection<Recepta>(ReceptyCollection);
+
+            if (!ReceptyCollection.Any())
+            {
+                this.Loaded += async (s, e) =>
+                {
+                    await ShowMessageDialog("Brak dodanych recept", "Nie znaleziono ¿adnych recept w systemie.");
+                };
+            }
+
             FilteredListView.ItemsSource = receptyFiltered;
         }
 
