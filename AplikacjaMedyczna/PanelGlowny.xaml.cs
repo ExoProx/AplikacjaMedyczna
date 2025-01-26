@@ -137,7 +137,7 @@ namespace AplikacjaMedyczna
                             NazwiskoTextBox.Text = reader["nazwisko"].ToString();
                             AdresZamieszkaniaTextBox.Text = reader["adresZamieszkania"].ToString();
                             NumerKontaktowyTextBox.Text = reader["numerKontaktowy"].ToString();
-                            DataUrodzeniaTextBox.Text = Convert.ToDateTime(reader["dataUrodzenia"]).ToString("yyyy-mm-dd");
+                            DataUrodzeniaTextBox.Text = Convert.ToDateTime(reader["dataUrodzenia"]).ToString("dd.MM.yyyy");
                             TypKrwiTextBox.Text = reader["typKrwi"].ToString();
                         }
                     }
@@ -246,7 +246,7 @@ namespace AplikacjaMedyczna
                             System.Diagnostics.Debug.WriteLine("Executing query.");
                             if (await reader.ReadAsync())
                             {
-                                var wpisyData = Convert.ToDateTime(reader["wpisy_data"]).ToString("yyyy-MM-dd");
+                                var wpisyData = Convert.ToDateTime(reader["wpisy_data"]).ToString("dd.MM.yyyy");
                                 var personelImie = reader["personel_imie"].ToString();
                                 var personelNazwisko = reader["personel_nazwisko"].ToString();
                                 var wpisyTresc = reader["wpisy_tresc"].ToString();
@@ -303,7 +303,7 @@ namespace AplikacjaMedyczna
                             System.Diagnostics.Debug.WriteLine("Executing query.");
                             if (await reader.ReadAsync())
                             {
-                                var skierowanieData = Convert.ToDateTime(reader["dataSkierowania"]).ToString("yyyy-MM-dd");
+                                var skierowanieData = Convert.ToDateTime(reader["dataSkierowania"]).ToString("dd.MM.yyyy");
                                 var skierowanieText = reader["skierowanie"].ToString();
 
                                 SkierowaniaTextBlock.Text = $"Data Skierowania: {skierowanieData}\nSkierowanie: {skierowanieText}";
@@ -365,8 +365,8 @@ namespace AplikacjaMedyczna
                             System.Diagnostics.Debug.WriteLine("Executing query.");
                             if (await reader.ReadAsync())
                             {
-                                var receptyDataWystawienia = Convert.ToDateTime(reader["recepty_data_wystawienia"]).ToString("yyyy-MM-dd");
-                                var receptyDataWaznosci = Convert.ToDateTime(reader["recepty_data_waznosci"]).ToString("yyyy-MM-dd");
+                                var receptyDataWystawienia = Convert.ToDateTime(reader["recepty_data_wystawienia"]).ToString("dd.MM.yyyy");
+                                var receptyDataWaznosci = Convert.ToDateTime(reader["recepty_data_waznosci"]).ToString("dd.MM.yyyy");
                                 var receptyTresc = reader["recepty_tresc"].ToString();
                                 var personelImie = reader["personel_imie"].ToString();
                                 var personelNazwisko = reader["personel_nazwisko"].ToString();
@@ -423,7 +423,7 @@ namespace AplikacjaMedyczna
                             System.Diagnostics.Debug.WriteLine("Executing query.");
                             if (await reader.ReadAsync())
                             {
-                                var dataWyniku = Convert.ToDateTime(reader["dataWyniku"]).ToString("yyyy-MM-dd");
+                                var dataWyniku = Convert.ToDateTime(reader["dataWyniku"]).ToString("dd.MM.yyyy");
                                 var wynikiBadania = reader["wynikiBadania"].ToString();
 
                                 WynikiTextBlock.Text = $"Data Wyniku: {dataWyniku}\nWyniki:\n{wynikiBadania}";

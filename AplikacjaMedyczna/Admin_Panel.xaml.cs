@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Microsoft.UI.Text;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -16,21 +18,17 @@ using Npgsql;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Admin_Panel : Page
     {
         private List<Personnel> allPersonnelList = new List<Personnel>();
+        private List<Personnel> filteredPersonnelList = new List<Personnel>();
         private string connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                         "username=administrator;" +
                         "Password=haslo;" +
-                        "Database=medical_database"; 
+                        "Database=medical_database";
+
         public Admin_Panel()
         {
             this.InitializeComponent();
@@ -38,62 +36,43 @@ namespace AplikacjaMedyczna
             LoadPersonnelData();
         }
 
-        private void PeselTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                string text = textBox.Text;
-                textBox.Text = new string(text.Where(char.IsDigit).ToArray());
-                textBox.SelectionStart = textBox.Text.Length; // Set cursor to the end
-            }
-        }
-
-        private void NumerKontaktowyTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                string text = textBox.Text;
-                textBox.Text = new string(text.Where(char.IsDigit).ToArray());
-                textBox.SelectionStart = textBox.Text.Length; // Set cursor to the end
-            }
-        }
         private void AddPersonnelButton_Click(object sender, RoutedEventArgs e)
         {
             ShowAddPersonnelDialog();
         }
+
         private async void ShowAddPersonnelDialog()
         {
             var dialog = new ContentDialog
             {
-                Title = "Dodaj Personel",
                 PrimaryButtonText = "Dodaj",
                 CloseButtonText = "Anuluj",
-                XamlRoot = this.XamlRoot, // Set the XamlRoot property
-              
+                XamlRoot = this.XamlRoot,
+                Style = (Style)Application.Current.Resources["ContentDialogStyle"],
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
             };
-
-            var titleBorder = new Border
-            {
-                Background = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
-                Child = new TextBlock
-                {
-                    Text = "Dodaj Personel",
-                    Foreground = new SolidColorBrush(Microsoft.UI.Colors.White),
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    FontSize = 20,
-                    TextAlignment = TextAlignment.Center,
-                    FontWeight = Microsoft.UI.Text.FontWeights.Bold,
-                    Width = 500, // Set static width
-                    Height = 30 // Set static height
-                }
-            };
-
-            dialog.Title = titleBorder;
 
             var stackPanel = new StackPanel();
+
+            var headerGrid = new Grid
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                Padding = new Thickness(10),
+                Width = 477
+            };
+
+            var headerTextBlock = new TextBlock
+            {
+                Text = "Dodaj Personel",
+                TextAlignment = TextAlignment.Center,
+                Foreground = new SolidColorBrush(Colors.White),
+                FontSize = 20,
+                FontWeight = FontWeights.Bold
+            };
+
+            headerGrid.Children.Add(headerTextBlock);
+            stackPanel.Children.Add(headerGrid);
 
             var imieTextBox = new TextBox
             {
@@ -101,7 +80,7 @@ namespace AplikacjaMedyczna
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 500 // Set static width
+                Width = 477
             };
             var nazwiskoTextBox = new TextBox
             {
@@ -109,7 +88,7 @@ namespace AplikacjaMedyczna
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 500 // Set static width
+                Width = 477
             };
             var rolaComboBox = new ComboBox
             {
@@ -117,7 +96,7 @@ namespace AplikacjaMedyczna
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 500 // Set static width
+                Width = 477
             };
 
             stackPanel.Children.Add(imieTextBox);
@@ -128,90 +107,99 @@ namespace AplikacjaMedyczna
 
             await LoadRolesAsync(rolaComboBox);
 
-            var primaryButtonStyle = new Style(typeof(Button));
-            primaryButtonStyle.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Microsoft.UI.Colors.DarkBlue)));
-            primaryButtonStyle.Setters.Add(new Setter(Button.ForegroundProperty, new SolidColorBrush(Microsoft.UI.Colors.White)));
-            primaryButtonStyle.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(10)));
-
-            var closeButtonStyle = new Style(typeof(Button));
-            closeButtonStyle.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Microsoft.UI.Colors.Red)));
-            closeButtonStyle.Setters.Add(new Setter(Button.ForegroundProperty, new SolidColorBrush(Microsoft.UI.Colors.White)));
-            closeButtonStyle.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(10)));
-
-            dialog.PrimaryButtonStyle = primaryButtonStyle;
-            dialog.CloseButtonStyle = closeButtonStyle;
-
             var result = await dialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
             {
+                var rola = rolaComboBox.SelectedItem as Role;
+                if (string.IsNullOrWhiteSpace(imieTextBox.Text) || string.IsNullOrWhiteSpace(nazwiskoTextBox.Text) || rola == null)
+                {
+                    await ShowMessageDialog("Błąd", "Uzupełnij wszystkie pola.");
+                    ShowAddPersonnelDialog();
+                    return;
+                }
+
                 var imie = imieTextBox.Text;
                 var nazwisko = nazwiskoTextBox.Text;
-                var rola = rolaComboBox.SelectedItem as Role;
 
-                if (rola != null)
-                {
-                    await InsertPersonnelAsync(imie, nazwisko, rola.Id, "haslo");
-                    LoadPersonnelData(); // Refresh the data
-                }
+                await InsertPersonnelAsync(imie, nazwisko, rola.Id, "haslo");
+                LoadPersonnelData(); // Refresh the data
+
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                await ShowMessageDialog("Anulowano", "Dodawanie personelu zostało anulowane.");
             }
         }
+
         private async Task ShowEditPersonnelDialog(Personnel personnel)
         {
             var dialog = new ContentDialog
             {
-                
-                Title = "Zmień Rolę",
                 PrimaryButtonText = "Zapisz",
                 CloseButtonText = "Anuluj",
                 XamlRoot = this.XamlRoot,
+                Style = (Style)Application.Current.Resources["ContentDialogStyle"],
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
             };
 
             var stackPanel = new StackPanel();
 
+            var headerGrid = new Grid
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                Padding = new Thickness(10),
+                Width = 477
+            };
+
+            var headerTextBlock = new TextBlock
+            {
+                Text = "Zmień Rolę", // Możesz zmienić tekst na dowolny
+                TextAlignment = TextAlignment.Center,
+                Foreground = new SolidColorBrush(Colors.White),
+                FontSize = 20,
+                FontWeight = FontWeights.Bold
+            };
+
+            headerGrid.Children.Add(headerTextBlock);
+            stackPanel.Children.Add(headerGrid);
+
             var rolaComboBox = new ComboBox
             {
-
                 PlaceholderText = "Role",
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 500
+                Width = 477
             };
 
             stackPanel.Children.Add(rolaComboBox);
 
-            dialog.Content = stackPanel;
-
             await LoadRolesAsync(rolaComboBox);
 
-
-            var primaryButtonStyle = new Style(typeof(Button));
-            primaryButtonStyle.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Microsoft.UI.Colors.DarkBlue)));
-            primaryButtonStyle.Setters.Add(new Setter(Button.ForegroundProperty, new SolidColorBrush(Microsoft.UI.Colors.White)));
-            primaryButtonStyle.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(10)));
-
-            var CloseButtonStyle = new Style(typeof(Button));
-            CloseButtonStyle.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Microsoft.UI.Colors.Red)));
-            CloseButtonStyle.Setters.Add(new Setter(Button.ForegroundProperty, new SolidColorBrush(Microsoft.UI.Colors.White)));
-            CloseButtonStyle.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(10)));
-
-            dialog.PrimaryButtonStyle = primaryButtonStyle;
-            dialog.CloseButtonStyle = CloseButtonStyle;
+            dialog.Content = stackPanel;
 
             var result = await dialog.ShowAsync();
-
 
             if (result == ContentDialogResult.Primary)
             {
                 var selectedRole = rolaComboBox.SelectedItem as Role;
-                if (selectedRole != null)
+                if (selectedRole == null)
                 {
-                    await UpdatePersonnelRoleAsync(personnel.Id, selectedRole.Id);
-                    LoadPersonnelData(); // Refresh the data
+                    await ShowMessageDialog("Błąd", "Wybierz rolę.");
+                    await ShowEditPersonnelDialog(personnel);
+                    return;
                 }
+                await UpdatePersonnelRoleAsync(personnel.Id, selectedRole.Id);
+                LoadPersonnelData(); // Refresh the data
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                await ShowMessageDialog("Anulowano", "Edycja roli została anulowana.");
             }
         }
+
         private async Task LoadRolesAsync(ComboBox comboBox)
         {
             var roles = new List<Role>();
@@ -243,7 +231,6 @@ namespace AplikacjaMedyczna
             comboBox.SelectedValuePath = "Id";
         }
 
-
         private async Task InsertPersonnelAsync(string imie, string nazwisko, int idRoli, string haslo)
         {
             using (var connection = new NpgsqlConnection(connectionString))
@@ -264,12 +251,14 @@ namespace AplikacjaMedyczna
                     await command.ExecuteNonQueryAsync();
                 }
             }
+            await ShowMessageDialog("Sukces", "Personel został dodany.");
         }
 
         private async void LoadPersonnelData()
         {
             allPersonnelList = await GetPersonnelAsync();
-            MedicalStaffListView.ItemsSource = allPersonnelList;
+            filteredPersonnelList = new List<Personnel>(allPersonnelList);
+            MedicalStaffListView.ItemsSource = filteredPersonnelList;
         }
 
         private async Task<List<Personnel>> GetPersonnelAsync()
@@ -317,21 +306,42 @@ namespace AplikacjaMedyczna
             return personnelList;
         }
 
-        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        private void OnFilterChanged(object sender, TextChangedEventArgs args)
         {
-            string filterId = FilterNumerId.Text.ToLower();
-            string filterImie = FilterImie.Text.ToLower();
-            string filterNazwisko = FilterNazwisko.Text.ToLower();
-            string filterProfesja = FilterProfesja.Text.ToLower();
+            filteredPersonnelList = allPersonnelList
+                .Where(personnel => Filter(personnel))
+                .ToList();
 
-            var filteredList = allPersonnelList.Where(p =>
-                (string.IsNullOrEmpty(filterId) || p.Id.ToString().Contains(filterId)) &&
-                (string.IsNullOrEmpty(filterImie) || p.Imie.ToLower().Contains(filterImie)) &&
-                (string.IsNullOrEmpty(filterNazwisko) || p.Nazwisko.ToLower().Contains(filterNazwisko)) &&
-                (string.IsNullOrEmpty(filterProfesja) || p.Rola.ToLower().Contains(filterProfesja))
-            ).ToList();
+            MedicalStaffListView.ItemsSource = filteredPersonnelList;
+        }
 
-            MedicalStaffListView.ItemsSource = filteredList;
+        private bool Filter(Personnel personnel)
+        {
+            if (!string.IsNullOrWhiteSpace(FilterNumerId.Text) &&
+                !personnel.Id.ToString().Contains(FilterNumerId.Text, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(FilterImie.Text) &&
+                !personnel.Imie.Contains(FilterImie.Text, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(FilterNazwisko.Text) &&
+                !personnel.Nazwisko.Contains(FilterNazwisko.Text, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(FilterProfesja.Text) &&
+                !personnel.Rola.Contains(FilterProfesja.Text, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private async void CheckBox_Click(object sender, RoutedEventArgs e)
@@ -340,35 +350,84 @@ namespace AplikacjaMedyczna
             {
                 string message = personnel.Aktywne
                     ? $"Czy chcesz dezaktywować pracownika {personnel.Imie} {personnel.Nazwisko}?"
-                    : $"Czy chcesz reaktywować pracownika {personnel.Imie} {personnel.Nazwisko}?";
+                    : $"Czy chcesz aktywować pracownika {personnel.Imie} {personnel.Nazwisko}?";
 
-                ContentDialog dialog = new ContentDialog
+                string message2 = personnel.Aktywne
+                    ? $"Dezaktywacja Pracownika"
+                    : $"Aktywacja Pracownika";
+
+                string message3 = personnel.Aktywne
+                    ? $"Dezaktywacja pracownika została anulowana."
+                    : $"Aktywacja pracownika została anulowana.";
+
+                string message4 = personnel.Aktywne
+                    ? $"Pracownik został dezaktywowany."
+                    : $"Pracownik został aktywowany.";
+
+                var dialog = new ContentDialog
                 {
-                    Title = "Potwierdzenie",
-                    Content = message,
                     PrimaryButtonText = "Tak",
                     CloseButtonText = "Nie",
-                    XamlRoot = this.Content.XamlRoot // Set the XamlRoot property
+                    XamlRoot = this.Content.XamlRoot,
+                    Style = (Style)Application.Current.Resources["ContentDialogStyle"],
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
                 };
 
-                ContentDialogResult result = await dialog.ShowAsync();
-                  
+                var stackPanel = new StackPanel();
+
+                var headerGrid = new Grid
+                {
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                    Padding = new Thickness(10),
+                    Width = 477
+                };
+
+                var headerTextBlock = new TextBlock
+                {
+                    Text = message2, // Możesz zmienić tekst na dowolny
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold
+                };
+
+                headerGrid.Children.Add(headerTextBlock);
+                stackPanel.Children.Add(headerGrid);
+
+                var messageTextBlock = new TextBlock
+                {
+                    Text = message,
+                    Margin = new Thickness(0, 10, 0, 5),
+                    FontSize = 16,
+                    Foreground = new SolidColorBrush(Colors.Black),
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = 477
+                };
+
+                stackPanel.Children.Add(messageTextBlock);
+
+                dialog.Content = stackPanel;
+
+                var result = await dialog.ShowAsync();
+
                 if (result == ContentDialogResult.Primary)
                 {
                     await UpdatePersonnelStatusAsync(personnel.Id, !personnel.Aktywne);
                     personnel.Aktywne = !personnel.Aktywne;
+                    await ShowMessageDialog("Sukces", message4);
                     LoadPersonnelData(); // Refresh the data
                 }
                 else
                 {
                     checkBox.IsChecked = !checkBox.IsChecked; // Revert the checkbox state
+                    await ShowMessageDialog("Anulowano", message3);
                 }
             }
         }
 
         private async Task UpdatePersonnelStatusAsync(int id, bool isActive)
         {
-
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 await connection.OpenAsync();
@@ -392,10 +451,10 @@ namespace AplikacjaMedyczna
         {
             if (sender is Button button)
             {
-                // Pass the button name or content to a helper method
                 NavigationHelper.Navigate(button.Name);
             }
         }
+
         private void NavbarToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             NavigationHelper.TogglePane();
@@ -437,6 +496,41 @@ namespace AplikacjaMedyczna
                     await command.ExecuteNonQueryAsync();
                 }
             }
+            await ShowMessageDialog("Sukces", "Rola została zmieniona.");
+        }
+
+        private async Task ShowMessageDialog(string title, string content)
+        {
+            var dialog = new ContentDialog
+            {
+                Content = content,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
+                CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor tła dialogu
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
+            };
+
+            // Tworzenie kontenera dla tytułu
+            var titleContainer = new Border
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła (#004AAD)
+                Padding = new Thickness(10), // Odstępy wewnętrzne
+                Child = new TextBlock
+                {
+                    Text = title, // Ustawienie tekstu
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold,
+                    Width = 250
+                }
+            };
+
+            // Ustawienie dostosowanego elementu jako tytułu dialogu
+            dialog.Title = titleContainer;
+
+            await dialog.ShowAsync();
         }
 
         private class Personnel
@@ -447,11 +541,11 @@ namespace AplikacjaMedyczna
             public string Rola { get; set; }
             public bool Aktywne { get; set; }
         }
+
         private class Role
         {
             public int Id { get; set; }
             public string Nazwa { get; set; }
         }
-
     }
 }
