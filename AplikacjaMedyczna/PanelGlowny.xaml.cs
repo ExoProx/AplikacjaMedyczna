@@ -96,11 +96,15 @@ namespace AplikacjaMedyczna
             {
                 ObecnyPacjentPanel.Visibility = Visibility.Visible;
             }
-            else
             if (!string.IsNullOrEmpty(SharedData.id))
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+            }
+            if (SharedData.rola == "Specjalista" || string.IsNullOrEmpty(SharedData.id))
+            {
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
             }
         }
 

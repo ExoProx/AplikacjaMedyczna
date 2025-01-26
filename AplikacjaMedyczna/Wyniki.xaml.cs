@@ -57,7 +57,8 @@ namespace AplikacjaMedyczna
             Wyniki.id AS ""Wynik nr:"", 
             Wyniki.""dataWyniku"" AS ""Data Wykonania Wyniku:"",  
             personel.imie || ' ' || personel.nazwisko AS ""Personel Wykonujący Badanie:"",
-            Wyniki.""wynikiBadania"" AS ""Wyniki Badania""
+            Wyniki.""wynikiBadania"" AS ""Wyniki Badania"",
+            personel.""id"" AS personel_id
         FROM 
             ""WynikibadanDiagnostycznych"" AS Wyniki
         JOIN 
@@ -82,7 +83,8 @@ namespace AplikacjaMedyczna
                                 WynikNr = rdr.GetInt32(0),
                                 DataWykonaniaWyniku = rdr.GetDateTime(1).ToString("dd.MM.yyyy"),
                                 PersonelWykonujacyBadanie = rdr.GetString(2),
-                                WynikiBadania = rdr.IsDBNull(3) ? string.Empty : rdr.GetString(3)
+                                WynikiBadania = rdr.IsDBNull(3) ? string.Empty : rdr.GetString(3),
+                                IdPersonelu = rdr.GetInt32(4)
                             });
                         }
                     }
@@ -129,6 +131,18 @@ namespace AplikacjaMedyczna
 
             dialog.Content = stackPanel;
 
+            // Check if the current doctor is the same as the doctor who made the result
+            if (result.IdPersonelu.ToString() == SharedData.id)
+            {
+                dialog.PrimaryButtonText = "Edytuj";
+                dialog.IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                dialog.PrimaryButtonText = "";
+                dialog.IsPrimaryButtonEnabled = false;
+            }
+
             await dialog.ShowAsync();
         }
 
@@ -143,6 +157,7 @@ namespace AplikacjaMedyczna
             public string DataWykonaniaWyniku { get; set; }
             public string PersonelWykonujacyBadanie { get; set; }
             public string WynikiBadania { get; set; }
+            public int IdPersonelu { get; set; }
         }
         private void AddResultButton_Click(object sender, RoutedEventArgs e)
         {
@@ -154,8 +169,15 @@ namespace AplikacjaMedyczna
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
+            }
+            if (SharedData.rola == "Specjalista")
+            {
                 AddResultButton.Visibility = Visibility.Visible;
                 AddResultButton.IsEnabled = true;
+                //AddPhotoButton.Visibility = Visibility.Visible;
+                //AddPhotoButton.IsEnabled = true;
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)

@@ -38,17 +38,23 @@ namespace AplikacjaMedyczna
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
-                AddDescriptionButton.Visibility = Visibility.Visible;
-                AddDescriptionButton.IsEnabled = true;
-
-                WpisDetailDialog.PrimaryButtonText = "Edytuj";
-                WpisDetailDialog.IsPrimaryButtonEnabled = true;
             }
             else
             {
                 WpisDetailDialog.PrimaryButtonText = "";
                 WpisDetailDialog.IsPrimaryButtonEnabled = false;
             }
+            if (SharedData.rola == "Lekarz")
+            {
+                AddDescriptionButton.Visibility = Visibility.Visible;
+                AddDescriptionButton.IsEnabled = true;
+            }
+            if (SharedData.rola == "Specjalista" || string.IsNullOrEmpty(SharedData.id))
+            {
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
+            }
+            
         }
 
         private void NavButton_Click(object sender, RoutedEventArgs e)
@@ -90,6 +96,18 @@ namespace AplikacjaMedyczna
 
                 WpisDetailDialog.Content = stackPanel;
 
+                // Check if the current doctor is the same as the doctor who made the wpis
+                if (SelectedWpis.IdPersonelu.ToString() == SharedData.id)
+                {
+                    WpisDetailDialog.PrimaryButtonText = "Edytuj";
+                    WpisDetailDialog.IsPrimaryButtonEnabled = true;
+                }
+                else
+                {
+                    WpisDetailDialog.PrimaryButtonText = "";
+                    WpisDetailDialog.IsPrimaryButtonEnabled = false;
+                }
+
                 await WpisDetailDialog.ShowAsync();
             }
         }
@@ -116,7 +134,8 @@ namespace AplikacjaMedyczna
                         Wpisy.""wpis"",
                         TO_CHAR(Wpisy.""dataWpisu"", 'DD.MM.YYYY') AS data_wpisu_formatted,  
                         personel.""imie"", 
-                        personel.""nazwisko"" 
+                        personel.""nazwisko"",
+                        personel.""id"" AS personel_id
                     FROM 
                         ""WpisyMedyczne"" as Wpisy
                     JOIN 
@@ -137,13 +156,16 @@ namespace AplikacjaMedyczna
                         {
                             string imie = reader.GetString(3);
                             string nazwisko = reader.GetString(4);
+                            int personelId = reader.GetInt32(5);
                             wpisy.Add(new Wpis
                             {
                                 Id = reader.GetInt32(0),
                                 WpisText = reader.GetString(1),
                                 PeselPacjenta = peselNumeric,
+                                IdPersonelu = personelId,
                                 DataWpisu = reader.GetString(2),
                                 DanePersonelu = String.Concat(imie, " ", nazwisko)
+                                
                             });
                         }
                     }
@@ -383,7 +405,19 @@ namespace AplikacjaMedyczna
             AddTextBlock(stackPanel, "Dane personelu:", wpis.DanePersonelu);
 
             WpisDetailDialog.Content = stackPanel;
-            WpisDetailDialog.PrimaryButtonText = "Edytuj";
+
+            // Check if the current doctor is the same as the doctor who made the wpis
+            if (wpis.IdPersonelu.ToString() == SharedData.id)
+            {
+                WpisDetailDialog.PrimaryButtonText = "Edytuj";
+                WpisDetailDialog.IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                WpisDetailDialog.PrimaryButtonText = "";
+                WpisDetailDialog.IsPrimaryButtonEnabled = false;
+            }
+
             WpisDetailDialog.CloseButtonText = "Zamknij";
             WpisDetailDialog.Style = (Style)Application.Current.Resources["ContentDialogStyle"];
             WpisDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"]; // Przypisz styl PrimaryButton
