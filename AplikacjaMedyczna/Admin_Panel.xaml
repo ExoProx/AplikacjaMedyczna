@@ -76,13 +76,14 @@
                 <Grid Margin="10,60,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="20"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="ManageWorkersButton" Content="Zarządzaj Lekarzami" Click="NavButton_Click" Grid.Row="1" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
-                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
-                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="3" VerticalAlignment="Bottom" Margin="0,0,0,20" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="ManageWorkersButton" Content="Zarządzaj Lekarzami" Click="NavButton_Click" Grid.Row="0" Width="160" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="160" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="5" VerticalAlignment="Bottom" Margin="0,0,0,20" Width="160" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
