@@ -5,8 +5,67 @@
     xmlns:local="using:AplikacjaMedyczna"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Name="ContentDialogStyle" TargetType="ContentDialog">
+            <Setter Property="Background" Value="#F0F8FF" />
+            <Setter Property="BorderBrush" Value="#004AAD" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style x:Key="PersonelButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#004AAD"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <!-- Stan domyślny -->
+                                    <VisualState x:Name="Normal"/>
+                                    <!-- Efekt przy najechaniu myszką -->
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#0078D7"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <!-- Efekt przy kliknięciu -->
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#003366"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#D6EAF8" Offset="0.7" />
+            <GradientStop Color="#85C1E9" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>
 
     <Grid>
         <SplitView x:Name="splitView" PaneBackground="#004AAD"
@@ -20,9 +79,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="ManageWorkersButton" Content="Zarządaj Lekarzami" Click="NavButton_Click" Grid.Row="0" Width="150" Height="50"/>
-                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50"/>
-                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="5" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="150" Height="50"/>
+                    <Button x:Name="ManageWorkersButton" Content="Zarządaj Lekarzami" Click="NavButton_Click" Grid.Row="0" Width="150" Height="50"  Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="InsertPatientButton" Content="Dodaj Pacjenta" Click="NavButton_Click" Grid.Row="2" Width="150" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="5" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="150" Height="50"  Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
@@ -72,7 +131,7 @@
                                 <TextBlock Text="Pesel Rodzica:" Margin="5" VerticalAlignment="Center" Grid.Row="7"/>
                                 <TextBox x:Name="PeselRodzicaTextBox" Grid.Column="1" Margin="5" Grid.Row="7" InputScope="Number" MaxLength="11" Width="200" TextChanged="PeselRodzicaTextBox_TextChanged"/>
 
-                                <Button Content="Dodaj Pacjenta" Grid.Row="8" Grid.ColumnSpan="2" Width="200" Margin="5" HorizontalAlignment="Center" Click="SubmitButton_Click"/>
+                                <Button Content="Dodaj Pacjenta" Grid.Row="8" Grid.ColumnSpan="2" Width="200" Margin="5" HorizontalAlignment="Center" Click="SubmitButton_Click" Style="{StaticResource PersonelButtonStyle}" />
                             </Grid>
                         </StackPanel>
                     </Border>
