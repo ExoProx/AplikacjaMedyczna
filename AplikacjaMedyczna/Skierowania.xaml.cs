@@ -38,16 +38,21 @@ namespace AplikacjaMedyczna
             {
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
-                AddRefferalButton.Visibility = Visibility.Visible;
-                AddRefferalButton.IsEnabled = true;
-
-                SkierowanieDetailDialog.PrimaryButtonText = "Edytuj";
-                SkierowanieDetailDialog.IsPrimaryButtonEnabled = true;
             }
             else
             {
                 SkierowanieDetailDialog.PrimaryButtonText = "";
                 SkierowanieDetailDialog.IsPrimaryButtonEnabled = false;
+            }
+            if (SharedData.rola == "Lekarz")
+            {
+                AddRefferalButton.Visibility = Visibility.Visible;
+                AddRefferalButton.IsEnabled = true;
+            }
+            if (SharedData.rola == "Specjalista" || string.IsNullOrEmpty(SharedData.id))
+            {
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
             }
         }
 
@@ -84,11 +89,23 @@ namespace AplikacjaMedyczna
                 // Utwórz nowy StackPanel i dodaj TextBlocki
                 var stackPanel = new StackPanel();
                 AddTextBlock(stackPanel, "Skierowanie:", SelectedSkierowanie.SkierowanieText);
-                AddTextBlock(stackPanel, "Data skierowania", SelectedSkierowanie.DataSkierowania);
+                AddTextBlock(stackPanel, "Data skierowania:", SelectedSkierowanie.DataSkierowania);
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", SelectedSkierowanie.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", SelectedSkierowanie.DanePersonelu);
 
                 SkierowanieDetailDialog.Content = stackPanel;
+
+                // Check if the current doctor is the same as the doctor who made the skierowanie
+                if (SelectedSkierowanie.IdPersonelu.ToString() == SharedData.id)
+                {
+                    SkierowanieDetailDialog.PrimaryButtonText = "Edytuj";
+                    SkierowanieDetailDialog.IsPrimaryButtonEnabled = true;
+                }
+                else
+                {
+                    SkierowanieDetailDialog.PrimaryButtonText = "";
+                    SkierowanieDetailDialog.IsPrimaryButtonEnabled = false;
+                }
 
                 await SkierowanieDetailDialog.ShowAsync();
             }
@@ -111,22 +128,23 @@ namespace AplikacjaMedyczna
             {
                 connection.Open();
                 string query = @"
-                    SELECT 
-                        Skierowania.""id"",
-                        Skierowania.""skierowanie"",
-                        TO_CHAR(Skierowania.""dataSkierowania"", 'DD.MM.YYYY') AS data_skierowania_formatted,
-                        personel.""imie"",
-                        personel.""nazwisko""
-                    FROM 
-                        ""Skierowania"" as Skierowania
-                    JOIN 
-                        ""PersonelMedyczny"" as personel
-                    ON 
-                        Skierowania.""idPersonelu"" = personel.""id"" 
-                    WHERE 
-                        Skierowania.""peselPacjenta"" = @pesel 
-                    ORDER BY 
-                        Skierowania.""dataSkierowania"" DESC;";
+            SELECT 
+                Skierowania.""id"",
+                Skierowania.""skierowanie"",
+                TO_CHAR(Skierowania.""dataSkierowania"", 'DD.MM.YYYY') AS data_skierowania_formatted,
+                personel.""imie"",
+                personel.""nazwisko"",
+                personel.""id"" AS personel_id
+            FROM 
+                ""Skierowania"" as Skierowania
+            JOIN 
+                ""PersonelMedyczny"" as personel
+            ON 
+                Skierowania.""idPersonelu"" = personel.""id"" 
+            WHERE 
+                Skierowania.""peselPacjenta"" = @pesel 
+            ORDER BY 
+                Skierowania.""dataSkierowania"" DESC;";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -137,13 +155,15 @@ namespace AplikacjaMedyczna
                         {
                             string imie = reader.GetString(3);
                             string nazwisko = reader.GetString(4);
+                            int personelId = reader.GetInt32(5);
                             skierowania.Add(new Skierowanie
                             {
                                 Id = reader.GetInt32(0),
                                 SkierowanieText = reader.GetString(1),
                                 PeselPacjenta = peselNumeric,
                                 DataSkierowania = reader.GetString(2),
-                                DanePersonelu = String.Concat(imie, " ", nazwisko)
+                                DanePersonelu = String.Concat(imie, " ", nazwisko),
+                                IdPersonelu = personelId
                             });
                         }
                     }

@@ -32,12 +32,12 @@ namespace AplikacjaMedyczna
                 SharedData.id = Pesel.Text;
                 NavigateBasedOnRole();
             }
-            else if (stan == 2 || stan == 0)
+            else if (stan == 3 || stan == 0)
             {
                 ErrorMessage.Text = "Nieprawidłowy ID Pracownika lub hasło";
                 ErrorMessage.Visibility = Visibility.Visible;
             }
-            else if (stan == 3)
+            else if (stan == 2)
             {
                 ErrorMessage.Text = "Błąd połączenia z bazą o odanych";
                 ErrorMessage.Visibility = Visibility.Visible;
@@ -110,51 +110,60 @@ namespace AplikacjaMedyczna
                      "Password=pacjent;" +
                      "Database=medical_database";
 
-            using (var con = new NpgsqlConnection(cs))
+            try
             {
-                con.Open();
-
-                // SQL query with JOIN and password decryption
-                string sql = @"
-                        SELECT 
-                            pm.*, rp.nazwa AS rola
-                        FROM 
-                            public.""PersonelMedyczny"" AS pm
-                        JOIN 
-                            public.""RolePersonelu"" AS rp 
-                        ON 
-                            pm.""idRoli"" = rp.id
-                        WHERE 
-                            pm.""id"" = @pesel AND pm.""haslo"" = crypt(@haslo, pm.""haslo"")";
-
-                using (var cmd = new NpgsqlCommand(sql, con))
+                using (var con = new NpgsqlConnection(cs))
                 {
-                    cmd.Parameters.AddWithValue("@pesel", peselNumeric);
-                    cmd.Parameters.AddWithValue("@haslo", haslo);
+                    con.Open();
 
-                    using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+                    // SQL query with JOIN and password decryption
+                    string sql = @"
+                    SELECT 
+                        pm.*, rp.nazwa AS rola
+                    FROM 
+                        public.""PersonelMedyczny"" AS pm
+                    JOIN 
+                        public.""RolePersonelu"" AS rp 
+                    ON 
+                        pm.""idRoli"" = rp.id
+                    WHERE 
+                        pm.""id"" = @pesel AND pm.""haslo"" = crypt(@haslo, pm.""haslo"")";
+
+                    using (var cmd = new NpgsqlCommand(sql, con))
                     {
-                        if (rdr.Read())
+                        cmd.Parameters.AddWithValue("@pesel", peselNumeric);
+                        cmd.Parameters.AddWithValue("@haslo", haslo);
+
+                        using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                         {
-                            if (rdr.GetBoolean(rdr.GetOrdinal("aktywne")) == false)
+                            if (rdr.Read())
                             {
-                                return 4; // Account is inactive
+                                if (rdr.GetBoolean(rdr.GetOrdinal("aktywne")) == false)
+                                {
+                                    return 4; // Account is inactive
+                                }
+                                SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
+                                if (rdr.GetBoolean(rdr.GetOrdinal("pierwszehaslo")))
+                                {
+                                    return 5; // First login detected
+                                }
+                                return 1;
                             }
-                            SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
-                            if (rdr.GetBoolean(rdr.GetOrdinal("pierwszehaslo")))
+                            else
                             {
-                                return 5; // First login detected
+                                return 3; // Invalid PESEL or password
                             }
-                            return 1;
-                        }
-                        else
-                        {
-                            return 3; // Invalid PESEL or password
                         }
                     }
                 }
             }
+            catch (Exception)
+            {
+                return 2; // Database connection error
+            }
         }
-    }
     
-}
+    }
+ }
+    
+
