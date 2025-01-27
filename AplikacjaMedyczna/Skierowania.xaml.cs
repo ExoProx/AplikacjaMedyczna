@@ -455,7 +455,8 @@ namespace AplikacjaMedyczna
                 AcceptsReturn = true,
                 TextWrapping = TextWrapping.Wrap,
                 Height = 200,
-                Margin = new Thickness(0, 10, 0, 10)
+                Margin = new Thickness(0, 10, 0, 10),
+                MaxLength = 256
             };
             ScrollViewer.SetVerticalScrollBarVisibility(skierowanieTextBox, ScrollBarVisibility.Auto);
 

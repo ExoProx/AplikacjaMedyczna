@@ -95,9 +95,9 @@ namespace AplikacjaMedyczna
                 AddTextBlock(stackPanel, "Data ważności recepty:", SelectedRecepta.DataWaznosciRecepty);
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", SelectedRecepta.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", SelectedRecepta.DanePersonelu);
-
+                
                 ReceptaDetailDialog.Content = stackPanel;
-
+                ScrollViewer.SetVerticalScrollBarVisibility(ReceptaDetailDialog, ScrollBarVisibility.Auto);
                 // Check if the current doctor is the same as the doctor who made the recepta
                 if (SelectedRecepta.IdPersonelu.ToString() == SharedData.id)
                 {
@@ -464,7 +464,8 @@ namespace AplikacjaMedyczna
                 AcceptsReturn = true,
                 TextWrapping = TextWrapping.Wrap,
                 Height = 200,
-                Margin = new Thickness(0, 10, 0, 10)
+                Margin = new Thickness(0, 10, 0, 10),
+                MaxLength = 256
             };
             ScrollViewer.SetVerticalScrollBarVisibility(przypisaneLekiTextBox, ScrollBarVisibility.Auto);
 
