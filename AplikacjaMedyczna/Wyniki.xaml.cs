@@ -14,7 +14,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
+using System.Net.Http;
+using Microsoft.UI.Xaml.Media.Imaging;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -53,26 +54,27 @@ namespace AplikacjaMedyczna
                 await con.OpenAsync();
 
                 var query = @"
-        SELECT 
-            Wyniki.id AS ""Wynik nr:"", 
-            Wyniki.""dataWyniku"" AS ""Data Wykonania Wyniku:"",  
-            personel.imie || ' ' || personel.nazwisko AS ""Personel Wykonujący Badanie:"",
-            Wyniki.""wynikiBadania"" AS ""Wyniki Badania"",
-            personel.""id"" AS personel_id
-        FROM 
-            ""WynikibadanDiagnostycznych"" AS Wyniki
-        JOIN 
-            ""PersonelMedyczny"" AS personel
-        ON 
-            Wyniki.""idPersonelu"" = personel.""id"" 
-        WHERE 
-            Wyniki.""peselPacjenta"" = @pesel
-        ORDER BY 
-            ""Data Wykonania Wyniku:"" DESC";
+            SELECT 
+                Wyniki.id AS ""Wynik nr:"", 
+                Wyniki.""dataWyniku"" AS ""Data Wykonania Wyniku:"",  
+                personel.imie || ' ' || personel.nazwisko AS ""Personel Wykonujący Badanie:"",
+                Wyniki.""wynikiBadania"" AS ""Wyniki Badania"",
+                personel.""id"" AS personel_id,
+                Wyniki.""sciezkaDoPliku"" AS ""SciezkaDoPliku""  -- Dodajemy ścieżkę do pliku
+            FROM 
+                ""WynikibadanDiagnostycznych"" AS Wyniki
+            JOIN 
+                ""PersonelMedyczny"" AS personel
+            ON 
+                Wyniki.""idPersonelu"" = personel.""id"" 
+            WHERE 
+                Wyniki.""peselPacjenta"" = @pesel
+            ORDER BY 
+                ""Wynik nr:"" DESC;";
 
                 using (var cmd = new NpgsqlCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@pesel", Convert.ToDecimal(SharedData.pesel)); // Replace with actual PESEL
+                    cmd.Parameters.AddWithValue("@pesel", Convert.ToDecimal(SharedData.pesel));
 
                     using (var rdr = await cmd.ExecuteReaderAsync())
                     {
@@ -84,7 +86,8 @@ namespace AplikacjaMedyczna
                                 DataWykonaniaWyniku = rdr.GetDateTime(1).ToString("dd.MM.yyyy"),
                                 PersonelWykonujacyBadanie = rdr.GetString(2),
                                 WynikiBadania = rdr.IsDBNull(3) ? string.Empty : rdr.GetString(3),
-                                IdPersonelu = rdr.GetInt32(4)
+                                IdPersonelu = rdr.GetInt32(4),
+                                FilePath = rdr.IsDBNull(5) ? string.Empty : rdr.GetString(5)
                             });
                         }
                     }
@@ -103,6 +106,8 @@ namespace AplikacjaMedyczna
             }
         }
 
+
+
         private async void ShowResultDetailDialog(Result result)
         {
             var dialog = new ContentDialog
@@ -112,9 +117,11 @@ namespace AplikacjaMedyczna
                 PrimaryButtonText = "Edytuj",
                 PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
                 CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"],
-                XamlRoot = this.XamlRoot // Set the XamlRoot property
+                XamlRoot = this.XamlRoot
             };
+
             dialog.PrimaryButtonClick += EditButton_Click;
+
             var stackPanel = new StackPanel
             {
                 Padding = new Thickness(10)
@@ -129,9 +136,41 @@ namespace AplikacjaMedyczna
             stackPanel.Children.Add(new TextBlock { Text = "Wyniki Badania:", Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] });
             stackPanel.Children.Add(new TextBlock { Text = result.WynikiBadania, Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] });
 
+            if (!string.IsNullOrEmpty(result.FilePath))
+            {
+                var openFileButton = new Button
+                {
+                    Content = "Otwórz plik z wynikiem",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0)
+                };
+
+                openFileButton.Click += (sender, e) =>
+                {
+                    var newStackPanel = new StackPanel
+                    {
+                        Padding = new Thickness(10)
+                    };
+
+                    string url = $"https://studencki-portal-medyczny.pl/getfile.php?file={result.FilePath}";
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(url));
+                    newStackPanel.Children.Add(new Image 
+                    { 
+                         Source = bitmapImage, 
+                         MaxHeight = 600, 
+                         MaxWidth = 600 
+                    });
+
+
+                    dialog.Content = newStackPanel;
+                };
+
+                stackPanel.Children.Add(openFileButton);
+            }
+
             dialog.Content = stackPanel;
 
-            // Check if the current doctor is the same as the doctor who made the result
+            // Sprawdzenie, czy obecny lekarz to ten, który wykonał badanie
             if (result.IdPersonelu.ToString() == SharedData.id)
             {
                 dialog.PrimaryButtonText = "Edytuj";
@@ -143,8 +182,12 @@ namespace AplikacjaMedyczna
                 dialog.IsPrimaryButtonEnabled = false;
             }
 
+            // Pokaż główny okno dialogowe
             await dialog.ShowAsync();
         }
+
+
+
 
         private void EditButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
@@ -158,6 +201,7 @@ namespace AplikacjaMedyczna
             public string PersonelWykonujacyBadanie { get; set; }
             public string WynikiBadania { get; set; }
             public int IdPersonelu { get; set; }
+            public string FilePath { get; internal set; }
         }
         private void AddResultButton_Click(object sender, RoutedEventArgs e)
         {
@@ -174,8 +218,6 @@ namespace AplikacjaMedyczna
             {
                 AddResultButton.Visibility = Visibility.Visible;
                 AddResultButton.IsEnabled = true;
-                //AddPhotoButton.Visibility = Visibility.Visible;
-                //AddPhotoButton.IsEnabled = true;
                 WynikiButton.Visibility = Visibility.Visible;
                 WynikiButton.IsEnabled = true;
             }
