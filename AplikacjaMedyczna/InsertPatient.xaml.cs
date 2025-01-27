@@ -89,7 +89,16 @@ namespace AplikacjaMedyczna
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             bool allFieldsFilled = true;
-
+            DateTime dataUrodzenia = DateTime.Today;
+            bool isUnderage = false;
+            DataUrodzeniaDatePicker.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            ImieTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            NazwiskoTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            PeselRodzicaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            PeselTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            AdresZamieszkaniaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            TypKrwiTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            NumerKontaktowyTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
             if (string.IsNullOrWhiteSpace(ImieTextBox.Text))
             {
                 ImieTextBox.PlaceholderText = "Pole musi być wypełnione";
@@ -110,7 +119,19 @@ namespace AplikacjaMedyczna
                 DataUrodzeniaDatePicker.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
+            else
+            {
+                dataUrodzenia = DataUrodzeniaDatePicker.Date.Value.DateTime;
+                isUnderage = (DateTime.Now - dataUrodzenia).TotalDays < 18 * 365;
 
+                if (isUnderage && (string.IsNullOrWhiteSpace(PeselRodzicaTextBox.Text) || PeselRodzicaTextBox.Text.Length != 11))
+                {
+                    PeselRodzicaTextBox.Text = string.Empty;
+                    PeselRodzicaTextBox.PlaceholderText = "Pole musi być wypełnione (11 cyfr)";
+                    PeselRodzicaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
+                    return;
+                }
+            }
             if (string.IsNullOrWhiteSpace(PeselTextBox.Text) || PeselTextBox.Text.Length != 11)
             {
                 PeselTextBox.Text = string.Empty;
@@ -138,19 +159,11 @@ namespace AplikacjaMedyczna
                 TypKrwiTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
-            DateTime dataUrodzenia = DataUrodzeniaDatePicker.Date.Value.DateTime;
-            bool isUnderage = (DateTime.Now - dataUrodzenia).TotalDays < 18 * 365;
-
-            if (isUnderage && (string.IsNullOrWhiteSpace(PeselRodzicaTextBox.Text) || PeselRodzicaTextBox.Text.Length != 11))
-            {
-                PeselRodzicaTextBox.Text = string.Empty;
-                PeselRodzicaTextBox.PlaceholderText = "Pole musi być wypełnione (11 cyfr)";
-                PeselRodzicaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
-                allFieldsFilled = false;
-            }
+            
 
             if (allFieldsFilled)
             {
+                
                 string imie = ImieTextBox.Text;
                 string nazwisko = NazwiskoTextBox.Text;
                 string typKrwi = TypKrwiTextBox.Text;
