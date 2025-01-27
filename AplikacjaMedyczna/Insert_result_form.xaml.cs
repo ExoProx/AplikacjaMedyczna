@@ -1,13 +1,20 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Npgsql;
+using Windows.Storage.Pickers;
 
 namespace AplikacjaMedyczna
 {
+
+    
     public sealed partial class Insert_result_form : Page
     {
+        public string filename = "";
         public Insert_result_form()
         {
             this.InitializeComponent();
@@ -37,6 +44,7 @@ namespace AplikacjaMedyczna
                 return;
             }
 
+            string fileName = PickAPhotoOutputTextBlock.Text.Replace("Wybrany wynik: ", "").Trim();
             int status = SaveEntry(ResultTextBox.Text, selectedDate.Value.DateTime);
 
             if (status == 1)
@@ -60,9 +68,91 @@ namespace AplikacjaMedyczna
             }
         }
 
+        private async Task<bool> UploadFileToServer(Windows.Storage.StorageFile file)
+        {
+            try
+            {
+                string serverUrl = "https://studencki-portal-medyczny.pl/endpoint.php";
+
+                using (var client = new HttpClient())
+                using (var form = new MultipartFormDataContent())
+                {
+                    var fileStream = await file.OpenStreamForReadAsync();
+                    var streamContent = new StreamContent(fileStream);
+                    streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                    filename = file.Name;
+                    form.Add(streamContent, "plik", file.Name);
+
+                    var response = await client.PostAsync(serverUrl, form);
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Błąd podczas przesyłania pliku: {ex.Message}");
+                return false;
+            }
+        }
+
+        private async void PickAPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            //disable the button to avoid double-clicking
+            var senderButton = sender as Button;
+            senderButton.IsEnabled = false;
+
+            // Clear previous returned file name, if it exists, between iterations of this scenario
+            PickAPhotoOutputTextBlock.Text = "";
+
+            // Create a file picker
+            var openPicker = new FileOpenPicker();
+
+            // See the sample code below for how to make the window accessible from the App class.
+            var window = App.MainWindow;
+
+            // Retrieve the window handle (HWND) of the current WinUI 3 window.
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+
+            // Initialize the file picker with the window handle (HWND).
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+
+            // Set options for your file picker
+            openPicker.ViewMode = PickerViewMode.Thumbnail;
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".jpeg");
+            openPicker.FileTypeFilter.Add(".png");
+            openPicker.FileTypeFilter.Add(".pdf");
+
+            // Open the picker for the user to pick a file
+            var file = await openPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                PickAPhotoOutputTextBlock.Text = "Wybrany wynik: " + file.Name;
+
+                // Wyślij plik na serwer
+                bool uploadSuccess = await UploadFileToServer(file);
+                if (uploadSuccess)
+                {
+                    PickAPhotoOutputTextBlock.Text = "Plik pomyślnie przesłany: " + file.Name;
+                }
+                else
+                {
+                    PickAPhotoOutputTextBlock.Text = "Wystąpił błąd podczas przesyłania pliku.";
+                }
+            }
+            else
+            {
+                PickAPhotoOutputTextBlock.Text = "Operacja anulowana.";
+            }
+
+            //re-enable the button
+            senderButton.IsEnabled = true;
+        }
+
+
         private int SaveEntry(string wpis, DateTime examinationDate)
         {
-            if (string.IsNullOrWhiteSpace(wpis))
+            if (string.IsNullOrWhiteSpace(wpis) || string.IsNullOrWhiteSpace(filename))
             {
                 return 0;
             }
@@ -77,7 +167,7 @@ namespace AplikacjaMedyczna
                 using (var connection = new NpgsqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "INSERT INTO \"WynikibadanDiagnostycznych\" (\"peselPacjenta\", \"idPersonelu\", \"wynikiBadania\", \"dataWyniku\") VALUES (@1, @2, @3, @4);";
+                    string sql = "INSERT INTO \"WynikibadanDiagnostycznych\" (\"peselPacjenta\", \"idPersonelu\", \"wynikiBadania\", \"dataWyniku\", \"sciezkaDoPliku\") VALUES (@1, @2, @3, @4, @5);";
 
                     using (var command = new NpgsqlCommand(sql, connection))
                     {
@@ -85,20 +175,27 @@ namespace AplikacjaMedyczna
                         command.Parameters.AddWithValue("@2", long.Parse(SharedData.id));
                         command.Parameters.AddWithValue("@3", wpis);
                         command.Parameters.AddWithValue("@4", examinationDate);
+                        command.Parameters.AddWithValue("@5", filename);
+
                         command.ExecuteNonQuery();
                     }
                 }
 
                 return 1;
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                System.Diagnostics.Debug.WriteLine("Invalid pesel or id format.");
+                System.Diagnostics.Debug.WriteLine($"Invalid pesel or id format: {ex.Message}");
                 return 0;
+            }
+            catch (NpgsqlException ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Database connection error: {ex.Message}");
+                return 3;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Database error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Unexpected error: {ex.Message}");
                 return 3;
             }
         }

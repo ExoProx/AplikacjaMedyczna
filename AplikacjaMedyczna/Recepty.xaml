@@ -38,7 +38,7 @@
                     <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="3" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="4" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="5" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
-                    <Button x:Name="WynikiButton" Visibility="Collapsed" IsEnabled="False" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WynikiButton" IsEnabled="False" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>

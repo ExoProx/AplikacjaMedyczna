@@ -60,6 +60,8 @@
                                 <Border Background="#F0F8FF" CornerRadius="10" Padding="10" Margin="5">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="{Binding WynikNr}" FontSize="16" FontWeight="Bold" Width="345" TextTrimming="CharacterEllipsis" Foreground="#004AAD" />
+                                        <Image x:Name="FileImage" Width="300" Height="300" Visibility="Collapsed" Margin="10"/>
+                                        <WebView2 x:Name="PdfViewer" Width="600" Height="800" Visibility="Collapsed" Margin="10"/>
                                         <TextBlock Text="{Binding DataWykonaniaWyniku}" FontSize="14" Foreground="#004AAD" />
                                         <TextBlock Text="{Binding PersonelWykonujacyBadanie}" FontSize="14" Foreground="#004AAD" />
                                     </StackPanel>
