@@ -120,9 +120,15 @@ namespace AplikacjaMedyczna
             {
                 // Zapisz PESEL w SharedData
                 SharedData.pesel = selectedPatient.Pesel;
-
-                // Przekieruj u¿ytkownika do strony PanelGlowny
-                Frame.Navigate(typeof(PanelGlowny));
+                if (SharedData.rola == "Specjalista")
+                {
+                    App.MainFrame.Navigate(typeof(Wyniki));
+                }
+                else
+                {
+                    // Przekieruj u¿ytkownika do strony PanelGlowny
+                    Frame.Navigate(typeof(PanelGlowny));
+                }
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)

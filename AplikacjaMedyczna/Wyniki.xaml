@@ -42,7 +42,9 @@
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    
                     <ListView
                         x:Name="FilteredListView"
                         SelectionMode="Single"
@@ -54,7 +56,8 @@
                         BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
                         Style="{StaticResource CustomListViewStyle}"
                         ItemClick="FilteredListView_ItemClick"
-                        IsItemClickEnabled="True">
+                        IsItemClickEnabled="True"
+                        >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="#F0F8FF" CornerRadius="10" Padding="10" Margin="5">
@@ -69,7 +72,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <StackPanel Width="200" Margin="20,0,0,0" Background="#004AAD">
+                    <StackPanel Width="200" Margin="0,0,0,0" Background="#004AAD">
                         <TextBlock Margin="8,8,8,4" TextAlignment="Center" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Filtruj</TextBlock>
                         <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data Wpisu</TextBlock>
                         <TextBox x:Name="FilterByDataWpisu" Width="185" Margin="8" HorizontalAlignment="Left"/>

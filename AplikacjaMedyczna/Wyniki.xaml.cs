@@ -214,12 +214,25 @@ namespace AplikacjaMedyczna
                 PatientChoiceButton.Visibility = Visibility.Visible;
                 PatientChoiceButton.IsEnabled = true;
             }
-            if (SharedData.rola == "Specjalista")
+            if (SharedData.rola == "Lekarz")
+            {
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
+            }
+                if (SharedData.rola == "Specjalista")
             {
                 AddResultButton.Visibility = Visibility.Visible;
                 AddResultButton.IsEnabled = true;
-                WynikiButton.Visibility = Visibility.Visible;
-                WynikiButton.IsEnabled = true;
+                WynikiButton.Visibility = Visibility.Collapsed;
+                WynikiButton.IsEnabled = false;
+                PanelButton.Visibility = Visibility.Collapsed;
+                PanelButton.IsEnabled = false;
+                WpisyButton.Visibility = Visibility.Collapsed;
+                WpisyButton.IsEnabled = false;
+                SkierowaniaButton.Visibility = Visibility.Collapsed;
+                SkierowaniaButton.IsEnabled = false;
+                ReceptyButton.Visibility = Visibility.Collapsed;
+                ReceptyButton.IsEnabled = false;
             }
         }
         private void NavButton_Click(object sender, RoutedEventArgs e)
