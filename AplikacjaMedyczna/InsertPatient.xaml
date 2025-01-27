@@ -86,7 +86,7 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <Grid Margin="100,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Border BorderBrush="DarkBlue" BorderThickness="2" Padding="20">
+                    <Border BorderBrush="DarkBlue" BorderThickness="2" Padding="20" Background="white">
                         <StackPanel>
                             <TextBlock Text="Dodaj Nowego Pacjenta" FontSize="24" FontWeight="Bold" Foreground="DarkBlue" HorizontalAlignment="Center" Margin="0,0,0,20"/>
                             <Grid>
@@ -131,7 +131,7 @@
                                 <TextBlock Text="Pesel Rodzica:" Margin="5" VerticalAlignment="Center" Grid.Row="7"/>
                                 <TextBox x:Name="PeselRodzicaTextBox" Grid.Column="1" Margin="5" Grid.Row="7" InputScope="Number" MaxLength="11" Width="200" TextChanged="PeselRodzicaTextBox_TextChanged"/>
 
-                                <Button Content="Dodaj Pacjenta" Grid.Row="8" Grid.ColumnSpan="2" Width="200" Margin="5" HorizontalAlignment="Center" Click="SubmitButton_Click" Style="{StaticResource PersonelButtonStyle}" />
+                                <Button Content="Dodaj Pacjenta" Grid.Row="8" Grid.ColumnSpan="2" Width="200" Margin="5" HorizontalAlignment="Center" Click="SubmitButton_Click" Style="{StaticResource LoginButtonStyle}" />
                             </Grid>
                         </StackPanel>
                     </Border>

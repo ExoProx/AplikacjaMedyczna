@@ -16,6 +16,12 @@
         </LinearGradientBrush>
     </Page.Background>
 
+    <Page.Resources>
+        <Style x:Name="PatientTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <!-- SplitView z przyciskami nawigacyjnymi -->
         <SplitView x:Name="splitView" PaneBackground="#004AAD"
@@ -42,90 +48,108 @@
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid x:Name="ContentGrid" Margin="10" HorizontalAlignment="Center">
-                    <!-- Patient Info Panel -->
-                    <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,50,0,0" Padding="10" Width="350" Height="430">
-                        <StackPanel x:Name="PatientInfoPanel" Orientation="Vertical">
-                            <TextBlock Text="Informacje Pacjenta" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Imię:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="ImieTextBox" Width="150" IsReadOnly="True"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <Grid x:Name="ContentGrid" Margin="10" HorizontalAlignment="Center">
+                        <!-- Patient Info Panel -->
+                        <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,50,0,0" Padding="10" Width="350" Height="430">
+                            <StackPanel x:Name="PatientInfoPanel" Orientation="Vertical">
+                                <TextBlock Text="Informacje Pacjenta" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Imię:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="ImieTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="Nazwisko:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="NazwiskoTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="PESEL:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="PeselTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="Adres Zamieszkania:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="AdresZamieszkaniaTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="Numer Kontaktowy:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="NumerKontaktowyTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="Data Urodzenia:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="DataUrodzeniaTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock Text="Typ Krwi:" FontWeight="Bold" Margin="0, 5, 0, 0" Foreground="White" Width="140"/>
+                                    <TextBox x:Name="TypKrwiTextBox" Width="190" IsReadOnly="True" Style="{StaticResource PatientTextBox}"/>
+                                </StackPanel>
+                                <StackPanel x:Name="ObecnyPacjentPanel" Visibility="Collapsed" Orientation="Vertical">
+                                    <TextBlock Text="Obecny Pacjent" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" Margin="-10,10,0,10"/>
+                                    <ComboBox x:Name="ObecnyPacjentComboBox" Width="326" Background="white" SelectionChanged="ObecnyPacjentComboBox_SelectionChanged"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="Nazwisko:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="NazwiskoTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="PESEL:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="PeselTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="Adres Zamieszkania:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="AdresZamieszkaniaTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="Numer Kontaktowy:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="NumerKontaktowyTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="Data Urodzenia:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="DataUrodzeniaTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <TextBlock Text="Typ Krwi:" FontWeight="Bold" Foreground="White" Width="140"/>
-                                <TextBox x:Name="TypKrwiTextBox" Width="150" IsReadOnly="True"/>
-                            </StackPanel>
-                            <StackPanel x:Name="ObecnyPacjentPanel" Visibility="Collapsed" Orientation="Vertical">
-                                <TextBlock Text="Obecny Pacjent" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" Margin="-10,10,0,10"/>
-                                <ComboBox x:Name="ObecnyPacjentComboBox" Width="300" SelectionChanged="ObecnyPacjentComboBox_SelectionChanged"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <!-- Allergies ListView -->
-                    <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,500,0,0" Padding="10" Width="350" Height="200">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                            <StackPanel x:Name="AllergiesPanel" Orientation="Vertical">
-                                <TextBlock Text="Alergie Pacjenta" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                                <ListView x:Name="AllergiesListView" Background="White">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Alergia}" FontSize="14" Foreground="Black"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Border>
-                    <!-- Additional Panels -->
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="500,50,50,0">
-                        <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="150" Margin="0,0,0,10">
+                        </Border>
+                        <!-- Allergies ListView -->
+                        <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,500,0,0" Padding="10" Width="350" Height="200">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                <StackPanel x:Name="AllergiesPanel" Orientation="Vertical">
+                                    <TextBlock Text="Alergie Pacjenta" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                    <ListView x:Name="AllergiesListView" Background="White">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Alergia}" FontSize="14" Foreground="Black"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                        <!-- Additional Panels -->
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="410,50,50,0">
+                            <Border Background="#3b79cc" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="150" Margin="0,0,0,10">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Wpisy" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                                    <TextBlock x:Name="WpisyTextBlock" FontSize="14" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,10" HorizontalAlignment="Left"/>
-                            </StackPanel>
+                                    <TextBlock Text="Najnowszy Wpis" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                    <StackPanel>
+                                        <Border Background="white" CornerRadius="6" Width="auto" Height="89" BorderBrush="Black">
+                                            <TextBlock x:Name="WpisyTextBlock" FontSize="15" Foreground="Black" TextTrimming="CharacterEllipsis" Margin="5,0,0,10" Padding="0, 7, 0, 0" HorizontalAlignment="Left"/>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
                             </Border>
-                            <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="146" Margin="0,10,0,10">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Recepty" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="ReceptyTextBlock" FontSize="14" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Left"/>
-
-                            </StackPanel>
-                        </Border>
-                        <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="146" Margin="0,10,0,10">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Skierowania" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="SkierowaniaTextBlock" HorizontalAlignment="Left" FontSize="14" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,10" />
-                            </StackPanel>
-                        </Border>
-                        <Border Background="#004AAD" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="146" Margin="0,10,0,0">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Wyniki" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="WynikiTextBlock" FontSize="14" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Left"/>
-
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Grid>
+                            <Border Background="#3b79cc" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="170" Margin="0,10,0,10">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Najnowsza Recepta" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                    <StackPanel>
+                                        <Border Background="white" CornerRadius="6" Width="auto" Height="97" BorderBrush="Black">
+                                            <TextBlock x:Name="ReceptyTextBlock" FontSize="15" Foreground="Black" Margin="5,0,0,10" TextTrimming="CharacterEllipsis" Padding="0, 7, 0, 0" HorizontalAlignment="Left"/>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#3b79cc" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="135" Margin="0,10,0,10">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Najnowsze Skierowanie" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                    <StackPanel>
+                                        <Border Background="white" CornerRadius="6" Width="auto" Height="53" BorderBrush="Black">
+                                            <TextBlock x:Name="SkierowaniaTextBlock" HorizontalAlignment="Left" FontSize="15" Foreground="Black" TextTrimming="CharacterEllipsis" Padding="0, 7, 0, 0" Margin="5,0,0,10" />
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#3b79cc" CornerRadius="8" BorderBrush="Black" BorderThickness="2" Padding="10" Width="500" Height="135" Margin="0,10,0,0">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Najnowszy Wynik" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                                    <StackPanel>
+                                        <Border Background="white" CornerRadius="6" Width="auto" Height="71" BorderBrush="Black">
+                                            <TextBlock x:Name="WynikiTextBlock" FontSize="15" Foreground="Black" Margin="5,0,0,10" Padding="0, 7, 0, 0" HorizontalAlignment="Left"/>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
             </SplitView.Content>
         </SplitView>
 
