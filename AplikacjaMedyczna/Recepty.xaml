@@ -38,7 +38,7 @@
                     <Button x:Name="WpisyButton" Content="Wpisy" Click="NavButton_Click" Grid.Row="3" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="ReceptyButton" Content="Recepty" Click="NavButton_Click" Grid.Row="4" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="SkierowaniaButton" Content="Skierowania" Click="NavButton_Click" Grid.Row="5" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
-                    <Button x:Name="WynikiButton" IsEnabled="False" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
+                    <Button x:Name="WynikiButton" Visibility="Collapsed" IsEnabled="False" Content="Wyniki" Click="NavButton_Click" Grid.Row="6" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                     <Button x:Name="Logout" Content="Wyloguj" Click="NavButton_Click" Grid.Row="7" VerticalAlignment="Bottom" Margin="0, 0, 0, 20" Width="100" Height="50" Style="{StaticResource NavToggleButtons}"/>
                 </Grid>
             </SplitView.Pane>
@@ -68,7 +68,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <StackPanel Width="200" Margin="20,0,0,0" Background="#004AAD">
+                    <StackPanel Width="200" Margin="0,0,0,0" Background="#004AAD">
                         <TextBlock Margin="8,8,8,4" TextAlignment="Center" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Filtruj</TextBlock>
                         <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data wystawienia recepty</TextBlock>
                         <TextBox x:Name="FilterByDataWystawieniaRecepty" Width="185" Margin="8"

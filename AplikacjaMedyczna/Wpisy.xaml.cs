@@ -46,6 +46,8 @@ namespace AplikacjaMedyczna
             }
             if (SharedData.rola == "Lekarz")
             {
+                WynikiButton.Visibility = Visibility.Visible;
+                WynikiButton.IsEnabled = true;
                 AddDescriptionButton.Visibility = Visibility.Visible;
                 AddDescriptionButton.IsEnabled = true;
             }
