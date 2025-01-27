@@ -100,19 +100,19 @@
                     <!-- Pola tekstowe -->
                     <TextBlock Text="Imię" FontSize="16"/>
                     <TextBox x:Name="NameTextBox" PlaceholderText="Imię" TextChanged="OnTextChanged" 
-                             Style="{StaticResource TextBoxStyle}" Margin="0,5"/>
+                             Style="{StaticResource TextBoxStyle}" Margin="0,5" MaxLength="32"/>
                     <TextBlock Text="Nazwisko" FontSize="16"/>
                     <TextBox x:Name="SurnameTextBox" PlaceholderText="Nazwisko" TextChanged="OnTextChanged" 
-                             Style="{StaticResource TextBoxStyle}" Margin="0,5"/>
+                             Style="{StaticResource TextBoxStyle}" Margin="0,5" MaxLength="32"/>
                     <TextBlock Text="Adres Zamieszkania" FontSize="16"/>
                     <TextBox x:Name="AddressTextBox" PlaceholderText="Adres Zamieszkania" TextChanged="OnTextChanged" 
-                             Style="{StaticResource TextBoxStyle}" Margin="0,5"/>
+                             Style="{StaticResource TextBoxStyle}" Margin="0,5" MaxLength="32"/>
                     <TextBlock Text="Numer Kontaktowy" FontSize="16"/>
                     <TextBox x:Name="TelephoneTextBox" PlaceholderText="Numer Kontaktowy" TextChanged="OnTextChanged" 
-                             Style="{StaticResource TextBoxStyle}" Margin="0,5"/>
+                             Style="{StaticResource TextBoxStyle}" Margin="0,5" MaxLength="11"/>
                     <TextBlock Text="PESEL" FontSize="16"/>
                     <TextBox x:Name="PeselTextBox" PlaceholderText="PESEL" TextChanged="Pesel_TextChanged" 
-                             Style="{StaticResource TextBoxStyle}" Margin="0,5"/>
+                             Style="{StaticResource TextBoxStyle}" Margin="0,5" MaxLength="11"/>
 
                     <!-- Przyciski akcji -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
