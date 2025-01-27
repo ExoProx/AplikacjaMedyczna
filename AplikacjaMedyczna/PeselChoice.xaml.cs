@@ -125,7 +125,13 @@ namespace AplikacjaMedyczna
                 Frame.Navigate(typeof(PanelGlowny));
             }
         }
-
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                NavigationHelper.Navigate(button.Name);
+            }
+        }
         public class Patient
         {
             public string Name { get; set; }

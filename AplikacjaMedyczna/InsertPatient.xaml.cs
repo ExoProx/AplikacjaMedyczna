@@ -37,8 +37,22 @@ namespace AplikacjaMedyczna
             NavigationHelper.SplitViewInstance = splitView;
             DataUrodzeniaDatePicker.MaxDate = DateTimeOffset.Now;
             DataUrodzeniaDatePicker.MinDate = DateTimeOffset.Now.AddYears(-120);
-        }
 
+            List<string> typyKrwi = new List<string>
+            {
+                "Wybierz typ krwi",
+                "0 Rh+",
+                "0 Rh-",
+                "A Rh+",
+                "A Rh-",
+                "B Rh+",
+                "B Rh-",
+                "AB Rh+",
+                "AB Rh-",
+            };
+            TypKrwiComboBox.ItemsSource = typyKrwi;
+            TypKrwiComboBox.SelectedIndex = 0;
+        }
         private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -97,7 +111,7 @@ namespace AplikacjaMedyczna
             PeselRodzicaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
             PeselTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
             AdresZamieszkaniaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
-            TypKrwiTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
+            TypKrwiComboBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
             NumerKontaktowyTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Gray);
             if (string.IsNullOrWhiteSpace(ImieTextBox.Text))
             {
@@ -154,9 +168,9 @@ namespace AplikacjaMedyczna
                 AdresZamieszkaniaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
-            if(TypKrwiTextBox.Text.Length > 6)
+            if(TypKrwiComboBox.SelectedIndex == 0)
             {
-                TypKrwiTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
+                TypKrwiComboBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
             
@@ -166,7 +180,7 @@ namespace AplikacjaMedyczna
                 
                 string imie = ImieTextBox.Text;
                 string nazwisko = NazwiskoTextBox.Text;
-                string typKrwi = TypKrwiTextBox.Text;
+                string typKrwi = TypKrwiComboBox.SelectedItem.ToString();
                 string pesel = PeselTextBox.Text;
                 string numerKontaktowy = NumerKontaktowyTextBox.Text;
                 string adresZamieszkania = AdresZamieszkaniaTextBox.Text;

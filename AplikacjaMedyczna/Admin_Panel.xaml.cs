@@ -80,7 +80,8 @@ namespace AplikacjaMedyczna
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 477
+                Width = 477,
+                MaxLength = 32
             };
             var nazwiskoTextBox = new TextBox
             {
@@ -88,7 +89,8 @@ namespace AplikacjaMedyczna
                 BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.DarkBlue),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 10, 0, 5),
-                Width = 477
+                Width = 477,
+                MaxLength = 32
             };
             var rolaComboBox = new ComboBox
             {
