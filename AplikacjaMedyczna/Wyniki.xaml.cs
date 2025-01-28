@@ -137,14 +137,29 @@ namespace AplikacjaMedyczna
                     };
 
                     string url = $"https://studencki-portal-medyczny.pl/getfile.php?file={result.FilePath}";
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(url));
-                    newStackPanel.Children.Add(new Image
-                    {
-                        Source = bitmapImage,
-                        MaxHeight = 600,
-                        MaxWidth = 600
-                    });
 
+                    if (result.FilePath.EndsWith(".pdf")) 
+                    {
+                        var webView = new WebView2
+                        {
+                            Source = new Uri(url),
+                            VerticalAlignment = VerticalAlignment.Stretch,
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            Height = 600,
+                            Width = 500
+                        };
+                        newStackPanel.Children.Add(webView);
+                    }
+                    else 
+                    { 
+                        BitmapImage bitmapImage = new BitmapImage(new Uri(url));
+                        newStackPanel.Children.Add(new Image 
+                        { 
+                             Source = bitmapImage, 
+                             MaxHeight = 600, 
+                             MaxWidth = 600 
+                        });
+                    }
 
                     dialog.Content = newStackPanel;
                 };
