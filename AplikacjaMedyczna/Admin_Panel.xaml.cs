@@ -264,22 +264,26 @@ namespace AplikacjaMedyczna
                 await connection.OpenAsync();
 
                 string query = @"
-                SELECT 
-                    pm.id,
-                    pm.imie,
-                    pm.nazwisko,
-                    nr.nazwa AS rola,
-                    pm.aktywne
-                FROM 
-                    ""PersonelMedyczny"" pm
-                JOIN 
-                    ""RolePersonelu"" nr 
-                ON 
-                    pm.""idRoli"" = nr.""id""
-                ORDER BY pm.id;";
+                        SELECT 
+                            pm.id,
+                            pm.imie,
+                            pm.nazwisko,
+                            nr.nazwa AS rola,
+                            pm.aktywne
+                        FROM 
+                            ""PersonelMedyczny"" pm
+                        JOIN 
+                            ""RolePersonelu"" nr 
+                        ON 
+                            pm.""idRoli"" = nr.""id""
+                        WHERE 
+                            pm.id != @currentUserId
+                        ORDER BY pm.id;";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@currentUserId", Convert.ToInt32(SharedData.id));
+
                     using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())

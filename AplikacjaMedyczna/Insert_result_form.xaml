@@ -18,10 +18,10 @@
                 <TextBox x:Name="ResultTextBox" PlaceholderText="Wpisz Treść Wyniku" TextWrapping="Wrap" AcceptsReturn="True" Height="200" Margin="0,10,0,10" />
                 <TextBlock Text="Termin Wykonania Wyniku:" Margin="0,20,0,10" FontSize="16" FontWeight="Bold" Foreground="#004AAD" />
                 <CalendarDatePicker x:Name="TerminReceptyCalendarView" Margin="0,5,0,5" />
-                <Button x:Name="PickAPhotoButton" Content="Open a picture" Click="PickAPhotoButton_Click" Margin="0,0,0,10"/>
+                <Button x:Name="PickAPhotoButton" Content="Załącz plik" Click="PickAPhotoButton_Click" Margin="0,0,0,10"/>
                 <TextBlock x:Name="PickAPhotoOutputTextBlock" TextWrapping="Wrap" Padding="20,5,0,0"/>
                 <TextBlock x:Name="SuccessMessage" Text="Wpis zapisano pomyślnie." Foreground="Green" Visibility="Collapsed" Margin="0,0,0,10" />
-                <TextBlock x:Name="EmptyFieldMessage" Text="Pole skierowania nie może być puste." Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
+                <TextBlock x:Name="EmptyFieldMessage" Text="Wszystkie pola muszą być wypełnione." Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
                 <TextBlock x:Name="ErrorDatabaseMessage" Text="Błąd połączenia z bazą danych." Foreground="Red" Visibility="Collapsed" Margin="0,0,0,10" />
                 <StackPanel x:Name="PanelPrzyciskow" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button x:Name="SubmitButton" Content="Zapisz" Click="SubmitButton_Click" Width="100" Margin="10,0,0,0" Style="{StaticResource PrimaryButtonStyle}" />

@@ -98,13 +98,11 @@ namespace AplikacjaMedyczna
             {
                 Title = "Szczegóły Wyniku",
                 CloseButtonText = "Zamknij",
-                PrimaryButtonText = "Edytuj",
-                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
                 CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"],
                 XamlRoot = this.XamlRoot
             };
 
-            dialog.PrimaryButtonClick += EditButton_Click;
+        
 
             var stackPanel = new StackPanel
             {
@@ -169,27 +167,10 @@ namespace AplikacjaMedyczna
 
             dialog.Content = stackPanel;
 
-            if (result.IdPersonelu.ToString() == SharedData.id)
-            {
-                dialog.PrimaryButtonText = "Edytuj";
-                dialog.IsPrimaryButtonEnabled = true;
-            }
-            else
-            {
-                dialog.PrimaryButtonText = "";
-                dialog.IsPrimaryButtonEnabled = false;
-            }
 
             await dialog.ShowAsync();
         }
 
-
-
-
-        private void EditButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-
-        }
 
         private class Result
         {
