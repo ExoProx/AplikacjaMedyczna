@@ -29,9 +29,7 @@
                                 CornerRadius="{TemplateBinding CornerRadius}">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
-                                    <!-- Stan domyślny -->
                                     <VisualState x:Name="Normal"/>
-                                    <!-- Efekt przy najechaniu myszką -->
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -39,7 +37,6 @@
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
-                                    <!-- Efekt przy kliknięciu -->
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -100,7 +97,6 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <!-- Added new row for Pesel Rodzica -->
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -123,7 +119,7 @@
                                 <TextBox x:Name="PeselTextBox" Grid.Column="1" Margin="5" Grid.Row="4" InputScope="Number" MaxLength="11" Width="200" TextChanged="PeselTextBox_TextChanged"/>
 
                                 <TextBlock Text="Numer Kontaktowy:" Margin="5" VerticalAlignment="Center" Grid.Row="5"/>
-                                <TextBox x:Name="NumerKontaktowyTextBox" Grid.Column="1" Margin="5" Grid.Row="5" InputScope="TelephoneNumber" MaxLength="11" Width="200" TextChanged="NumerKontaktowyTextBox_TextChanged"/>
+                                <TextBox x:Name="NumerKontaktowyTextBox" Grid.Column="1" Margin="5" Grid.Row="5" InputScope="TelephoneNumber" MaxLength="9" Width="200" TextChanged="NumerKontaktowyTextBox_TextChanged"/>
 
                                 <TextBlock Text="Adres Zamieszkania:" Margin="5" VerticalAlignment="Center" Grid.Row="6"/>
                                 <TextBox x:Name="AdresZamieszkaniaTextBox" Grid.Column="1" Margin="5" Grid.Row="6" Width="200" MaxLength="32"/>

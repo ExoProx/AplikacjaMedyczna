@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <!-- Gradientowe tło -->
     <Page.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="White" Offset="0" />
@@ -17,7 +16,12 @@
     </Page.Background>
 
     <Grid>
-        <!-- SplitView z przyciskami nawigacyjnymi -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,20">
+            <TextBlock Text="Wyniki Badań" Foreground="#004AAD" Margin="0, 100, 0, 0" FontSize="28" FontWeight="Bold" 
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="Uzyskaj dostęp do wyników badań i sprawdzaj ich szczegóły." Foreground="Gray" FontSize="14" 
+                       HorizontalAlignment="Center" Margin="0,10,0,20" />
+        </StackPanel>
         <SplitView x:Name="splitView" PaneBackground="#004AAD"
                    IsPaneOpen="False" OpenPaneLength="124" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
@@ -42,9 +46,9 @@
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
-                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-                    
+
                     <ListView
                         x:Name="FilteredListView"
                         SelectionMode="Single"
@@ -82,7 +86,6 @@
                 </StackPanel>
             </SplitView.Content>
         </SplitView>
-        <!-- Przycisk do otwierania/zamykania panelu nawigacyjnego -->
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12">
             <ToggleButton x:Name="NavbarToggleButton" Width="40" Height="40" 
                           Checked="NavbarToggleButton_Checked" Unchecked="NavbarToggleButton_Unchecked" 

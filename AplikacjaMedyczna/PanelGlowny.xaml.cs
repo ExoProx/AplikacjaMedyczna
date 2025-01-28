@@ -16,7 +16,7 @@ namespace AplikacjaMedyczna
         public PanelGlowny()
         {
             this.InitializeComponent();
-            NavigationHelper.SplitViewInstance = splitView;                         
+            NavigationHelper.SplitViewInstance = splitView;
             splitView.IsPaneOpen = true;
             CheckUserId();
             _ = InitializeAsync();
@@ -106,6 +106,16 @@ namespace AplikacjaMedyczna
             {
                 WynikiButton.Visibility = Visibility.Visible;
                 WynikiButton.IsEnabled = true;
+            }
+            if (SharedData.rola == "Ratownik")
+            {
+                WynikiButton.Visibility = Visibility.Collapsed;
+                WynikiButton.IsEnabled = false;
+                SkierowaniaButton.Visibility = Visibility.Collapsed;
+                SkierowaniaButton.IsEnabled = false;
+                ReceptyButton.Visibility = Visibility.Collapsed;
+                ReceptyButton.IsEnabled = false;
+                PatientPanels.Visibility = Visibility.Collapsed;
             }
         }
 

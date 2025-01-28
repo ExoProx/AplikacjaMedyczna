@@ -1,19 +1,14 @@
-﻿using Microsoft.UI;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Contacts;
-using Windows.Devices.Enumeration;
-using Windows.UI;
 
 namespace AplikacjaMedyczna
 {
@@ -86,21 +81,19 @@ namespace AplikacjaMedyczna
             {
                 SelectedRecepta = clickedRecepta;
 
-                // Resetuj ContentDialog przed pokazaniem
                 ReceptaDetailDialog.Content = null;
                 ReceptaDetailDialog.DataContext = SelectedRecepta;
 
-                // Utwórz nowy StackPanel i dodaj TextBlocki
                 var stackPanel = new StackPanel();
                 AddTextBlock(stackPanel, "Przepisane leki:", SelectedRecepta.Leki);
                 AddTextBlock(stackPanel, "Data wystawienia recepty:", SelectedRecepta.DataWystawieniaRecepty);
                 AddTextBlock(stackPanel, "Data ważności recepty:", SelectedRecepta.DataWaznosciRecepty);
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", SelectedRecepta.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", SelectedRecepta.DanePersonelu);
-                
+
                 ReceptaDetailDialog.Content = stackPanel;
                 ScrollViewer.SetVerticalScrollBarVisibility(ReceptaDetailDialog, ScrollBarVisibility.Auto);
-                // Check if the current doctor is the same as the doctor who made the recepta
+
                 if (SelectedRecepta.IdPersonelu.ToString() == SharedData.id)
                 {
                     ReceptaDetailDialog.PrimaryButtonText = "Edytuj";
@@ -190,7 +183,7 @@ namespace AplikacjaMedyczna
             {
                 this.Loaded += async (s, e) =>
                 {
-                    await ShowMessageDialog("Brak dodanych recept", "Nie znaleziono ¿adnych recept w systemie.");
+                    await ShowMessageDialog("Brak dodanych recept", "Nie znaleziono żadnych recept w systemie.");
                 };
             }
 
@@ -260,18 +253,17 @@ namespace AplikacjaMedyczna
 
         private void AddTextBlock(StackPanel stackPanel, string headerText, string contentText)
         {
-            // Dodaj TextBlock dla nag³ówka
             stackPanel.Children.Add(new TextBlock
             {
                 Text = headerText,
-                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] // Styl dla nag³ówka
+                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"]
             });
 
-            // Dodaj TextBlock dla treœci
             stackPanel.Children.Add(new TextBlock
             {
                 Text = contentText,
-                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] // Styl dla treœci
+                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"],
+                MaxWidth = 477
             });
         }
         private async Task EditButton_ClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -288,23 +280,22 @@ namespace AplikacjaMedyczna
                     CloseButtonText = "Anuluj",
                     XamlRoot = this.XamlRoot,
                     Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
                 };
 
                 var stackPanel = new StackPanel();
 
-                // Dodaj niestandardowy nag³ówek
                 var headerGrid = new Grid
                 {
-                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a #004AAD
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                     Padding = new Thickness(10),
                     Width = 477
                 };
 
                 var headerTextBlock = new TextBlock
                 {
-                    Text = "Edytuj Receptê", // Mo¿esz zmieniæ tekst na dowolny
+                    Text = "Edytuj Receptê",
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -319,15 +310,17 @@ namespace AplikacjaMedyczna
                     Text = selectedRecepta.Leki,
                     Margin = new Thickness(0, 0, 0, 10),
                     AcceptsReturn = true,
-                    TextWrapping = TextWrapping.Wrap
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = 477,
+                    MaxLength = 256,
+                    Height = 170
                 };
 
-                // Dodaj TextBlock dla etykiety "Przypisane leki:"
                 var przypisaneLekiLabel = new TextBlock
                 {
                     Text = "Przypisane leki:",
-                    Margin = new Thickness(0, 0, 0, 2), // Minimalny margines dolny, aby odseparowaæ TextBlock od TextBox
-                    FontSize = 14, // Opcjonalnie dostosuj rozmiar czcionki
+                    Margin = new Thickness(0, 0, 0, 2),
+                    FontSize = 14,
                     FontWeight = FontWeights.SemiBold,
                     Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
                 };
@@ -338,12 +331,10 @@ namespace AplikacjaMedyczna
                 {
                     Content = przypisaneLekiTextBox,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    Height = 200
                 });
 
-                // U¿yj metody pomocniczej do dodawania pozosta³ych TextBlock
                 AddTextBlock(stackPanel, "Data wystawienia recepty:", selectedRecepta.DataWystawieniaRecepty.ToString());
-                AddTextBlock(stackPanel, "Data wa¿noœci recepty:", selectedRecepta.DataWaznosciRecepty.ToString());
+                AddTextBlock(stackPanel, "Data ważności recepty:", selectedRecepta.DataWaznosciRecepty.ToString());
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", selectedRecepta.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", selectedRecepta.DanePersonelu);
 
@@ -355,7 +346,7 @@ namespace AplikacjaMedyczna
                 {
                     if (string.IsNullOrWhiteSpace(przypisaneLekiTextBox.Text))
                     {
-                        await ShowMessageDialog("B³¹d", "Pole 'Przypisane leki' nie mo¿e byæ puste.");
+                        await ShowMessageDialog("Błąd", "Pole 'Przypisane leki' nie może być puste.");
                         await EditButton_ClickAsync(sender, args);
                         return;
                     }
@@ -388,11 +379,11 @@ namespace AplikacjaMedyczna
                         receptaToUpdate.Leki = selectedRecepta.Leki;
                     }
 
-                    await ShowMessageDialog("Sukces", "Recepta zosta³a pomyœlnie zaktualizowana.");
+                    await ShowMessageDialog("Sukces", "Recepta została pomyślnie zaktualizowana.");
                 }
                 else
                 {
-                    await ShowMessageDialog("Anulowano", "Edycja recepty zosta³a anulowana.");
+                    await ShowMessageDialog("Anulowano", "Edycja recepty została anulowana.");
                 }
 
                 await ShowReceptaDetailDialog(selectedRecepta);
@@ -405,10 +396,9 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // U¿yj metody pomocniczej do dodawania TextBlock
             AddTextBlock(stackPanel, "Przypisane leki:", recepta.Leki);
             AddTextBlock(stackPanel, "Data wystawienia recepty:", recepta.DataWystawieniaRecepty);
-            AddTextBlock(stackPanel, "Data wa¿noœci recepty:", recepta.DataWaznosciRecepty);
+            AddTextBlock(stackPanel, "Data ważności recepty:", recepta.DataWaznosciRecepty);
             AddTextBlock(stackPanel, "PESEL Pacjenta:", recepta.PeselPacjenta.ToString());
             AddTextBlock(stackPanel, "Dane personelu:", recepta.DanePersonelu);
 
@@ -418,15 +408,14 @@ namespace AplikacjaMedyczna
             ReceptaDetailDialog.PrimaryButtonText = "Edytuj";
             ReceptaDetailDialog.CloseButtonText = "Close";
             ReceptaDetailDialog.Style = (Style)Application.Current.Resources["ContentDialogStyle"];
-            ReceptaDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"]; // Przypisz styl PrimaryButton
-            ReceptaDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];   // Przypisz styl CloseButton
+            ReceptaDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"];
+            ReceptaDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];
 
             await ReceptaDetailDialog.ShowAsync();
         }
 
         private async Task AddRecipeButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            // Utworzenie ContentDialog dla dodawania wpisu
             var addReceptaDialog = new ContentDialog
             {
                 PrimaryButtonText = "Zapisz",
@@ -439,7 +428,6 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // Nag³ówek dialogu
             var headerGrid = new Grid
             {
                 Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
@@ -449,7 +437,7 @@ namespace AplikacjaMedyczna
 
             var headerTextBlock = new TextBlock
             {
-                Text = "Dodaj Receptê",
+                Text = "Dodaj Receptę",
                 TextAlignment = TextAlignment.Center,
                 Foreground = new SolidColorBrush(Colors.White),
                 FontSize = 20,
@@ -459,13 +447,13 @@ namespace AplikacjaMedyczna
             headerGrid.Children.Add(headerTextBlock);
             stackPanel.Children.Add(headerGrid);
 
-            // Pole tekstowe dla treœci wpisu
             var przypisaneLekiTextBox = new TextBox
             {
                 PlaceholderText = "Wpisz leki...",
                 AcceptsReturn = true,
                 TextWrapping = TextWrapping.Wrap,
                 Height = 200,
+                Width = 477,
                 Margin = new Thickness(0, 10, 0, 10),
                 MaxLength = 256
             };
@@ -473,7 +461,6 @@ namespace AplikacjaMedyczna
 
             stackPanel.Children.Add(przypisaneLekiTextBox);
 
-            // Data wa¿noœci recepty
             var dataWaznosciDatePicker = new CalendarDatePicker
             {
                 MinDate = DateTime.Now.AddDays(1),
@@ -482,7 +469,7 @@ namespace AplikacjaMedyczna
 
             var dataWaznosciLabel = new TextBlock
             {
-                Text = "Data wa¿noœci recepty:",
+                Text = "Data ważności recepty:",
                 Margin = new Thickness(0, 5, 0, 5),
                 Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                 FontWeight = FontWeights.Bold,
@@ -492,7 +479,6 @@ namespace AplikacjaMedyczna
             stackPanel.Children.Add(dataWaznosciLabel);
             stackPanel.Children.Add(dataWaznosciDatePicker);
 
-            // Checkbox dla jednorazowej recepty
             var jednorazowaCheckBox = new CheckBox
             {
                 Content = "Jednorazowa",
@@ -510,14 +496,14 @@ namespace AplikacjaMedyczna
             {
                 if (string.IsNullOrWhiteSpace(przypisaneLekiTextBox.Text))
                 {
-                    await ShowMessageDialog("B³¹d", "Pole 'Przypisane leki' nie mo¿e byæ puste.");
+                    await ShowMessageDialog("Błąd", "Pole 'Przypisane leki' nie może być puste.");
                     await AddRecipeButton_ClickAsync(sender, e);
                     return;
                 }
 
                 if (dataWaznosciDatePicker.Date == null)
                 {
-                    await ShowMessageDialog("B³¹d", "Musisz wybraæ datê wa¿noœci recepty.");
+                    await ShowMessageDialog("Błąd", "Musisz wybrać date ważności recepty.");
                     await AddRecipeButton_ClickAsync(sender, e);
                     return;
                 }
@@ -552,16 +538,16 @@ namespace AplikacjaMedyczna
                         }
                     }
                     LoadRecepty();
-                    await ShowMessageDialog("Sukces", "Recepta zosta³a pomyœlnie dodana.");
+                    await ShowMessageDialog("Sukces", "Recepta została pomyślnie dodana.");
                 }
                 catch (Exception ex)
                 {
-                    await ShowMessageDialog("B³¹d", $"B³¹d po³¹czenia z baz¹ danych: {ex.Message}");
+                    await ShowMessageDialog("Błąd", $"Błąd połączenia z bazą danych: {ex.Message}");
                 }
             }
             else
             {
-                await ShowMessageDialog("Anulowano", "Dodawanie wpisu zosta³o anulowane.");
+                await ShowMessageDialog("Anulowano", "Dodawanie recepty zostało anulowane.");
             }
         }
 
@@ -580,18 +566,17 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot,
                 CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor t³a dialogu
-                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
             };
 
-            // Tworzenie kontenera dla tytu³u
             var titleContainer = new Border
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a (#004AAD)
-                Padding = new Thickness(10), // Odstêpy wewnêtrzne
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
                 Child = new TextBlock
                 {
-                    Text = title, // Ustawienie tekstu
+                    Text = title,
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -600,7 +585,6 @@ namespace AplikacjaMedyczna
                 }
             };
 
-            // Ustawienie dostosowanego elementu jako tytu³u dialogu
             dialog.Title = titleContainer;
 
             await dialog.ShowAsync();

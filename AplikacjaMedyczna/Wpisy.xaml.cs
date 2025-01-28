@@ -1,18 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Contacts;
-using Windows.UI;
 
 namespace AplikacjaMedyczna
 {
@@ -46,17 +42,18 @@ namespace AplikacjaMedyczna
             }
             if (SharedData.rola == "Lekarz")
             {
-                WynikiButton.Visibility = Visibility.Visible;
-                WynikiButton.IsEnabled = true;
                 AddDescriptionButton.Visibility = Visibility.Visible;
                 AddDescriptionButton.IsEnabled = true;
             }
-            if (SharedData.rola == "Specjalista" || string.IsNullOrEmpty(SharedData.id))
+            if (SharedData.rola == "Ratownik")
             {
-                WynikiButton.Visibility = Visibility.Visible;
-                WynikiButton.IsEnabled = true;
+                WynikiButton.Visibility = Visibility.Collapsed;
+                WynikiButton.IsEnabled = false;
+                SkierowaniaButton.Visibility = Visibility.Collapsed;
+                SkierowaniaButton.IsEnabled = false;
+                ReceptyButton.Visibility = Visibility.Collapsed;
+                ReceptyButton.IsEnabled = false;
             }
-            
         }
 
         private void NavButton_Click(object sender, RoutedEventArgs e)
@@ -85,11 +82,9 @@ namespace AplikacjaMedyczna
             {
                 SelectedWpis = clickedWpis;
 
-                // Resetuj ContentDialog przed pokazaniem
                 WpisDetailDialog.Content = null;
                 WpisDetailDialog.DataContext = SelectedWpis;
 
-                // Utwórz nowy StackPanel i dodaj TextBlocki
                 var stackPanel = new StackPanel();
                 AddTextBlock(stackPanel, "Wpis:", SelectedWpis.WpisText);
                 AddTextBlock(stackPanel, "Data Wpisu:", SelectedWpis.DataWpisu);
@@ -98,7 +93,6 @@ namespace AplikacjaMedyczna
 
                 WpisDetailDialog.Content = stackPanel;
 
-                // Check if the current doctor is the same as the doctor who made the wpis
                 if (SelectedWpis.IdPersonelu.ToString() == SharedData.id)
                 {
                     WpisDetailDialog.PrimaryButtonText = "Edytuj";
@@ -167,7 +161,7 @@ namespace AplikacjaMedyczna
                                 IdPersonelu = personelId,
                                 DataWpisu = reader.GetString(2),
                                 DanePersonelu = String.Concat(imie, " ", nazwisko)
-                                
+
                             });
                         }
                     }
@@ -255,18 +249,17 @@ namespace AplikacjaMedyczna
 
         private void AddTextBlock(StackPanel stackPanel, string headerText, string contentText)
         {
-            // Dodaj TextBlock dla nag³ówka
             stackPanel.Children.Add(new TextBlock
             {
                 Text = headerText,
-                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] // Styl dla nag³ówka
+                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"]
             });
 
-            // Dodaj TextBlock dla treœci
             stackPanel.Children.Add(new TextBlock
             {
                 Text = contentText,
-                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] // Styl dla treœci
+                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"],
+                MaxWidth = 477
             });
         }
         private async Task EditButton_ClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -283,23 +276,22 @@ namespace AplikacjaMedyczna
                     CloseButtonText = "Anuluj",
                     XamlRoot = this.XamlRoot,
                     Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
                 };
 
                 var stackPanel = new StackPanel();
 
-                // Dodaj niestandardowy nag³ówek
                 var headerGrid = new Grid
                 {
-                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a #004AAD
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                     Padding = new Thickness(10),
                     Width = 477
                 };
 
                 var headerTextBlock = new TextBlock
                 {
-                    Text = "Edytuj Wpis", // Mo¿esz zmieniæ tekst na dowolny
+                    Text = "Edytuj Wpis",
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -309,35 +301,33 @@ namespace AplikacjaMedyczna
                 headerGrid.Children.Add(headerTextBlock);
                 stackPanel.Children.Add(headerGrid);
 
-                // Dodaj TextBox dla wpisu
                 var wpisTextBox = new TextBox
                 {
                     Text = selectedWpis.WpisText,
                     Margin = new Thickness(0, 0, 0, 10),
                     TextWrapping = TextWrapping.Wrap,
                     AcceptsReturn = true,
+                    Width = 477,
+                    MaxLength = 512,
+                    Height = 170
                 };
 
-                // Dodaj TextBlock dla etykiety "Wpis:"
                 var wpisLabel = new TextBlock
                 {
                     Text = "Wpis:",
-                    Margin = new Thickness(0, 0, 0, 2), // Minimalny margines dolny, aby odseparowaæ TextBlock od TextBox
-                    FontSize = 14, // Opcjonalnie dostosuj rozmiar czcionki
+                    Margin = new Thickness(0, 0, 0, 2),
+                    FontSize = 14,
                     FontWeight = FontWeights.SemiBold,
                     Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
                 };
                 stackPanel.Children.Add(wpisLabel);
-
                 ScrollViewer.SetVerticalScrollBarVisibility(wpisTextBox, ScrollBarVisibility.Auto);
                 stackPanel.Children.Add(new ScrollViewer
                 {
                     Content = wpisTextBox,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    Height = 200
                 });
 
-                // U¿yj metody pomocniczej do dodawania pozosta³ych TextBlock
                 AddTextBlock(stackPanel, "Data Wpisu:", selectedWpis.DataWpisu.ToString());
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", selectedWpis.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", selectedWpis.DanePersonelu);
@@ -400,7 +390,6 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // U¿yj metody pomocniczej do dodawania TextBlock
             AddTextBlock(stackPanel, "Wpis:", wpis.WpisText);
             AddTextBlock(stackPanel, "Data Wpisu:", wpis.DataWpisu);
             AddTextBlock(stackPanel, "PESEL Pacjenta:", wpis.PeselPacjenta.ToString());
@@ -408,7 +397,6 @@ namespace AplikacjaMedyczna
 
             WpisDetailDialog.Content = stackPanel;
 
-            // Check if the current doctor is the same as the doctor who made the wpis
             if (wpis.IdPersonelu.ToString() == SharedData.id)
             {
                 WpisDetailDialog.PrimaryButtonText = "Edytuj";
@@ -422,15 +410,14 @@ namespace AplikacjaMedyczna
 
             WpisDetailDialog.CloseButtonText = "Zamknij";
             WpisDetailDialog.Style = (Style)Application.Current.Resources["ContentDialogStyle"];
-            WpisDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"]; // Przypisz styl PrimaryButton
-            WpisDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];   // Przypisz styl CloseButton
+            WpisDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"];
+            WpisDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];
 
             await WpisDetailDialog.ShowAsync();
         }
 
         private async Task AddDescriptionButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            // Utworzenie ContentDialog dla dodawania wpisu
             var addWpisDialog = new ContentDialog
             {
                 PrimaryButtonText = "Zapisz",
@@ -443,7 +430,6 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // Nag³ówek dialogu
             var headerGrid = new Grid
             {
                 Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
@@ -463,7 +449,6 @@ namespace AplikacjaMedyczna
             headerGrid.Children.Add(headerTextBlock);
             stackPanel.Children.Add(headerGrid);
 
-            // Pole tekstowe dla treœci wpisu
             var wpisTextBox = new TextBox
             {
                 PlaceholderText = "Wpisz treœæ wpisu...",
@@ -483,15 +468,13 @@ namespace AplikacjaMedyczna
 
             if (result == ContentDialogResult.Primary)
             {
-                // Sprawdzenie, czy pole tekstowe nie jest puste
                 if (string.IsNullOrWhiteSpace(wpisTextBox.Text))
                 {
                     await ShowMessageDialog("B³¹d", "Treœæ wpisu nie mo¿e byæ puste.");
-                    await AddDescriptionButton_ClickAsync(sender, e); // Ponowne otwarcie dialogu
+                    await AddDescriptionButton_ClickAsync(sender, e);
                     return;
                 }
 
-                // Dodanie wpisu do bazy danych
                 var wpis = wpisTextBox.Text;
                 var connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                                        "username=lekarz;" +
@@ -518,13 +501,11 @@ namespace AplikacjaMedyczna
                 }
                 catch (Exception ex)
                 {
-                    // Obs³uga b³êdu po³¹czenia z baz¹ danych
                     await ShowMessageDialog("B³¹d", "B³¹d po³¹czenia z baz¹ danych.");
                 }
             }
             else
             {
-                // Anulowanie dodawania wpisu
                 await ShowMessageDialog("Anulowano", "Dodawanie wpisu zosta³o anulowane.");
             }
         }
@@ -542,18 +523,17 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot,
                 CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor t³a dialogu
-                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
             };
 
-            // Tworzenie kontenera dla tytu³u
             var titleContainer = new Border
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a (#004AAD)
-                Padding = new Thickness(10), // Odstêpy wewnêtrzne
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
                 Child = new TextBlock
                 {
-                    Text = title, // Ustawienie tekstu
+                    Text = title,
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -562,7 +542,6 @@ namespace AplikacjaMedyczna
                 }
             };
 
-            // Ustawienie dostosowanego elementu jako tytu³u dialogu
             dialog.Title = titleContainer;
 
             await dialog.ShowAsync();

@@ -1,29 +1,13 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Npgsql;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using System.Net.Http;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Npgsql;
 
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Wyniki : Page
     {
         private string cs = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
@@ -154,11 +138,11 @@ namespace AplikacjaMedyczna
 
                     string url = $"https://studencki-portal-medyczny.pl/getfile.php?file={result.FilePath}";
                     BitmapImage bitmapImage = new BitmapImage(new Uri(url));
-                    newStackPanel.Children.Add(new Image 
-                    { 
-                         Source = bitmapImage, 
-                         MaxHeight = 600, 
-                         MaxWidth = 600 
+                    newStackPanel.Children.Add(new Image
+                    {
+                        Source = bitmapImage,
+                        MaxHeight = 600,
+                        MaxWidth = 600
                     });
 
 
@@ -170,7 +154,6 @@ namespace AplikacjaMedyczna
 
             dialog.Content = stackPanel;
 
-            // Sprawdzenie, czy obecny lekarz to ten, który wykonał badanie
             if (result.IdPersonelu.ToString() == SharedData.id)
             {
                 dialog.PrimaryButtonText = "Edytuj";
@@ -182,7 +165,6 @@ namespace AplikacjaMedyczna
                 dialog.IsPrimaryButtonEnabled = false;
             }
 
-            // Pokaż główny okno dialogowe
             await dialog.ShowAsync();
         }
 
@@ -191,7 +173,7 @@ namespace AplikacjaMedyczna
 
         private void EditButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            // Handle edit button click
+
         }
 
         private class Result
@@ -219,7 +201,7 @@ namespace AplikacjaMedyczna
                 WynikiButton.Visibility = Visibility.Visible;
                 WynikiButton.IsEnabled = true;
             }
-                if (SharedData.rola == "Specjalista")
+            if (SharedData.rola == "Specjalista")
             {
                 AddResultButton.Visibility = Visibility.Visible;
                 AddResultButton.IsEnabled = true;
@@ -239,7 +221,6 @@ namespace AplikacjaMedyczna
         {
             if (sender is Button button)
             {
-                // Pass the button name or content to a helper method
                 NavigationHelper.Navigate(button.Name);
             }
         }

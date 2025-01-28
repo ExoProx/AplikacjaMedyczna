@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Microsoft.UI.Text;
 using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using Npgsql;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 namespace AplikacjaMedyczna
 {
@@ -25,14 +17,15 @@ namespace AplikacjaMedyczna
         private List<Personnel> allPersonnelList = new List<Personnel>();
         private List<Personnel> filteredPersonnelList = new List<Personnel>();
         private string connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
-                        "username=administrator;" +
-                        "Password=haslo;" +
-                        "Database=medical_database";
+                                          "username=administrator;" +
+                                          "Password=haslo;" +
+                                          "Database=medical_database";
 
         public Admin_Panel()
         {
             this.InitializeComponent();
             NavigationHelper.SplitViewInstance = splitView;
+            splitView.IsPaneOpen = true;
             LoadPersonnelData();
         }
 
@@ -49,15 +42,15 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "Anuluj",
                 XamlRoot = this.XamlRoot,
                 Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
             };
 
             var stackPanel = new StackPanel();
 
             var headerGrid = new Grid
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                 Padding = new Thickness(10),
                 Width = 477
             };
@@ -125,7 +118,7 @@ namespace AplikacjaMedyczna
                 var nazwisko = nazwiskoTextBox.Text;
 
                 await InsertPersonnelAsync(imie, nazwisko, rola.Id, "haslo");
-                LoadPersonnelData(); // Refresh the data
+                LoadPersonnelData();
 
             }
             else if (result == ContentDialogResult.None)
@@ -142,22 +135,22 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "Anuluj",
                 XamlRoot = this.XamlRoot,
                 Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
             };
 
             var stackPanel = new StackPanel();
 
             var headerGrid = new Grid
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                 Padding = new Thickness(10),
                 Width = 477
             };
 
             var headerTextBlock = new TextBlock
             {
-                Text = "Zmień Rolę", // Możesz zmienić tekst na dowolny
+                Text = "Zmień Rolę",
                 TextAlignment = TextAlignment.Center,
                 Foreground = new SolidColorBrush(Colors.White),
                 FontSize = 20,
@@ -194,7 +187,7 @@ namespace AplikacjaMedyczna
                     return;
                 }
                 await UpdatePersonnelRoleAsync(personnel.Id, selectedRole.Id);
-                LoadPersonnelData(); // Refresh the data
+                LoadPersonnelData();
             }
             else if (result == ContentDialogResult.None)
             {
@@ -239,9 +232,8 @@ namespace AplikacjaMedyczna
             {
                 await connection.OpenAsync();
 
-                var query = @"
-            INSERT INTO ""PersonelMedyczny"" (""imie"", ""nazwisko"", ""idRoli"", ""haslo"")
-            VALUES (@imie, @nazwisko, @idRoli, crypt(@haslo, gen_salt('bf')))";
+                var query = @"INSERT INTO ""PersonelMedyczny"" (""imie"", ""nazwisko"", ""idRoli"", ""haslo"")
+                              VALUES (@imie, @nazwisko, @idRoli, crypt(@haslo, gen_salt('bf')))";
 
                 using (var command = new NpgsqlCommand(query, connection))
                 {
@@ -372,22 +364,22 @@ namespace AplikacjaMedyczna
                     CloseButtonText = "Nie",
                     XamlRoot = this.Content.XamlRoot,
                     Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
                 };
 
                 var stackPanel = new StackPanel();
 
                 var headerGrid = new Grid
                 {
-                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła #004AAD
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                     Padding = new Thickness(10),
                     Width = 477
                 };
 
                 var headerTextBlock = new TextBlock
                 {
-                    Text = message2, // Możesz zmienić tekst na dowolny
+                    Text = message2,
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -418,11 +410,11 @@ namespace AplikacjaMedyczna
                     await UpdatePersonnelStatusAsync(personnel.Id, !personnel.Aktywne);
                     personnel.Aktywne = !personnel.Aktywne;
                     await ShowMessageDialog("Sukces", message4);
-                    LoadPersonnelData(); // Refresh the data
+                    LoadPersonnelData();
                 }
                 else
                 {
-                    checkBox.IsChecked = !checkBox.IsChecked; // Revert the checkbox state
+                    checkBox.IsChecked = !checkBox.IsChecked;
                     await ShowMessageDialog("Anulowano", message3);
                 }
             }
@@ -509,18 +501,17 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot,
                 CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor tła dialogu
-                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
             };
 
-            // Tworzenie kontenera dla tytułu
             var titleContainer = new Border
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor tła (#004AAD)
-                Padding = new Thickness(10), // Odstępy wewnętrzne
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
                 Child = new TextBlock
                 {
-                    Text = title, // Ustawienie tekstu
+                    Text = title,
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -529,7 +520,6 @@ namespace AplikacjaMedyczna
                 }
             };
 
-            // Ustawienie dostosowanego elementu jako tytułu dialogu
             dialog.Title = titleContainer;
 
             await dialog.ShowAsync();

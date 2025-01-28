@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
@@ -11,7 +10,7 @@ using Windows.Storage.Pickers;
 namespace AplikacjaMedyczna
 {
 
-    
+
     public sealed partial class Insert_result_form : Page
     {
         public string filename = "";
@@ -96,26 +95,19 @@ namespace AplikacjaMedyczna
 
         private async void PickAPhotoButton_Click(object sender, RoutedEventArgs e)
         {
-            //disable the button to avoid double-clicking
             var senderButton = sender as Button;
             senderButton.IsEnabled = false;
 
-            // Clear previous returned file name, if it exists, between iterations of this scenario
             PickAPhotoOutputTextBlock.Text = "";
 
-            // Create a file picker
             var openPicker = new FileOpenPicker();
 
-            // See the sample code below for how to make the window accessible from the App class.
             var window = App.MainWindow;
 
-            // Retrieve the window handle (HWND) of the current WinUI 3 window.
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
 
-            // Initialize the file picker with the window handle (HWND).
             WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
 
-            // Set options for your file picker
             openPicker.ViewMode = PickerViewMode.Thumbnail;
             openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             openPicker.FileTypeFilter.Add(".jpg");
@@ -123,13 +115,11 @@ namespace AplikacjaMedyczna
             openPicker.FileTypeFilter.Add(".png");
             openPicker.FileTypeFilter.Add(".pdf");
 
-            // Open the picker for the user to pick a file
             var file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
                 PickAPhotoOutputTextBlock.Text = "Wybrany wynik: " + file.Name;
 
-                // Wyślij plik na serwer
                 bool uploadSuccess = await UploadFileToServer(file);
                 if (uploadSuccess)
                 {
@@ -145,7 +135,6 @@ namespace AplikacjaMedyczna
                 PickAPhotoOutputTextBlock.Text = "Operacja anulowana.";
             }
 
-            //re-enable the button
             senderButton.IsEnabled = true;
         }
 
