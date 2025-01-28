@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
     <Page.Resources>
         <Style x:Name="ContentDialogStyle" TargetType="ContentDialog">
             <Setter Property="Background" Value="#F0F8FF" />
@@ -26,13 +25,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Border" 
-                                    Background="{TemplateBinding Background}"
-                                    CornerRadius="{TemplateBinding CornerRadius}">
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
-                                    <!-- Stan domyślny -->
                                     <VisualState x:Name="Normal"/>
-                                    <!-- Efekt przy najechaniu myszką -->
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -40,7 +37,6 @@
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
-                                    <!-- Efekt przy kliknięciu -->
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -51,15 +47,14 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ContentPresenter x:Name="ContentPresenter"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Page.Resources>
-
     <Page.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="White" Offset="0" />
@@ -67,9 +62,7 @@
             <GradientStop Color="#85C1E9" Offset="1" />
         </LinearGradientBrush>
     </Page.Background>
-
     <Grid>
-
         <SplitView x:Name="splitView" PaneBackground="#004AAD"
                    IsPaneOpen="False" OpenPaneLength="180" CompactPaneLength="48" DisplayMode="Inline">
             <SplitView.Pane>
@@ -94,8 +87,6 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-
-                    <!-- Filter Section -->
                     <Border BorderBrush="Black" Background="white" BorderThickness="1" Margin="10" Width="1050">
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBox x:Name="FilterNumerId" TextChanged="OnFilterChanged" PlaceholderText="Numer id" Width="150" Margin="5"/>
@@ -104,8 +95,6 @@
                             <TextBox x:Name="FilterProfesja" TextChanged="OnFilterChanged" PlaceholderText="Rola" Width="150" Margin="5"/>
                         </StackPanel>
                     </Border>
-
-                    <!-- Header Section -->
                     <Border BorderBrush="Black" Background="white" BorderThickness="1" Grid.Row="1" Width="1050">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -122,21 +111,15 @@
                             <TextBlock Text="Stan Konta" Grid.Column="4" FontWeight="Bold" Margin="0,5,5,5"/>
                         </Grid>
                     </Border>
-
-                    <!-- DataGrid Section -->
                     <Border BorderBrush="Gray" Background="White" BorderThickness="1" Margin="10" Grid.Row="2" Width="1050">
                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <ListView x:Name="MedicalStaffListView" Margin="10">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                                        <!-- Dolny border -->
                                         <Setter Property="BorderBrush" Value="Black"/>
-                                        <!-- Kolor linii -->
                                         <Setter Property="Padding" Value="0"/>
-                                        <!-- Usuń domyślny padding -->
                                         <Setter Property="Background" Value="White"/>
-                                        <!-- Tło wiersza -->
                                     </Style>
                                 </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
@@ -161,8 +144,6 @@
                             </ListView>
                         </ScrollViewer>
                     </Border>
-
-                    <!-- Add Personnel Button -->
                     <Button x:Name="AddPersonnelButton" Content="Dodaj Personel" Click="AddPersonnelButton_Click" Grid.Row="3" Margin="10" HorizontalAlignment="Right"  Style="{StaticResource LoginButtonStyle}"/>
                 </Grid>
             </SplitView.Content>
@@ -173,7 +154,7 @@
                           Checked="NavbarToggleButton_Checked"
                           Unchecked="NavbarToggleButton_Unchecked"
                           Background="Transparent">
-                <FontIcon Glyph="&#xE700;" />
+                <FontIcon Glyph="&#xE700;"/>
             </ToggleButton>
         </Grid>
     </Grid>

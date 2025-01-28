@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AplikacjaMedyczna"
     RequestedTheme="Light">
-
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Styl dla TextBox -->
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="Foreground" Value="Black"/>
@@ -27,9 +25,7 @@
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
-                                        <!-- Stan domyślny -->
                                         <VisualState x:Name="Normal"/>
-                                        <!-- Efekt przy najechaniu myszką -->
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
@@ -40,7 +36,6 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                        <!-- Efekt przy aktywnym polu (Focus) -->
                                         <VisualState x:Name="Focused">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
@@ -60,8 +55,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <!-- Styl dla PasswordBox -->
             <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="Foreground" Value="Black"/>
@@ -81,9 +74,7 @@
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
-                                        <!-- Stan domyślny -->
                                         <VisualState x:Name="Normal"/>
-                                        <!-- Efekt przy najechaniu myszką -->
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
@@ -94,7 +85,6 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                        <!-- Efekt przy aktywnym polu (Focus) -->
                                         <VisualState x:Name="Focused">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
@@ -114,8 +104,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <!-- Styl dla przycisku "Zaloguj się" -->
             <Style x:Key="LoginButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="#004AAD"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -132,9 +120,7 @@
                                     CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
-                                        <!-- Stan domyślny -->
                                         <VisualState x:Name="Normal"/>
-                                        <!-- Efekt przy najechaniu myszką -->
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -142,7 +128,6 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                        <!-- Efekt przy kliknięciu -->
                                         <VisualState x:Name="Pressed">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -160,8 +145,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <!-- Styl dla przycisku "Logowanie jako Pracownik" -->
             <Style x:Key="StaffLoginButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="#004AAD"/>
@@ -178,9 +161,7 @@
                                     BorderThickness="{TemplateBinding BorderThickness}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
-                                        <!-- Stan domyślny -->
                                         <VisualState x:Name="Normal"/>
-                                        <!-- Efekt przy najechaniu myszką -->
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
@@ -188,7 +169,6 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                        <!-- Efekt przy kliknięciu -->
                                         <VisualState x:Name="Pressed">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
@@ -206,7 +186,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="NavToggleButtonStyle" TargetType="ToggleButton">
                 <Setter Property="Background" Value="#004AAD" />
                 <Setter Property="Foreground" Value="White" />
@@ -219,15 +198,13 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ToggleButton">
                             <Border x:Name="Border" 
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
-                                        <!-- Stan domyślny -->
                                         <VisualState x:Name="Normal"/>
-                                        <!-- Efekt przy najechaniu myszką -->
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -238,7 +215,6 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                        <!-- Efekt przy kliknięciu -->
                                         <VisualState x:Name="Pressed">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
@@ -252,14 +228,13 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="NavToggleButtons" TargetType="Button">
                 <Setter Property="Background" Value="#004AAD" />
                 <Setter Property="Foreground" Value="White" />
@@ -277,10 +252,10 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="Border" 
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal"/>
@@ -307,8 +282,8 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -319,18 +294,15 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Background="{TemplateBinding Background}">
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
                                 <ScrollViewer x:Name="ScrollViewer"
-                            VerticalScrollBarVisibility="Auto"
-                            HorizontalScrollBarVisibility="Disabled">
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Disabled">
                                     <ScrollViewer.Resources>
-                                        <!-- Kolory dla uchwytu (thumb) -->
                                         <SolidColorBrush x:Key="ScrollBarThumbFill" Color="#85C1E9"/>
                                         <SolidColorBrush x:Key="ScrollBarThumbFillPointerOver" Color="#5DADE2"/>
                                         <SolidColorBrush x:Key="ScrollBarThumbFillPressed" Color="#3498DB"/>
-
-                                        <!-- Kolory dla tła paska przewijania (track) -->
                                         <SolidColorBrush x:Key="ScrollBarTrackFill" Color="#D6EAF8"/>
                                         <SolidColorBrush x:Key="ScrollBarTrackFillPointerOver" Color="#A9CCE3"/>
                                         <SolidColorBrush x:Key="ScrollBarTrackFillPressed" Color="#85C1E9"/>
@@ -357,8 +329,8 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="Border" 
-                        Background="{TemplateBinding Background}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal"/>
@@ -379,14 +351,13 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="CloseButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="Red" />
                 <Setter Property="Foreground" Value="White" />
@@ -402,8 +373,8 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="Border" 
-                        Background="{TemplateBinding Background}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal"/>
@@ -424,34 +395,28 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Name="ContentDialogStyle" TargetType="ContentDialog">
                 <Setter Property="Background" Value="#F0F8FF" />
                 <Setter Property="BorderBrush" Value="#004AAD" />
                 <Setter Property="BorderThickness" Value="2" />
             </Style>
-
-            <!-- Styl dla nagłówków -->
             <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="Foreground" Value="#004AAD"/>
                 <Setter Property="Margin" Value="0,5"/>
             </Style>
-
-            <!-- Styl dla treści -->
             <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="Margin" Value="0,0,0,10"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
-
         </ResourceDictionary>
     </Application.Resources>
  </Application>

@@ -1,7 +1,7 @@
-﻿using AplikacjaMedyczna;
+﻿using System;
+using AplikacjaMedyczna;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
-using System;
 
 public static class NavigationHelper
 {
@@ -53,13 +53,11 @@ public static class NavigationHelper
 
     private static void NavigateToManageWorkers()
     {
-        // Add navigation logic for ManageWorkers
         System.Diagnostics.Debug.WriteLine("Navigating to ManageWorkers...");
         App.MainFrame.Navigate(typeof(Admin_Panel), null, new DrillInNavigationTransitionInfo());
     }
     private static void NavigateToManagePatients()
     {
-        // Add navigation logic for ManagePatients
         System.Diagnostics.Debug.WriteLine("Navigating to ManagePatients...");
         App.MainFrame.Navigate(typeof(InsertPatient), null, new DrillInNavigationTransitionInfo());
     }

@@ -8,9 +8,6 @@ using Windows.System;
 
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class StaffLoginPage : Page
     {
         public StaffLoginPage()
@@ -98,10 +95,8 @@ namespace AplikacjaMedyczna
         {
             decimal peselNumeric;
 
-            // Convert PESEL to numeric (decimal)
             if (!decimal.TryParse(pesel, out peselNumeric))
             {
-                // Invalid PESEL format
                 return 0;
             }
 
@@ -116,7 +111,6 @@ namespace AplikacjaMedyczna
                 {
                     con.Open();
 
-                    // SQL query with JOIN and password decryption
                     string sql = @"
                     SELECT 
                         pm.*, rp.nazwa AS rola
@@ -140,18 +134,18 @@ namespace AplikacjaMedyczna
                             {
                                 if (rdr.GetBoolean(rdr.GetOrdinal("aktywne")) == false)
                                 {
-                                    return 4; // Account is inactive
+                                    return 4;
                                 }
                                 SharedData.rola = rdr.GetString(rdr.GetOrdinal("rola"));
                                 if (rdr.GetBoolean(rdr.GetOrdinal("pierwszehaslo")))
                                 {
-                                    return 5; // First login detected
+                                    return 5;
                                 }
                                 return 1;
                             }
                             else
                             {
-                                return 3; // Invalid PESEL or password
+                                return 3;
                             }
                         }
                     }
@@ -159,11 +153,11 @@ namespace AplikacjaMedyczna
             }
             catch (Exception)
             {
-                return 2; // Database connection error
+                return 2;
             }
         }
-    
+
     }
- }
-    
+}
+
 

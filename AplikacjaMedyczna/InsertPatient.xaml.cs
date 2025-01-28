@@ -1,29 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Npgsql;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Media.Animation;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Npgsql;
 
 namespace AplikacjaMedyczna
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class InsertPatient : Page
     {
         private string connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
@@ -35,6 +24,7 @@ namespace AplikacjaMedyczna
         {
             this.InitializeComponent();
             NavigationHelper.SplitViewInstance = splitView;
+            splitView.IsPaneOpen = true;
             DataUrodzeniaDatePicker.MaxDate = DateTimeOffset.Now;
             DataUrodzeniaDatePicker.MinDate = DateTimeOffset.Now.AddYears(-120);
 
@@ -57,7 +47,6 @@ namespace AplikacjaMedyczna
         {
             if (sender is Button button)
             {
-                // Pass the button name or content to a helper method
                 NavigationHelper.Navigate(button.Name);
             }
         }
@@ -74,7 +63,7 @@ namespace AplikacjaMedyczna
             {
                 string text = textBox.Text;
                 textBox.Text = new string(text.Where(char.IsDigit).ToArray());
-                textBox.SelectionStart = textBox.Text.Length; // Set cursor to the end
+                textBox.SelectionStart = textBox.Text.Length;
             }
         }
 
@@ -85,7 +74,7 @@ namespace AplikacjaMedyczna
             {
                 string text = textBox.Text;
                 textBox.Text = new string(text.Where(char.IsDigit).ToArray());
-                textBox.SelectionStart = textBox.Text.Length; // Set cursor to the end
+                textBox.SelectionStart = textBox.Text.Length;
             }
         }
 
@@ -96,7 +85,7 @@ namespace AplikacjaMedyczna
             {
                 string text = textBox.Text;
                 textBox.Text = new string(text.Where(char.IsDigit).ToArray());
-                textBox.SelectionStart = textBox.Text.Length; // Set cursor to the end
+                textBox.SelectionStart = textBox.Text.Length;
             }
         }
 
@@ -168,16 +157,16 @@ namespace AplikacjaMedyczna
                 AdresZamieszkaniaTextBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
-            if(TypKrwiComboBox.SelectedIndex == 0)
+            if (TypKrwiComboBox.SelectedIndex == 0)
             {
                 TypKrwiComboBox.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Red);
                 allFieldsFilled = false;
             }
-            
+
 
             if (allFieldsFilled)
             {
-                
+
                 string imie = ImieTextBox.Text;
                 string nazwisko = NazwiskoTextBox.Text;
                 string typKrwi = TypKrwiComboBox.SelectedItem.ToString();
@@ -186,35 +175,29 @@ namespace AplikacjaMedyczna
                 string adresZamieszkania = AdresZamieszkaniaTextBox.Text;
                 string peselRodzica = PeselRodzicaTextBox.Text;
 
-                // Check if patient with the given pesel already exists
                 if (await PatientExistsAsync(pesel))
                 {
-                    await ShowWarningDialog("Pacjent z podanym Peselem już istnieje");
+                    await ShowMessageDialog("Ostrzeżenie", "Pacjent z podanym Peselem już istnieje");
                     return;
                 }
 
-                // Check if peselRodzica exists (if set)
                 if (!string.IsNullOrWhiteSpace(peselRodzica) && !await PatientExistsAsync(peselRodzica))
                 {
-                    await ShowWarningDialog("Nie ma osoby z podanym Peselem rodzica");
+                    await ShowMessageDialog("Ostrzeżenie", "Nie ma osoby z podanym Peselem rodzica");
                     return;
                 }
 
-                // Show confirmation dialog
                 var result = await ShowConfirmationDialog(imie, nazwisko, dataUrodzenia, typKrwi, pesel, numerKontaktowy, adresZamieszkania, peselRodzica, isUnderage);
                 if (result == ContentDialogResult.Primary)
                 {
-                    // Insert data into the database
                     await InsertPatientAsync(imie, nazwisko, dataUrodzenia, typKrwi, pesel, numerKontaktowy, adresZamieszkania);
 
                     if (!string.IsNullOrWhiteSpace(PeselRodzicaTextBox.Text) && PeselRodzicaTextBox.Text.Length == 11)
                     {
-                        // Insert Pesel Rodzica into SharedPesel table
                         await InsertSharedPeselAsync(pesel, peselRodzica);
                     }
 
-                    // Show success dialog
-                    await ShowSuccessDialog();
+                    await ShowMessageDialog("Sukces", "Nowy pacjent został dodany.");
                     App.MainFrame.Navigate(typeof(Admin_Panel), null, new DrillInNavigationTransitionInfo());
                 }
             }
@@ -236,19 +219,6 @@ namespace AplikacjaMedyczna
             }
         }
 
-        private async Task ShowWarningDialog(string message)
-        {
-            var dialog = new ContentDialog
-            {
-                Title = "Ostrzeżenie",
-                Content = message,
-                CloseButtonText = "OK",
-                XamlRoot = this.Content.XamlRoot
-            };
-
-            await dialog.ShowAsync();
-        }
-
         private async Task<ContentDialogResult> ShowConfirmationDialog(string imie, string nazwisko, DateTime dataUrodzenia, string typKrwi, string pesel, string numerKontaktowy, string adresZamieszkania, string peselRodzica, bool isUnderage)
         {
             string content = $"Czy na pewno chcesz dodać nowego pacjenta?\n\n" +
@@ -267,13 +237,32 @@ namespace AplikacjaMedyczna
 
             var dialog = new ContentDialog
             {
-                Title = "Potwierdzenie",
                 Content = content,
                 PrimaryButtonText = "Tak",
                 CloseButtonText = "Nie",
-                XamlRoot = this.Content.XamlRoot
+                XamlRoot = this.Content.XamlRoot,
+                PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"],
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
             };
 
+            var titleContainer = new Border
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
+                Child = new TextBlock
+                {
+                    Text = "Potwierdzenie",
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold,
+                    Width = 300
+                }
+            };
+
+            dialog.Title = titleContainer;
             return await dialog.ShowAsync();
         }
 
@@ -319,29 +308,48 @@ namespace AplikacjaMedyczna
                 using (var command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@peselOwner", Convert.ToDecimal(peselOwner));
-                    command.Parameters.AddWithValue("@peselAllowed",Convert.ToDecimal(peselAllowed));
+                    command.Parameters.AddWithValue("@peselAllowed", Convert.ToDecimal(peselAllowed));
 
                     await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        private async Task ShowSuccessDialog()
-        {
-            var dialog = new ContentDialog
-            {
-                Title = "Sukces",
-                Content = "Nowy pacjent został dodany.",
-                CloseButtonText = "OK",
-                XamlRoot = this.Content.XamlRoot
-            };
-
-            await dialog.ShowAsync();
-        }
-
         private void NavbarToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             NavigationHelper.TogglePane();
+        }
+
+        private async Task ShowMessageDialog(string title, string content)
+        {
+            var dialog = new ContentDialog
+            {
+                Content = content,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
+                CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
+            };
+
+            var titleContainer = new Border
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
+                Child = new TextBlock
+                {
+                    Text = title,
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold,
+                    Width = 250
+                }
+            };
+
+            dialog.Title = titleContainer;
+
+            await dialog.ShowAsync();
         }
     }
 }

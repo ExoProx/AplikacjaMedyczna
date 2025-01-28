@@ -1,18 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Contacts;
-using Windows.UI;
 
 namespace AplikacjaMedyczna
 {
@@ -84,11 +80,9 @@ namespace AplikacjaMedyczna
             {
                 SelectedSkierowanie = clickedSkierowanie;
 
-                // Resetuj ContentDialog przed pokazaniem
                 SkierowanieDetailDialog.Content = null;
                 SkierowanieDetailDialog.DataContext = SelectedSkierowanie;
 
-                // Utwórz nowy StackPanel i dodaj TextBlocki
                 var stackPanel = new StackPanel();
                 AddTextBlock(stackPanel, "Skierowanie:", SelectedSkierowanie.SkierowanieText);
                 AddTextBlock(stackPanel, "Data skierowania:", SelectedSkierowanie.DataSkierowania);
@@ -97,7 +91,6 @@ namespace AplikacjaMedyczna
 
                 SkierowanieDetailDialog.Content = stackPanel;
 
-                // Check if the current doctor is the same as the doctor who made the skierowanie
                 if (SelectedSkierowanie.IdPersonelu.ToString() == SharedData.id)
                 {
                     SkierowanieDetailDialog.PrimaryButtonText = "Edytuj";
@@ -254,18 +247,17 @@ namespace AplikacjaMedyczna
 
         private void AddTextBlock(StackPanel stackPanel, string headerText, string contentText)
         {
-            // Dodaj TextBlock dla nag³ówka
             stackPanel.Children.Add(new TextBlock
             {
                 Text = headerText,
-                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] // Styl dla nag³ówka
+                Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"]
             });
 
-            // Dodaj TextBlock dla treœci
             stackPanel.Children.Add(new TextBlock
             {
                 Text = contentText,
-                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] // Styl dla treœci
+                Style = (Style)Application.Current.Resources["ContentTextBlockStyle"],
+                MaxWidth = 477
             });
         }
         private async Task EditButton_ClickAsync(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -282,23 +274,22 @@ namespace AplikacjaMedyczna
                     CloseButtonText = "Anuluj",
                     XamlRoot = this.XamlRoot,
                     Style = (Style)Application.Current.Resources["ContentDialogStyle"],
-                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"], // Przypisz styl PrimaryButton
-                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]   // Przypisz styl CloseButton
+                    PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                    CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"]
                 };
 
                 var stackPanel = new StackPanel();
 
-                // Dodaj niestandardowy nag³ówek
                 var headerGrid = new Grid
                 {
-                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a #004AAD
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
                     Padding = new Thickness(10),
                     Width = 477
                 };
 
                 var headerTextBlock = new TextBlock
                 {
-                    Text = "Edytuj Skierowanie", // Mo¿esz zmieniæ tekst na dowolny
+                    Text = "Edytuj Skierowanie",
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -308,21 +299,22 @@ namespace AplikacjaMedyczna
                 headerGrid.Children.Add(headerTextBlock);
                 stackPanel.Children.Add(headerGrid);
 
-                // Dodaj TextBox dla skierowania
                 var skierowanieTextBox = new TextBox
                 {
                     Text = selectedSkierowanie.SkierowanieText,
                     Margin = new Thickness(0, 0, 0, 10),
                     TextWrapping = TextWrapping.Wrap,
                     AcceptsReturn = true,
+                    Width = 477,
+                    MaxLength = 256,
+                    Height = 170
                 };
 
-                // Dodaj TextBlock dla etykiety "Skierowanie:"
                 var skierowanieLabel = new TextBlock
                 {
                     Text = "Skierowanie:",
-                    Margin = new Thickness(0, 0, 0, 2), // Minimalny margines dolny, aby odseparowaæ TextBlock od TextBox
-                    FontSize = 14, // Opcjonalnie dostosuj rozmiar czcionki
+                    Margin = new Thickness(0, 0, 0, 2),
+                    FontSize = 14,
                     FontWeight = FontWeights.SemiBold,
                     Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
                 };
@@ -333,10 +325,8 @@ namespace AplikacjaMedyczna
                 {
                     Content = skierowanieTextBox,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    Height = 200
                 });
 
-                // U¿yj metody pomocniczej do dodawania pozosta³ych TextBlock
                 AddTextBlock(stackPanel, "Data Skierowania:", selectedSkierowanie.DataSkierowania.ToString());
                 AddTextBlock(stackPanel, "PESEL Pacjenta:", selectedSkierowanie.PeselPacjenta.ToString());
                 AddTextBlock(stackPanel, "Dane personelu:", selectedSkierowanie.DanePersonelu);
@@ -399,7 +389,6 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // U¿yj metody pomocniczej do dodawania TextBlock
             AddTextBlock(stackPanel, "Skierowanie:", skierowanie.SkierowanieText);
             AddTextBlock(stackPanel, "Data Wpisu:", skierowanie.DataSkierowania);
             AddTextBlock(stackPanel, "PESEL Pacjenta:", skierowanie.PeselPacjenta.ToString());
@@ -409,15 +398,14 @@ namespace AplikacjaMedyczna
             SkierowanieDetailDialog.PrimaryButtonText = "Edytuj";
             SkierowanieDetailDialog.CloseButtonText = "Zamknij";
             SkierowanieDetailDialog.Style = (Style)Application.Current.Resources["ContentDialogStyle"];
-            SkierowanieDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"]; // Przypisz styl PrimaryButton
-            SkierowanieDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];   // Przypisz styl CloseButton
+            SkierowanieDetailDialog.PrimaryButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"];
+            SkierowanieDetailDialog.CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"];
 
             await SkierowanieDetailDialog.ShowAsync();
         }
 
         private async Task AddRefferalButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            // Utworzenie ContentDialog dla dodawania wpisu
             var addSkierowanieDialog = new ContentDialog
             {
                 PrimaryButtonText = "Zapisz",
@@ -430,7 +418,6 @@ namespace AplikacjaMedyczna
 
             var stackPanel = new StackPanel();
 
-            // Nag³ówek dialogu
             var headerGrid = new Grid
             {
                 Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
@@ -450,7 +437,6 @@ namespace AplikacjaMedyczna
             headerGrid.Children.Add(headerTextBlock);
             stackPanel.Children.Add(headerGrid);
 
-            // Pole tekstowe dla treœci wpisu
             var skierowanieTextBox = new TextBox
             {
                 PlaceholderText = "Wpisz treœæ skierowania...",
@@ -458,6 +444,7 @@ namespace AplikacjaMedyczna
                 TextWrapping = TextWrapping.Wrap,
                 Height = 200,
                 Margin = new Thickness(0, 10, 0, 10),
+                Width = 477,
                 MaxLength = 256
             };
             ScrollViewer.SetVerticalScrollBarVisibility(skierowanieTextBox, ScrollBarVisibility.Auto);
@@ -470,15 +457,13 @@ namespace AplikacjaMedyczna
 
             if (result == ContentDialogResult.Primary)
             {
-                // Sprawdzenie, czy pole tekstowe nie jest puste
                 if (string.IsNullOrWhiteSpace(skierowanieTextBox.Text))
                 {
                     await ShowMessageDialog("B³¹d", "Treœæ skierowania nie mo¿e byæ puste.");
-                    await AddRefferalButton_ClickAsync(sender, e); // Ponowne otwarcie dialogu
+                    await AddRefferalButton_ClickAsync(sender, e);
                     return;
                 }
 
-                // Dodanie skierowania do bazy danych
                 var skierowanie = skierowanieTextBox.Text;
                 var connectionString = "host=bazamedyczna.cziamyieoagt.eu-north-1.rds.amazonaws.com;" +
                                        "username=lekarz;" +
@@ -505,13 +490,11 @@ namespace AplikacjaMedyczna
                 }
                 catch (Exception ex)
                 {
-                    // Obs³uga b³êdu po³¹czenia z baz¹ danych
                     await ShowMessageDialog("B³¹d", "B³¹d po³¹czenia z baz¹ danych.");
                 }
             }
             else
             {
-                // Anulowanie dodawania wpisu
                 await ShowMessageDialog("Anulowano", "Dodawanie skierowania zosta³o anulowane.");
             }
         }
@@ -529,18 +512,17 @@ namespace AplikacjaMedyczna
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot,
                 CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)), // Kolor t³a dialogu
-                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))     // Kolor tekstu w dialogu
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
             };
 
-            // Tworzenie kontenera dla tytu³u
             var titleContainer = new Border
             {
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)), // Kolor t³a (#004AAD)
-                Padding = new Thickness(10), // Odstêpy wewnêtrzne
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
                 Child = new TextBlock
                 {
-                    Text = title, // Ustawienie tekstu
+                    Text = title,
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
@@ -549,7 +531,6 @@ namespace AplikacjaMedyczna
                 }
             };
 
-            // Ustawienie dostosowanego elementu jako tytu³u dialogu
             dialog.Title = titleContainer;
 
             await dialog.ShowAsync();

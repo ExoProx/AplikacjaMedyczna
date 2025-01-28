@@ -1,8 +1,8 @@
+using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Npgsql;
-using System.Text.RegularExpressions;
 using Windows.System;
 
 namespace AplikacjaMedyczna
@@ -121,7 +121,7 @@ namespace AplikacjaMedyczna
             }
             catch (NpgsqlException)
             {
-                return 3; // B³¹d po³¹czenia z baz¹ danych
+                return 3;
             }
         }
     }

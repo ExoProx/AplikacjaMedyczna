@@ -118,7 +118,6 @@ namespace AplikacjaMedyczna
             var selectedPatient = (Patient)PatientsListBox.SelectedItem;
             if (selectedPatient != null)
             {
-                // Zapisz PESEL w SharedData
                 SharedData.pesel = selectedPatient.Pesel;
                 if (SharedData.rola == "Specjalista")
                 {
@@ -126,7 +125,6 @@ namespace AplikacjaMedyczna
                 }
                 else
                 {
-                    // Przekieruj u¿ytkownika do strony PanelGlowny
                     Frame.Navigate(typeof(PanelGlowny));
                 }
             }
