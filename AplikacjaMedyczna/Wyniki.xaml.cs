@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Npgsql;
+using System.IO;
+using WinRT.Interop;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI;
 
 namespace AplikacjaMedyczna
 {
@@ -102,8 +107,6 @@ namespace AplikacjaMedyczna
                 XamlRoot = this.XamlRoot
             };
 
-        
-
             var stackPanel = new StackPanel
             {
                 Padding = new Thickness(10)
@@ -122,9 +125,20 @@ namespace AplikacjaMedyczna
             {
                 var openFileButton = new Button
                 {
-                    Content = "Otwórz plik z wynikiem",
+                    Content = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        Children =
+                {
+                    new FontIcon { Glyph = "\uE8A5", Margin = new Thickness(0, 0, 5, 0) }, // Icon for opening file
+                    new TextBlock { Text = "Otwórz plik z wynikiem" }
+                }
+                    },
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    Margin = new Thickness(0, 10, 0, 0)
+                    Margin = new Thickness(0, 10, 0, 0),
+                    Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0, 75, 172)), // Use #004bac color
+                    Foreground = new SolidColorBrush(Microsoft.UI.Colors.White),
+                    CornerRadius = new CornerRadius(5) // Add corner radius
                 };
 
                 openFileButton.Click += (sender, e) =>
@@ -136,7 +150,7 @@ namespace AplikacjaMedyczna
 
                     string url = $"https://studencki-portal-medyczny.pl/getfile.php?file={result.FilePath}";
 
-                    if (result.FilePath.EndsWith(".pdf")) 
+                    if (result.FilePath.EndsWith(".pdf"))
                     {
                         var webView = new WebView2
                         {
@@ -148,28 +162,73 @@ namespace AplikacjaMedyczna
                         };
                         newStackPanel.Children.Add(webView);
                     }
-                    else 
-                    { 
+                    else
+                    {
                         BitmapImage bitmapImage = new BitmapImage(new Uri(url));
-                        newStackPanel.Children.Add(new Image 
-                        { 
-                             Source = bitmapImage, 
-                             MaxHeight = 600, 
-                             MaxWidth = 600 
+                        newStackPanel.Children.Add(new Image
+                        {
+                            Source = bitmapImage,
+                            MaxHeight = 600,
+                            MaxWidth = 600
                         });
                     }
 
                     dialog.Content = newStackPanel;
                 };
 
+                var downloadButton = new Button
+                {
+                    Content = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        Children =
+                {
+                    new FontIcon { Glyph = "\uE896", Margin = new Thickness(0, 0, 5, 0) }, // Icon for downloading file
+                    new TextBlock { Text = "Pobierz plik" }
+                }
+                    },
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    Background = new SolidColorBrush(ColorHelper.FromArgb(255, 0, 75, 172)), // Use #004bac color
+                    Foreground = new SolidColorBrush(Microsoft.UI.Colors.White),
+                    CornerRadius = new CornerRadius(5) // Add corner radius
+                };
+
+                downloadButton.Click += async (sender, e) =>
+                {
+                    var url = $"https://studencki-portal-medyczny.pl/getfile.php?file={result.FilePath}";
+                    var client = new HttpClient();
+                    var response = await client.GetAsync(url);
+                    var fileBytes = await response.Content.ReadAsByteArrayAsync();
+
+                    var savePicker = new Windows.Storage.Pickers.FileSavePicker
+                    {
+                        SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads
+                    };
+                    savePicker.FileTypeChoices.Add("Plik", new List<string> { Path.GetExtension(result.FilePath) });
+                    savePicker.SuggestedFileName = Path.GetFileName(result.FilePath);
+
+                    // Initialize with window handle
+                    var hwnd = WindowNative.GetWindowHandle(App.MainWindow);
+                    InitializeWithWindow.Initialize(savePicker, hwnd);
+
+                    var file = await savePicker.PickSaveFileAsync();
+                    if (file != null)
+                    {
+                        await Windows.Storage.FileIO.WriteBytesAsync(file, fileBytes);
+                    }
+                };
+
                 stackPanel.Children.Add(openFileButton);
+                stackPanel.Children.Add(downloadButton);
             }
 
             dialog.Content = stackPanel;
 
-
             await dialog.ShowAsync();
         }
+
+
 
 
         private class Result
