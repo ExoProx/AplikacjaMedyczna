@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.UI.Text;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Npgsql;
 
@@ -14,6 +19,10 @@ namespace AplikacjaMedyczna
                     "username=pacjent;" +
                     "Password=pacjent;" +
                     "Database=medical_database";
+
+        public ObservableCollection<Result> AllResults { get; set; }
+        private ObservableCollection<Result> filteredResults;
+
         public Wyniki()
         {
             this.InitializeComponent();
@@ -21,12 +30,24 @@ namespace AplikacjaMedyczna
             splitView.IsPaneOpen = true;
             CheckUserId();
             LoadResults();
+            AllResults = new ObservableCollection<Result>();
+            filteredResults = new ObservableCollection<Result>();
         }
 
         private async void LoadResults()
         {
-            var results = await GetResultsAsync();
-            FilteredListView.ItemsSource = results;
+            AllResults = new ObservableCollection<Result>(await GetResultsAsync());
+            filteredResults = new ObservableCollection<Result>(AllResults);
+
+            if (!AllResults.Any())
+            {
+                this.Loaded += async (s, e) =>
+                {
+                    await ShowMessageDialog("Brak dodanych wyników", "Nie znaleziono żadnych wyników w systemie.");
+                };
+            }
+
+            FilteredListView.ItemsSource = filteredResults;
         }
 
         private async Task<List<Result>> GetResultsAsync()
@@ -81,33 +102,82 @@ namespace AplikacjaMedyczna
             return results;
         }
 
-        private void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void OnFilterChanged(object sender, TextChangedEventArgs args)
         {
-            var selectedResult = e.ClickedItem as Result;
-            if (selectedResult != null)
+            var filtered = AllResults.Where(result => Filter(result));
+            Remove_NonMatching(filtered);
+            AddBack_Recepty(filtered);
+        }
+
+        private bool Filter(Result result)
+        {
+            return result.WynikNr.ToString().Contains(FilterWynikNr.Text, StringComparison.InvariantCultureIgnoreCase) &&
+                   result.DataWykonaniaWyniku.Contains(FilterDataWykonania.Text, StringComparison.InvariantCultureIgnoreCase) &&
+                   result.PersonelWykonujacyBadanie.Contains(FilterPersonel.Text, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private void Remove_NonMatching(IEnumerable<Result> filteredData)
+        {
+            for (int i = filteredResults.Count - 1; i >= 0; i--)
             {
-                ShowResultDetailDialog(selectedResult);
+                var item = filteredResults[i];
+                if (!filteredData.Contains(item))
+                {
+                    filteredResults.Remove(item);
+                }
             }
         }
 
+        private void AddBack_Recepty(IEnumerable<Result> filteredData)
+        {
+            foreach (var item in filteredData)
+            {
+                if (!filteredResults.Contains(item))
+                {
+                    filteredResults.Add(item);
+                }
+            }
+        }
 
+        private async void FilteredListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedResult = e.ClickedItem as Result;
+
+            if (clickedResult != null)
+            {
+                ShowResultDetailDialog(clickedResult);
+            }
+        }
 
         private async void ShowResultDetailDialog(Result result)
         {
+            var stackPanel = new StackPanel();
+
             var dialog = new ContentDialog
             {
-                Title = "Szczegóły Wyniku",
                 CloseButtonText = "Zamknij",
                 CloseButtonStyle = (Style)Application.Current.Resources["CloseButtonStyle"],
                 XamlRoot = this.XamlRoot
             };
 
-        
-
-            var stackPanel = new StackPanel
+            var headerGrid = new Grid
             {
-                Padding = new Thickness(10)
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
+                Width = 477
             };
+
+            var headerTextBlock = new TextBlock
+            {
+                Text = "Szczegóły Wyniku",
+                TextAlignment = TextAlignment.Center,
+                Foreground = new SolidColorBrush(Colors.White),
+                FontSize = 20,
+                FontWeight = FontWeights.Bold
+            };
+
+            headerGrid.Children.Add(headerTextBlock);
+            stackPanel.Children.Add(headerGrid);
 
             stackPanel.Children.Add(new TextBlock { Text = "Wynik nr:", Style = (Style)Application.Current.Resources["HeaderTextBlockStyle"] });
             stackPanel.Children.Add(new TextBlock { Text = result.WynikNr.ToString(), Style = (Style)Application.Current.Resources["ContentTextBlockStyle"] });
@@ -124,7 +194,7 @@ namespace AplikacjaMedyczna
                 {
                     Content = "Otwórz plik z wynikiem",
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    Margin = new Thickness(0, 10, 0, 0)
+                    Margin = new Thickness(0, 10, 0, 0),
                 };
 
                 openFileButton.Click += (sender, e) =>
@@ -171,8 +241,7 @@ namespace AplikacjaMedyczna
             await dialog.ShowAsync();
         }
 
-
-        private class Result
+        public class Result
         {
             public int WynikNr { get; set; }
             public string DataWykonaniaWyniku { get; set; }
@@ -228,6 +297,38 @@ namespace AplikacjaMedyczna
         private void NavbarToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             NavigationHelper.TogglePane();
+        }
+
+        private async Task ShowMessageDialog(string title, string content)
+        {
+            var dialog = new ContentDialog
+            {
+                Content = content,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
+                CloseButtonStyle = (Style)Application.Current.Resources["PrimaryButtonStyle"],
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 248, 255)),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173))
+            };
+
+            var titleContainer = new Border
+            {
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 74, 173)),
+                Padding = new Thickness(10),
+                Child = new TextBlock
+                {
+                    Text = title,
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    FontWeight = FontWeights.Bold,
+                    Width = 250
+                }
+            };
+
+            dialog.Title = titleContainer;
+
+            await dialog.ShowAsync();
         }
     }
 }

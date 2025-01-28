@@ -295,7 +295,7 @@ namespace AplikacjaMedyczna
 
                 var headerTextBlock = new TextBlock
                 {
-                    Text = "Edytuj Receptê",
+                    Text = "Edytuj Receptę",
                     TextAlignment = TextAlignment.Center,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,

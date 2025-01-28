@@ -78,10 +78,15 @@
                     </ListView>
                     <StackPanel Width="200" Margin="0,0,0,0" Background="#004AAD">
                         <TextBlock Margin="8,8,8,4" TextAlignment="Center" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Filtruj</TextBlock>
-                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data Wpisu</TextBlock>
-                        <TextBox x:Name="FilterByDataWpisu" Width="185" Margin="8" HorizontalAlignment="Left"/>
-                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Lekarz</TextBlock>
-                        <TextBox x:Name="FilterByDanePersonelu" Width="185" Margin="8" HorizontalAlignment="Left" />
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Wynik nr.</TextBlock>
+                        <TextBox x:Name="FilterWynikNr" Width="185" Margin="8"
+                                 HorizontalAlignment="Left" TextChanged="OnFilterChanged"/>
+                        <TextBlock Margin="10,15,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Data wyniku</TextBlock>
+                        <TextBox x:Name="FilterDataWykonania" Width="185" Margin="8"
+                                 HorizontalAlignment="Left" TextChanged="OnFilterChanged"/>
+                        <TextBlock Margin="10,5,8,0" Foreground="white" Style="{ThemeResource BaseTextBlockStyle}">Lekarz</TextBlock>
+                        <TextBox x:Name="FilterPersonel" Width="185" Margin="8"
+                                 HorizontalAlignment="Left" TextChanged="OnFilterChanged"/>
                     </StackPanel>
                 </StackPanel>
             </SplitView.Content>
